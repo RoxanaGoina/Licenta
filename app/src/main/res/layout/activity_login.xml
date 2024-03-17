@@ -73,10 +73,11 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="500dp"
+                android:layout_height="50dp"
                 android:id="@+id/signupRedirectText"
-                android:text="Nu ai un cont? Creeaza unul aici"
+                android:text="Nu ai cont? Creeaza unul aici"
+                android:gravity="center"
                 android:layout_gravity="center"
                 android:padding="8dp"
                 android:layout_marginTop="10dp"
@@ -89,8 +90,9 @@
                 android:id="@+id/passForgot"
                 android:text="Am uitat parola"
                 android:layout_gravity="center"
-                android:padding="8dp"
-                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+
                 android:textColor="@color/blue"
                 android:textSize="18dp"/>
 

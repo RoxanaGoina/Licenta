@@ -1,0 +1,25 @@
+<!-- res/drawable/custom_checkbox_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background with blue color and rounded corners -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#a4dceb" /> <!-- Set your desired blue color here -->
+            <corners android:radius="7dp" />
+        </shape>
+    </item>
+    <!-- White stroke around the blue background with rounded corners -->
+    <item android:right="2dp" android:left="2dp" android:top="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" /> <!-- Transparent to keep only the stroke -->
+            <stroke android:color="@android:color/black" android:width="2dp" />
+            <corners android:radius="7dp" />
+        </shape>
+    </item>
+    <!-- Add a semi-transparent white overlay for opacity -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#8CFFFFFF" /> <!-- Adjust opacity as needed -->
+            <corners android:radius="7dp" />
+        </shape>
+    </item>
+</layer-list>
