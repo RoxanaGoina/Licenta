@@ -1,0 +1,38 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="300dp"
+    android:gravity="center"
+    android:padding="30dp"
+    app:flow_verticalAlign="center"
+    android:background="@color/baby_blue"
+    >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/phqScore"
+            android:text="Scorul testului PHQ-9 este "
+            app:flow_verticalAlign="center"
+            android:textSize="30dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="50dp" />
+
+    <TextView
+        android:id="@+id/gadScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scorul testului GAD-7 este "
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:flow_verticalAlign="center"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/phqScore"
+        android:layout_marginTop="50dp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

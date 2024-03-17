@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/cute_blue"
+
+    tools:context=".ReportActivity">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="566dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="63dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Cum te simti astazi?"
+                android:textAlignment="center"
+                android:background="@drawable/simpleroundborder"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/blue"
+                android:textSize="26sp"
+                android:textStyle="bold"
+
+
+                />
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="15dp">
+
+
+                <LinearLayout
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_edittext"
+                    android:backgroundTint="@color/white"
+                    android:gravity="top"
+                    android:orientation="vertical"
+                    android:paddingLeft="23dp"
+                    android:paddingRight="23dp"
+
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="20dp"
+                        android:gravity="left"
+                        android:padding="20dp"
+                        android:text="Simptome psihologice"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/blue"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxSadness"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Tristete"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxLowSelfEsteem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Stima de sine scazuta"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxGuilty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Vinovatie"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black"
+
+
+                            />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxFear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="Frica"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black"
+
+                            />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxConfusion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="10dp"
+                            android:text="Confuzie"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black"
+
+                            />
+
+                        <!-- Add more checkboxes for the second line -->
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxHopeless"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Lipsa  sperantei"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxAgitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Agitatie"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxLackOfMotivation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Lipsa motivatiei"
+
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxIrritability"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Iritabilitate"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxCrying"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Dorinta de a plange"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxSelftCritical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Auto-critic"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxLowEnergy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Oboseala"
+
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxNervousness"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Nervozitate"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxSelfHarming"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Automutilare"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+
+                            android:textColor="@color/black" />
+
+
+                        <CheckBox
+                            android:id="@+id/checkBoxHelpless"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Neputinta"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <CheckBox
+                            android:id="@+id/checkBoxConcentrateProblem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Probleme de concentrare"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="15dp"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_edittext"
+                    android:backgroundTint="@color/white"
+                    android:gravity="top"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="20dp"
+                        android:gravity="left"
+                        android:padding="20dp"
+                        android:text="Simptome fizice"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/blue"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkboxWeightFluctuations"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Fluctuatii in greutate"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+                    <!-- Second Line of Checkboxes -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkboxLackOfEnergy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Lipsa de energie"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black"
+
+
+                            />
+
+                        <CheckBox
+                            android:id="@+id/checkboxInsomnia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="Insomnie"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black"
+
+                            />
+
+                        <!--                        <CheckBox-->
+                        <!--                            android:id="@+id/checkbox24"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:background="@drawable/rounder_border"-->
+                        <!--                            android:button="@null"-->
+                        <!--                            android:paddingStart="16dp"-->
+                        <!--                            android:paddingEnd="10dp"-->
+                        <!--                            android:text="Confuzie"-->
+                        <!--                            android:textAppearance="?android:attr/textAppearanceMedium"-->
+
+                        <!--                            />-->
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkboxMusclePain"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Dureri sau tensiuni ale muschilor "
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+                        <!--                        <CheckBox-->
+                        <!--                            android:id="@+id/checkbox26"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:background="@drawable/rounder_border"-->
+                        <!--                            android:button="@null"-->
+                        <!--                            android:paddingStart="16dp"-->
+                        <!--                            android:paddingEnd="16dp"-->
+                        <!--                            android:text="Agitatie"-->
+                        <!--                            android:textAppearance="?android:attr/textAppearanceMedium" />-->
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkboxLowSexDrive"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Libido scazut"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+                        <CheckBox
+                            android:id="@+id/checkboxSleepiness"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Somnolenta"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkboxAppetiteFluctuations"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Fluctuatii ale apetitului"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+
+                        <!--                        <CheckBox-->
+                        <!--                            android:id="@+id/checkbox30"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:background="@drawable/rounder_border"-->
+                        <!--                            android:button="@null"-->
+                        <!--                            android:paddingStart="16dp"-->
+                        <!--                            android:paddingEnd="16dp"-->
+                        <!--                            android:text="Auto-critic"-->
+                        <!--                            android:textAppearance="?android:attr/textAppearanceMedium" />-->
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="15dp">
+
+                <LinearLayout
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_edittext"
+                    android:backgroundTint="@color/white"
+                    android:gravity="top"
+                    android:orientation="vertical"
+                    android:paddingLeft="23dp"
+                    android:paddingRight="23dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="20dp"
+                        android:gravity="left"
+                        android:padding="20dp"
+                        android:text="Simptome sociale"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/blue"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxIsolation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Dorinta de izolare"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxHobbyNeglet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Neglijarea hobby-urilor "
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxComunicationLow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Evitarea comunicarii"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxComunicationProblem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Dificultati in exprimarea gandurilor"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxLifeProblem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/transparent_checked"
+                            android:button="@null"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Dificultati in viata personala sau profesionala"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/saveEmotions"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/blue"
+        android:text="Salveaza"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        />
+
+
+</LinearLayout>

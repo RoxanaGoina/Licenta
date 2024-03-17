@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background with blue color and rounded corners -->
+    <item>
+        <shape
+            android:shape="rectangle">
+            <solid android:color="#a4dceb" /> <!-- Set your desired blue color here -->
+            <corners android:radius="7dp" />
+        </shape>
+    </item>
+
+    <!-- White stroke around the blue background with rounded corners -->
+    <item android:right="2dp" android:left="2dp" android:top="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" /> <!-- Transparent to keep only the stroke -->
+            <stroke
+                android:color="@android:color/black"
+                android:width="2dp" />
+            <corners android:radius="7dp" />
+        </shape>
+    </item>
+
+</layer-list>
+
+
+
+
+    <!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android">-->
+
+<!--<solid android:color="@color/light_blue"/>-->
+
+
+<!--    />-->
+
+<!--    <stroke android:width="3dp"-->
+<!--        android:color="#ff000000"-->
+<!--        />-->
+
+<!--    <padding android:left="1dp"-->
+<!--        android:top="1dp"-->
+<!--        android:right="1dp"-->
+<!--        android:bottom="1dp"-->
+<!--        />-->
+
+<!--    <corners android:bottomRightRadius="7dp"-->
+<!--        android:bottomLeftRadius="7dp"-->
+<!--        android:topLeftRadius="7dp"-->
+<!--        android:topRightRadius="7dp"/>-->
+<!--</shape>-->
+
+
+

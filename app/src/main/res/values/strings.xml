@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="open"> Open Nagivation Drawer</string>
+    <string name="close"> Close Navigation Drawer</string>>
+    <string-array name="gender">
+        <item>Masculin</item>
+        <item>Feminin</item>
+    </string-array>
+    >
+    <string-array name="years">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>>
+    </string-array>
+
+    <style name="SpinnerTheme">
+        <item name="android:textColor">#333333</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

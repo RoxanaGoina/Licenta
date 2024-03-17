@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white"
+    tools:context=".PhqActivity">
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/baby_blue"
+                app:cardElevation="15dp"
+                app:contentPadding="15dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:text="Pagini de jurnal"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                android:textStyle="bold"
+
+                />
+            </androidx.cardview.widget.CardView>
+
+
+    <ScrollView
+        android:layout_marginTop="70dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginBottom="20dp">
+        >
+
+
+    <LinearLayout
+        android:id="@+id/diaryPages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+    </LinearLayout>
+
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginBottom="15dp">
+
+        <Button
+            android:id="@+id/addPage"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@android:color/transparent"/> <!-- Setează culoarea de fundal a butonului ca fiind transparentă -->
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignLeft="@id/addPage"
+            android:layout_alignTop="@id/addPage"
+            android:layout_alignRight="@id/addPage"
+            android:layout_alignBottom="@id/addPage"
+            android:src="@drawable/addbuttonblue"/>
+    </RelativeLayout>
+
+    <!--    <Button-->
+<!--        android:id="@+id/addPage"-->
+<!--        android:layout_width="75dp"-->
+<!--        android:layout_height="75dp"-->
+<!--        android:layout_marginLeft="120dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:text=" "-->
+<!--        -->
+<!--        android:textColor="@color/baby_blue"-->
+<!--        android:backgroundTint="@color/baby_blue"-->
+<!--        android:background="@drawable/addbuttonblue"-->
+
+<!--        />-->
+
+
+
+</LinearLayout>

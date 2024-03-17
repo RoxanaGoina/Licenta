@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="top"
+    android:padding="16dp"
+    android:background="@drawable/addpagejournal"
+    tools:context=".DiaryFilesActivity">
+
+    <EditText
+        android:id="@+id/titleEditText"
+        style="@style/HintForEditText"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+       android:layout_marginTop="110dp"
+        android:background="@drawable/rounder_border"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:hint="Titlu Pagina"
+        android:textColorHint="#000000"
+        />
+
+    <EditText
+        android:id="@+id/contentEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColorHint="#000000"
+
+        android:gravity="center"
+        android:layout_marginTop="100dp"
+        android:hint="Continut"
+        style="@style/HintForEditText"
+        android:inputType="textMultiLine"
+        android:background="@drawable/rounder_border"
+        android:minLines="3"
+
+
+
+    />
+
+    <Button
+        android:id="@+id/saveNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/blue"
+        android:text="Salveaza pagina de jurnal"
+        android:textColor="@color/white" />
+</LinearLayout>
