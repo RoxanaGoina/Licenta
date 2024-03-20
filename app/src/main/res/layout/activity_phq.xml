@@ -323,6 +323,7 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
                 android:text="Cateva zile"
+                android:textColor="@color/white"
                 android:id="@+id/sixthQuestionSomeDays"
                 />
 
@@ -356,6 +357,7 @@
 
             <Button
                 android:layout_width="200dp"
+                android:textColor="@color/white"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
@@ -486,52 +488,52 @@
                 android:id="@+id/ninethQuestionAllTheTime"/>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="10. Cat de multe te-a afectat oricare dintre aceste probleme la locul de munca, acasa sau in relatia cu alti oameni?"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:text="10. Cat de multe te-a afectat oricare dintre aceste probleme la locul de munca, acasa sau in relatia cu alti oameni?"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="20dp"-->
+<!--                android:textStyle="bold" />-->
 
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/floral"
-                android:text="Deloc"
-                android:id="@+id/tenthQuestionNotAtAll"/>
+<!--            <Button-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:backgroundTint="@color/floral"-->
+<!--                android:text="Deloc"-->
+<!--                android:id="@+id/tenthQuestionNotAtAll"/>-->
 
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/floral"
-                android:text="Oarecum"
-                android:id="@+id/tenthQuestionSomeDays"/>
+<!--            <Button-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:backgroundTint="@color/floral"-->
+<!--                android:text="Oarecum"-->
+<!--                android:id="@+id/tenthQuestionSomeDays"/>-->
 
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/floral"
-                android:textColor="@color/white"
-                android:text="Foarte mult"
-                android:id="@+id/tenthQuestionHalfDays"/>
+<!--            <Button-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:backgroundTint="@color/floral"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:text="Foarte mult"-->
+<!--                android:id="@+id/tenthQuestionHalfDays"/>-->
 
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/floral"
-                android:textColor="@color/white"
-                android:text="Extrem de mult"
-                android:id="@+id/tenthQuestionAllTheTime"
-                />
+<!--            <Button-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:backgroundTint="@color/floral"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:text="Extrem de mult"-->
+<!--                android:id="@+id/tenthQuestionAllTheTime"-->
+<!--                />-->
 
 
 

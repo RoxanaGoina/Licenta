@@ -54,11 +54,13 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="40dp"
                 android:backgroundTint="@color/blue"
+                android:textColor="@color/white"
                 android:text="Patient Health Questionnaire"
                 android:textSize="20dp" />
 
 
             <Button
+                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:text="Generalized Anxiety Disorder"
@@ -76,7 +78,7 @@
                 android:text="Scor"
                 android:id="@+id/score"
                 android:textSize="20dp"
-
+                android:textColor="@color/white"
                 android:layout_marginTop="40dp"
                 android:backgroundTint="@color/blue"
                 android:layout_gravity="center"/>

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -67,10 +69,10 @@ public class PhqActivity extends AppCompatActivity {
     private Button ninethQuestionAllTheTime;
 
 
-    private Button tenthQuestionNotAtAll;
-    private Button tenthQuestionSomeDays;
-    private Button tenthQuestionHalfDays;
-    private Button tenthQuestionAllTheTime;
+//    private Button tenthQuestionNotAtAll;
+//    private Button tenthQuestionSomeDays;
+//    private Button tenthQuestionHalfDays;
+//    private Button tenthQuestionAllTheTime;
 
 
     private Button finalizePHQTest;
@@ -127,10 +129,10 @@ public class PhqActivity extends AppCompatActivity {
         ninethQuestionHalfDays=findViewById(R.id.ninethQuestionHalfDays);
         ninethQuestionAllTheTime=findViewById(R.id.ninethQuestionAllTheTime);
 
-        tenthQuestionNotAtAll=findViewById(R.id.tenthQuestionNotAtAll);
-        tenthQuestionSomeDays=findViewById(R.id.tenthQuestionSomeDays);
-        tenthQuestionHalfDays=findViewById(R.id.tenthQuestionHalfDays);
-        tenthQuestionAllTheTime=findViewById(R.id.tenthQuestionAllTheTime);
+//        tenthQuestionNotAtAll=findViewById(R.id.tenthQuestionNotAtAll);
+//        tenthQuestionSomeDays=findViewById(R.id.tenthQuestionSomeDays);
+//        tenthQuestionHalfDays=findViewById(R.id.tenthQuestionHalfDays);
+//        tenthQuestionAllTheTime=findViewById(R.id.tenthQuestionAllTheTime);
 
         finalizePHQTest=findViewById(R.id.finalizePHQTest);
 
@@ -163,6 +165,14 @@ public class PhqActivity extends AppCompatActivity {
                     firstQuestionAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isFirstQuestionSelected = false;
                 }
+//                if (firstQuestionAtAll.isPressed()==true) {
+//                    String message = "Butonul este selectat!";
+//                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+//                } else if(firstQuestionAtAll.isPressed()==false){
+//                    String message = "Butonul nu este selectat!";
+//                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+//                }
+
             }
         });
 
@@ -374,14 +384,901 @@ public class PhqActivity extends AppCompatActivity {
             }
         });
 
-        finalizePHQTest.setOnClickListener(new View.OnClickListener() {
+
+
+        thirdQuestionNotAtAll.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
             @Override
             public void onClick(View view) {
-                String message ="Scorul tău este: " + score;
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                if (!isQuestionSelected) {
+                    thirdQuestionSomeDays.setEnabled(false);
+                    thirdQuestionHalfDays.setEnabled(false);
+                    thirdQuestionAllTheTime.setEnabled(false);
+                    thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    Context context = view.getContext();
+                    thirdQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
+                    thirdQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    thirdQuestionSomeDays.setEnabled(true);
+                    thirdQuestionHalfDays.setEnabled(true);
+                    thirdQuestionAllTheTime.setEnabled(true);
+                    thirdQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    thirdQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+
+        thirdQuestionSomeDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+1;
+                    thirdQuestionNotAtAll.setEnabled(false);
+                    thirdQuestionHalfDays.setEnabled(false);
+                    thirdQuestionAllTheTime.setEnabled(false);
+                    thirdQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    thirdQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-1;
+                    thirdQuestionNotAtAll.setEnabled(true);
+                    thirdQuestionHalfDays.setEnabled(true);
+                    thirdQuestionAllTheTime.setEnabled(true);
+                    thirdQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    thirdQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
 
             }
         });
+
+        thirdQuestionHalfDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view)
+            { if (!isQuestionSelected) {
+                score=score+2;
+                thirdQuestionNotAtAll.setEnabled(false);
+                thirdQuestionSomeDays.setEnabled(false);
+                thirdQuestionAllTheTime.setEnabled(false);
+                thirdQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                thirdQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                isQuestionSelected = true;
+            } else {
+                score=score-2;
+                thirdQuestionNotAtAll.setEnabled(true);
+                thirdQuestionSomeDays.setEnabled(true);
+                thirdQuestionAllTheTime.setEnabled(true);
+                thirdQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                thirdQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                isQuestionSelected = false;
+            }
+            }
+        });
+
+
+        thirdQuestionAllTheTime.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+3;
+                    thirdQuestionNotAtAll.setEnabled(false);
+                    thirdQuestionSomeDays.setEnabled(false);
+                    thirdQuestionHalfDays.setEnabled(false);
+                    thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    thirdQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    thirdQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-3;
+                    thirdQuestionNotAtAll.setEnabled(true);
+                    thirdQuestionSomeDays.setEnabled(true);
+                    thirdQuestionHalfDays.setEnabled(true);
+                    thirdQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    thirdQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+
+
+
+
+        fourthQuestionNotAtAll.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    fourthQuestionSomeDays.setEnabled(false);
+                    fourthQuestionHalfDays.setEnabled(false);
+                    fourthQuestionAllTheTime.setEnabled(false);
+                    fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    Context context = view.getContext();
+                    fourthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
+                    fourthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    fourthQuestionSomeDays.setEnabled(true);
+                    fourthQuestionHalfDays.setEnabled(true);
+                    fourthQuestionAllTheTime.setEnabled(true);
+                    fourthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    fourthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+        fourthQuestionSomeDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+1;
+                    fourthQuestionNotAtAll.setEnabled(false);
+                    fourthQuestionHalfDays.setEnabled(false);
+                    fourthQuestionAllTheTime.setEnabled(false);
+                    fourthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    fourthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-1;
+                    fourthQuestionNotAtAll.setEnabled(true);
+                    fourthQuestionHalfDays.setEnabled(true);
+                    fourthQuestionAllTheTime.setEnabled(true);
+                    fourthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    fourthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+
+            }
+        });
+
+
+
+        fourthQuestionHalfDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view)
+            { if (!isQuestionSelected) {
+                score=score+2;
+                fourthQuestionNotAtAll.setEnabled(false);
+                fourthQuestionSomeDays.setEnabled(false);
+                fourthQuestionAllTheTime.setEnabled(false);
+                fourthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                fourthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                isQuestionSelected = true;
+            } else {
+                score=score-2;
+                fourthQuestionNotAtAll.setEnabled(true);
+                fourthQuestionSomeDays.setEnabled(true);
+                fourthQuestionAllTheTime.setEnabled(true);
+                fourthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                fourthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                isQuestionSelected = false;
+            }
+            }
+        });
+
+        fourthQuestionAllTheTime.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+3;
+                    fourthQuestionNotAtAll.setEnabled(false);
+                    fourthQuestionSomeDays.setEnabled(false);
+                    fourthQuestionHalfDays.setEnabled(false);
+                    fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    fourthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    fourthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-3;
+                    fourthQuestionNotAtAll.setEnabled(true);
+                    fourthQuestionSomeDays.setEnabled(true);
+                    fourthQuestionHalfDays.setEnabled(true);
+                    fourthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    fourthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+
+        fifthQuestionNotAtAll.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    fifthQuestionSomeDays.setEnabled(false);
+                    fifthQuestionHalfDays.setEnabled(false);
+                    fifthQuestionAllTheTime.setEnabled(false);
+                    fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    Context context = view.getContext();
+                    fifthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
+                    fifthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    fifthQuestionSomeDays.setEnabled(true);
+                    fifthQuestionHalfDays.setEnabled(true);
+                    fifthQuestionAllTheTime.setEnabled(true);
+                    fifthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    fifthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+        fifthQuestionSomeDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+1;
+                    fifthQuestionNotAtAll.setEnabled(false);
+                    fifthQuestionHalfDays.setEnabled(false);
+                    fifthQuestionAllTheTime.setEnabled(false);
+                    fifthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    fifthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-1;
+                    fifthQuestionNotAtAll.setEnabled(true);
+                    fifthQuestionHalfDays.setEnabled(true);
+                    fifthQuestionAllTheTime.setEnabled(true);
+                    fifthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    fifthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+
+            }
+        });
+
+        fifthQuestionHalfDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view)
+            { if (!isQuestionSelected) {
+                score=score+2;
+                fifthQuestionNotAtAll.setEnabled(false);
+                fifthQuestionSomeDays.setEnabled(false);
+                fifthQuestionAllTheTime.setEnabled(false);
+                fifthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                fifthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                isQuestionSelected = true;
+            } else {
+                score=score-2;
+                fifthQuestionNotAtAll.setEnabled(true);
+                fifthQuestionSomeDays.setEnabled(true);
+                fifthQuestionAllTheTime.setEnabled(true);
+                fifthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                fifthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                isQuestionSelected = false;
+            }
+            }
+        });
+
+
+
+
+
+        fifthQuestionAllTheTime.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+3;
+                    fifthQuestionNotAtAll.setEnabled(false);
+                    fifthQuestionSomeDays.setEnabled(false);
+                    fifthQuestionHalfDays.setEnabled(false);
+                    fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    fifthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    fifthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-3;
+                    fifthQuestionNotAtAll.setEnabled(true);
+                    fifthQuestionSomeDays.setEnabled(true);
+                    fifthQuestionHalfDays.setEnabled(true);
+                    fifthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    fifthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+        sixthQuestionNotAtAll.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    sixthQuestionSomeDays.setEnabled(false);
+                    sixthQuestionHalfDays.setEnabled(false);
+                    sixthQuestionAllTheTime.setEnabled(false);
+                    sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    Context context = view.getContext();
+                    sixthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
+                    sixthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    sixthQuestionSomeDays.setEnabled(true);
+                    sixthQuestionHalfDays.setEnabled(true);
+                    sixthQuestionAllTheTime.setEnabled(true);
+                    sixthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    sixthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+
+
+
+        sixthQuestionSomeDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+1;
+                    sixthQuestionNotAtAll.setEnabled(false);
+                    sixthQuestionHalfDays.setEnabled(false);
+                    sixthQuestionAllTheTime.setEnabled(false);
+                    sixthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    sixthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-1;
+                    sixthQuestionNotAtAll.setEnabled(true);
+                    sixthQuestionHalfDays.setEnabled(true);
+                    sixthQuestionAllTheTime.setEnabled(true);
+                    sixthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    sixthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+
+            }
+        });
+
+
+
+        sixthQuestionHalfDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view)
+            { if (!isQuestionSelected) {
+                score=score+2;
+                sixthQuestionNotAtAll.setEnabled(false);
+                sixthQuestionSomeDays.setEnabled(false);
+                sixthQuestionAllTheTime.setEnabled(false);
+                sixthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                sixthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                isQuestionSelected = true;
+            } else {
+                score=score-2;
+                sixthQuestionNotAtAll.setEnabled(true);
+                sixthQuestionSomeDays.setEnabled(true);
+                sixthQuestionAllTheTime.setEnabled(true);
+                sixthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                sixthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                isQuestionSelected = false;
+            }
+            }
+        });
+
+
+        sixthQuestionAllTheTime.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+3;
+                    sixthQuestionNotAtAll.setEnabled(false);
+                    sixthQuestionSomeDays.setEnabled(false);
+                    sixthQuestionHalfDays.setEnabled(false);
+                    sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    sixthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    sixthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-3;
+                    sixthQuestionNotAtAll.setEnabled(true);
+                    sixthQuestionSomeDays.setEnabled(true);
+                    sixthQuestionHalfDays.setEnabled(true);
+                    sixthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    sixthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+
+
+        seventhQuestionNotAtAll.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    seventhQuestionSomeDays.setEnabled(false);
+                    seventhQuestionHalfDays.setEnabled(false);
+                    seventhQuestionAllTheTime.setEnabled(false);
+                    seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    Context context = view.getContext();
+                    seventhQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
+                    seventhQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    seventhQuestionSomeDays.setEnabled(true);
+                    seventhQuestionHalfDays.setEnabled(true);
+                    seventhQuestionAllTheTime.setEnabled(true);
+                    seventhQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    seventhQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+
+        seventhQuestionSomeDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+1;
+                    seventhQuestionNotAtAll.setEnabled(false);
+                    seventhQuestionHalfDays.setEnabled(false);
+                    seventhQuestionAllTheTime.setEnabled(false);
+                    seventhQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    seventhQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-1;
+                    seventhQuestionNotAtAll.setEnabled(true);
+                    seventhQuestionHalfDays.setEnabled(true);
+                    seventhQuestionAllTheTime.setEnabled(true);
+                    seventhQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    seventhQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+
+            }
+        });
+
+
+
+        seventhQuestionHalfDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view)
+            { if (!isQuestionSelected) {
+                score=score+2;
+                seventhQuestionNotAtAll.setEnabled(false);
+                seventhQuestionSomeDays.setEnabled(false);
+                seventhQuestionAllTheTime.setEnabled(false);
+                seventhQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                seventhQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                isQuestionSelected = true;
+            } else {
+                score=score-2;
+                seventhQuestionNotAtAll.setEnabled(true);
+                seventhQuestionSomeDays.setEnabled(true);
+                seventhQuestionAllTheTime.setEnabled(true);
+                seventhQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                seventhQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                isQuestionSelected = false;
+            }
+            }
+        });
+        seventhQuestionAllTheTime.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+3;
+                    seventhQuestionNotAtAll.setEnabled(false);
+                    seventhQuestionSomeDays.setEnabled(false);
+                    seventhQuestionHalfDays.setEnabled(false);
+                    seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    seventhQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    seventhQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-3;
+                    seventhQuestionNotAtAll.setEnabled(true);
+                    seventhQuestionSomeDays.setEnabled(true);
+                    seventhQuestionHalfDays.setEnabled(true);
+                    seventhQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    seventhQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+        eightQuestionNotAtAll.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    eighthQuestionSomeDays.setEnabled(false);
+                    eightQuestionHalfDays.setEnabled(false);
+                    eigthQuestionAllTheTime.setEnabled(false);
+                    eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    Context context = view.getContext();
+                    eighthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
+                    eightQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    eighthQuestionSomeDays.setEnabled(true);
+                    eightQuestionHalfDays.setEnabled(true);
+                    eigthQuestionAllTheTime.setEnabled(true);
+                    eighthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    eightQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+
+
+
+        eighthQuestionSomeDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+1;
+                    eightQuestionNotAtAll.setEnabled(false);
+                    eightQuestionHalfDays.setEnabled(false);
+                    eigthQuestionAllTheTime.setEnabled(false);
+                    eighthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    eightQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-1;
+                    eightQuestionNotAtAll.setEnabled(true);
+                    eightQuestionHalfDays.setEnabled(true);
+                    eigthQuestionAllTheTime.setEnabled(true);
+                    eighthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    eightQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+
+            }
+        });
+
+
+
+
+
+        eightQuestionHalfDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view)
+            { if (!isQuestionSelected) {
+                score=score+2;
+                eightQuestionNotAtAll.setEnabled(false);
+                eighthQuestionSomeDays.setEnabled(false);
+                eigthQuestionAllTheTime.setEnabled(false);
+                eightQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                eighthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                isQuestionSelected = true;
+            } else {
+                score=score-2;
+                eightQuestionNotAtAll.setEnabled(true);
+                eighthQuestionSomeDays.setEnabled(true);
+                eigthQuestionAllTheTime.setEnabled(true);
+                eightQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                eighthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                isQuestionSelected = false;
+            }
+            }
+        });
+
+
+
+        eigthQuestionAllTheTime.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+3;
+                    eightQuestionNotAtAll.setEnabled(false);
+                    eighthQuestionSomeDays.setEnabled(false);
+                    eightQuestionHalfDays.setEnabled(false);
+                    eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    eighthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    eightQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-3;
+                    eightQuestionNotAtAll.setEnabled(true);
+                    eighthQuestionSomeDays.setEnabled(true);
+                    eightQuestionHalfDays.setEnabled(true);
+                    eightQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    eighthQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+
+
+        ninethQuestionNotAtAll.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    ninethQuestionSomeDays.setEnabled(false);
+                    ninethQuestionHalfDays.setEnabled(false);
+                    ninethQuestionAllTheTime.setEnabled(false);
+                    ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    Context context = view.getContext();
+                    ninethQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
+                    ninethQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    ninethQuestionSomeDays.setEnabled(true);
+                    ninethQuestionHalfDays.setEnabled(true);
+                    ninethQuestionAllTheTime.setEnabled(true);
+                    ninethQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    ninethQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+
+        ninethQuestionSomeDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+1;
+                    ninethQuestionNotAtAll.setEnabled(false);
+                    ninethQuestionHalfDays.setEnabled(false);
+                    ninethQuestionAllTheTime.setEnabled(false);
+                    ninethQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    ninethQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-1;
+                    ninethQuestionNotAtAll.setEnabled(true);
+                    ninethQuestionHalfDays.setEnabled(true);
+                    ninethQuestionAllTheTime.setEnabled(true);
+                    ninethQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    ninethQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+
+            }
+        });
+
+
+        ninethQuestionHalfDays.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view)
+            { if (!isQuestionSelected) {
+                score=score+2;
+                ninethQuestionNotAtAll.setEnabled(false);
+                ninethQuestionSomeDays.setEnabled(false);
+                ninethQuestionAllTheTime.setEnabled(false);
+                ninethQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                ninethQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                isQuestionSelected = true;
+            } else {
+                score=score-2;
+                ninethQuestionNotAtAll.setEnabled(true);
+                ninethQuestionSomeDays.setEnabled(true);
+                ninethQuestionAllTheTime.setEnabled(true);
+                ninethQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                ninethQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                isQuestionSelected = false;
+            }
+            }
+        });
+
+        ninethQuestionAllTheTime.setOnClickListener(new View.OnClickListener() {
+            boolean isQuestionSelected = false;
+
+            @Override
+            public void onClick(View view) {
+                if (!isQuestionSelected) {
+                    score=score+3;
+                    ninethQuestionNotAtAll.setEnabled(false);
+                    ninethQuestionSomeDays.setEnabled(false);
+                    ninethQuestionHalfDays.setEnabled(false);
+                    ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.lavender));
+                    ninethQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    ninethQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
+                    ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
+                    isQuestionSelected = true;
+                } else {
+                    score=score-3;
+                    ninethQuestionNotAtAll.setEnabled(true);
+                    ninethQuestionSomeDays.setEnabled(true);
+                    ninethQuestionHalfDays.setEnabled(true);
+                    ninethQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    ninethQuestionSomeDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
+                    ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
+                    isQuestionSelected = false;
+                }
+            }
+        });
+
+
+
+        finalizePHQTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                if(!firstQuestionAtAll.isSelected()  && !firstQuestionHalfDays.isSelected() && !firstQuestionSomeDays.isSelected() && !firstQuestionAllTheTime.isSelected()) {
+//                    String errorMessage = "Raspunde la toate intrebarile";
+//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();}
+//                else if (!secondQuestionNotAtAll.isPressed() && !secondQuestionSomeDays.isPressed() && !secondQuestionHalfDays.isPressed() && !secondQuestAllTheTime.isPressed()) {
+//                    String errorMessage = "Raspunde la toate intrebarile";
+//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+//                } else if (!thirdQuestionNotAtAll.isPressed() && !thirdQuestionSomeDays.isPressed() && !thirdQuestionHalfDays.isPressed() && !thirdQuestionAllTheTime.isPressed())
+//                {   String errorMessage = "Raspunde la toate intrebarile";
+//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+//                } else if (!fourthQuestionNotAtAll.isPressed() && !fourthQuestionSomeDays.isPressed() && !fourthQuestionHalfDays.isPressed() && !fourthQuestionAllTheTime.isPressed()) {
+//                    String errorMessage = "Raspunde la toate intrebarile";
+//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+//                } else if (!fifthQuestionNotAtAll.isPressed() && !fifthQuestionSomeDays.isPressed() && !fifthQuestionHalfDays.isPressed() && !fifthQuestionAllTheTime.isPressed()) {
+//                    String errorMessage = "Raspunde la toate intrebarile";
+//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();}
+//                else if (!sixthQuestionNotAtAll.isPressed() && !sixthQuestionSomeDays.isPressed() && !sixthQuestionHalfDays.isPressed() && !sixthQuestionAllTheTime.isPressed()) {
+//                    String errorMessage = "Raspunde la toate intrebarile";
+//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+//                }
+//                else if (!seventhQuestionNotAtAll.isPressed() && !seventhQuestionSomeDays.isPressed() && !seventhQuestionHalfDays.isPressed() && !seventhQuestionAllTheTime.isPressed()) {
+//                    String errorMessage = "Raspunde la toate intrebarile";
+//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+//
+//                }
+//                else if (!eightQuestionNotAtAll.isPressed() && !eighthQuestionSomeDays.isPressed() && !eightQuestionHalfDays.isPressed() && !eigthQuestionAllTheTime.isPressed())
+//                {
+//                    String errorMessage = "Raspunde la toate intrebarile";
+//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+//                } else if (!ninethQuestionNotAtAll.isPressed() && !ninethQuestionSomeDays.isPressed() && !ninethQuestionHalfDays.isPressed() && !ninethQuestionAllTheTime.isPressed()) {
+//                    String errorMessage = "Raspunde la toate intrebarile";
+//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+//                }
+           // else {
+                    String scoreToString;
+                    String message ="Scorul tău este: " +score;
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(PhqActivity.this, TestsActivity.class));
+                        }
+                    }, 500);
+             //   }
+                }
+
+
+
+
+        });
+
     }
 
 }
