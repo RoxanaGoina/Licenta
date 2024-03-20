@@ -155,7 +155,9 @@ public class PhqActivity extends AppCompatActivity {
                     firstQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     //firstQuestionAtAll.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
                     isFirstQuestionSelected = true;
-                } else {
+                    firstQuestionAtAll.setSelected(true);
+                   }
+                    else {
                     firstQuestionSomeDays.setEnabled(true);
                     firstQuestionHalfDays.setEnabled(true);
                     firstQuestionAllTheTime.setEnabled(true);
@@ -164,14 +166,13 @@ public class PhqActivity extends AppCompatActivity {
                     firstQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     firstQuestionAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isFirstQuestionSelected = false;
+                    firstQuestionAtAll.setSelected(false);
+                    if(firstQuestionAtAll.isSelected()==false) {
+                        String message = "Butonul nu este selectat!";
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    }
                 }
-//                if (firstQuestionAtAll.isPressed()==true) {
-//                    String message = "Butonul este selectat!";
-//                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-//                } else if(firstQuestionAtAll.isPressed()==false){
-//                    String message = "Butonul nu este selectat!";
-//                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-//                }
+//
 
             }
         });
@@ -191,6 +192,7 @@ public class PhqActivity extends AppCompatActivity {
                     firstQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     firstQuestionAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isFirstQuestionSelected = true;
+                    firstQuestionSomeDays.setSelected(true);
                 } else {
                     score=score-1;
                     firstQuestionAtAll.setEnabled(true);
@@ -201,6 +203,7 @@ public class PhqActivity extends AppCompatActivity {
                     firstQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     firstQuestionAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isFirstQuestionSelected = false;
+                    firstQuestionSomeDays.setSelected(false);
                 }
 
             }
@@ -221,6 +224,7 @@ public class PhqActivity extends AppCompatActivity {
                 firstQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                 firstQuestionAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                 isQuestionSelected = true;
+                firstQuestionHalfDays.setSelected(true);
             } else {
                 score=score-2;
                 firstQuestionAtAll.setEnabled(true);
@@ -231,6 +235,7 @@ public class PhqActivity extends AppCompatActivity {
                 firstQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                 firstQuestionAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                 isQuestionSelected = false;
+                firstQuestionHalfDays.setSelected(false);
             }
             }
         });
@@ -250,6 +255,7 @@ public class PhqActivity extends AppCompatActivity {
                     firstQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     firstQuestionAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    firstQuestionAllTheTime.setSelected(true);
                 } else {
                     score=score-3;
                     firstQuestionAtAll.setEnabled(true);
@@ -260,6 +266,7 @@ public class PhqActivity extends AppCompatActivity {
                     firstQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     firstQuestionAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    firstQuestionAllTheTime.setSelected(false);
                 }
             }
         });
@@ -279,6 +286,7 @@ public class PhqActivity extends AppCompatActivity {
                     secondQuestAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     //firstQuestionAtAll.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
                     isQuestionSelected = true;
+                    secondQuestionNotAtAll.setSelected(true);
                 } else {
                     secondQuestionSomeDays.setEnabled(true);
                     secondQuestionHalfDays.setEnabled(true);
@@ -288,6 +296,8 @@ public class PhqActivity extends AppCompatActivity {
                     secondQuestAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     secondQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    secondQuestionNotAtAll.setSelected(false);
+
                 }
             }
         });
@@ -309,6 +319,7 @@ public class PhqActivity extends AppCompatActivity {
                     secondQuestAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     secondQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    secondQuestionSomeDays.setSelected(true);
                 } else {
                     score=score-1;
                     secondQuestionNotAtAll.setEnabled(true);
@@ -319,6 +330,8 @@ public class PhqActivity extends AppCompatActivity {
                     secondQuestAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     secondQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    secondQuestionSomeDays.setSelected(false);
+
                 }
 
             }
@@ -338,6 +351,7 @@ public class PhqActivity extends AppCompatActivity {
                 secondQuestAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                 secondQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                 isQuestionSelected = true;
+                secondQuestionHalfDays.setSelected(true);
             } else {
                 score=score-2;
                 secondQuestionNotAtAll.setEnabled(true);
@@ -348,6 +362,8 @@ public class PhqActivity extends AppCompatActivity {
                 secondQuestAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                 secondQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                 isQuestionSelected = false;
+                secondQuestionHalfDays.setSelected(false);
+
             }
             }
         });
@@ -370,6 +386,7 @@ public class PhqActivity extends AppCompatActivity {
                     secondQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     secondQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    secondQuestAllTheTime.setSelected(true);
                 } else {
                     score=score-3;
                     secondQuestionNotAtAll.setEnabled(true);
@@ -380,6 +397,8 @@ public class PhqActivity extends AppCompatActivity {
                     secondQuestAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     secondQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    secondQuestAllTheTime.setSelected(true);
+
                 }
             }
         });
@@ -400,6 +419,7 @@ public class PhqActivity extends AppCompatActivity {
                     thirdQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     isQuestionSelected = true;
+                    thirdQuestionNotAtAll.setSelected(true);
                 } else {
                     thirdQuestionSomeDays.setEnabled(true);
                     thirdQuestionHalfDays.setEnabled(true);
@@ -409,6 +429,7 @@ public class PhqActivity extends AppCompatActivity {
                     thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    thirdQuestionNotAtAll.setSelected(false);
                 }
             }
         });
@@ -429,6 +450,7 @@ public class PhqActivity extends AppCompatActivity {
                     thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    thirdQuestionSomeDays.setSelected(true);
                 } else {
                     score=score-1;
                     thirdQuestionNotAtAll.setEnabled(true);
@@ -439,6 +461,7 @@ public class PhqActivity extends AppCompatActivity {
                     thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    thirdQuestionSomeDays.setSelected(false);
                 }
 
             }
@@ -459,6 +482,7 @@ public class PhqActivity extends AppCompatActivity {
                 thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                 thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                 isQuestionSelected = true;
+                thirdQuestionHalfDays.setSelected(true);
             } else {
                 score=score-2;
                 thirdQuestionNotAtAll.setEnabled(true);
@@ -469,6 +493,7 @@ public class PhqActivity extends AppCompatActivity {
                 thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                 thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                 isQuestionSelected = false;
+                thirdQuestionHalfDays.setSelected(false);
             }
             }
         });
@@ -489,6 +514,7 @@ public class PhqActivity extends AppCompatActivity {
                     thirdQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    thirdQuestionAllTheTime.setSelected(true);
                 } else {
                     score=score-3;
                     thirdQuestionNotAtAll.setEnabled(true);
@@ -499,6 +525,7 @@ public class PhqActivity extends AppCompatActivity {
                     thirdQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     thirdQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    thirdQuestionAllTheTime.setSelected(false);
                 }
             }
         });
@@ -521,6 +548,7 @@ public class PhqActivity extends AppCompatActivity {
                     fourthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     isQuestionSelected = true;
+                    fourthQuestionNotAtAll.setSelected(true);
                 } else {
                     fourthQuestionSomeDays.setEnabled(true);
                     fourthQuestionHalfDays.setEnabled(true);
@@ -530,6 +558,7 @@ public class PhqActivity extends AppCompatActivity {
                     fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    fourthQuestionNotAtAll.setSelected(false);
                 }
             }
         });
@@ -548,6 +577,7 @@ public class PhqActivity extends AppCompatActivity {
                     fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    fourthQuestionSomeDays.setSelected(true);
                 } else {
                     score=score-1;
                     fourthQuestionNotAtAll.setEnabled(true);
@@ -558,6 +588,7 @@ public class PhqActivity extends AppCompatActivity {
                     fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    fourthQuestionSomeDays.setSelected(false);
                 }
 
             }
@@ -580,6 +611,7 @@ public class PhqActivity extends AppCompatActivity {
                 fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                 fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                 isQuestionSelected = true;
+                fourthQuestionHalfDays.setSelected(true);
             } else {
                 score=score-2;
                 fourthQuestionNotAtAll.setEnabled(true);
@@ -590,6 +622,7 @@ public class PhqActivity extends AppCompatActivity {
                 fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                 fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                 isQuestionSelected = false;
+                fourthQuestionHalfDays.setSelected(false);
             }
             }
         });
@@ -609,6 +642,7 @@ public class PhqActivity extends AppCompatActivity {
                     fourthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    fourthQuestionAllTheTime.setSelected(true);
                 } else {
                     score=score-3;
                     fourthQuestionNotAtAll.setEnabled(true);
@@ -619,6 +653,7 @@ public class PhqActivity extends AppCompatActivity {
                     fourthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     fourthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    fourthQuestionAllTheTime.setSelected(false);
                 }
             }
         });
@@ -638,6 +673,7 @@ public class PhqActivity extends AppCompatActivity {
                     fifthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     isQuestionSelected = true;
+                    fifthQuestionNotAtAll.setSelected(true);
                 } else {
                     fifthQuestionSomeDays.setEnabled(true);
                     fifthQuestionHalfDays.setEnabled(true);
@@ -647,6 +683,7 @@ public class PhqActivity extends AppCompatActivity {
                     fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    fifthQuestionNotAtAll.setSelected(false);
                 }
             }
         });
@@ -665,6 +702,7 @@ public class PhqActivity extends AppCompatActivity {
                     fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    fifthQuestionSomeDays.setSelected(true);
                 } else {
                     score=score-1;
                     fifthQuestionNotAtAll.setEnabled(true);
@@ -675,6 +713,7 @@ public class PhqActivity extends AppCompatActivity {
                     fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    fifthQuestionSomeDays.setSelected(false);
                 }
 
             }
@@ -695,6 +734,7 @@ public class PhqActivity extends AppCompatActivity {
                 fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                 fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                 isQuestionSelected = true;
+                fifthQuestionHalfDays.setSelected(true);
             } else {
                 score=score-2;
                 fifthQuestionNotAtAll.setEnabled(true);
@@ -705,6 +745,7 @@ public class PhqActivity extends AppCompatActivity {
                 fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                 fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                 isQuestionSelected = false;
+                fifthQuestionHalfDays.setSelected(false);
             }
             }
         });
@@ -728,6 +769,7 @@ public class PhqActivity extends AppCompatActivity {
                     fifthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    fifthQuestionAllTheTime.setSelected(true);
                 } else {
                     score=score-3;
                     fifthQuestionNotAtAll.setEnabled(true);
@@ -738,6 +780,7 @@ public class PhqActivity extends AppCompatActivity {
                     fifthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     fifthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    fifthQuestionAllTheTime.setSelected(false);
                 }
             }
         });
@@ -756,6 +799,7 @@ public class PhqActivity extends AppCompatActivity {
                     sixthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     isQuestionSelected = true;
+                    sixthQuestionNotAtAll.setSelected(true);
                 } else {
                     sixthQuestionSomeDays.setEnabled(true);
                     sixthQuestionHalfDays.setEnabled(true);
@@ -765,6 +809,7 @@ public class PhqActivity extends AppCompatActivity {
                     sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    sixthQuestionNotAtAll.setSelected(false);
                 }
             }
         });
@@ -787,6 +832,7 @@ public class PhqActivity extends AppCompatActivity {
                     sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    sixthQuestionSomeDays.setSelected(true);
                 } else {
                     score=score-1;
                     sixthQuestionNotAtAll.setEnabled(true);
@@ -797,6 +843,7 @@ public class PhqActivity extends AppCompatActivity {
                     sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    sixthQuestionSomeDays.setSelected(false);
                 }
 
             }
@@ -819,6 +866,7 @@ public class PhqActivity extends AppCompatActivity {
                 sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                 sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                 isQuestionSelected = true;
+                sixthQuestionHalfDays.setSelected(true);
             } else {
                 score=score-2;
                 sixthQuestionNotAtAll.setEnabled(true);
@@ -829,6 +877,7 @@ public class PhqActivity extends AppCompatActivity {
                 sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                 sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                 isQuestionSelected = false;
+                sixthQuestionHalfDays.setSelected(false);
             }
             }
         });
@@ -849,6 +898,7 @@ public class PhqActivity extends AppCompatActivity {
                     sixthQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    sixthQuestionAllTheTime.setSelected(true);
                 } else {
                     score=score-3;
                     sixthQuestionNotAtAll.setEnabled(true);
@@ -859,6 +909,7 @@ public class PhqActivity extends AppCompatActivity {
                     sixthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     sixthQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    sixthQuestionAllTheTime.setSelected(false);
                 }
             }
         });
@@ -879,6 +930,7 @@ public class PhqActivity extends AppCompatActivity {
                     seventhQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     isQuestionSelected = true;
+                    seventhQuestionNotAtAll.setSelected(true);
                 } else {
                     seventhQuestionSomeDays.setEnabled(true);
                     seventhQuestionHalfDays.setEnabled(true);
@@ -888,6 +940,7 @@ public class PhqActivity extends AppCompatActivity {
                     seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    seventhQuestionNotAtAll.setSelected(false);
                 }
             }
         });
@@ -908,6 +961,7 @@ public class PhqActivity extends AppCompatActivity {
                     seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    seventhQuestionSomeDays.setSelected(true);
                 } else {
                     score=score-1;
                     seventhQuestionNotAtAll.setEnabled(true);
@@ -918,6 +972,7 @@ public class PhqActivity extends AppCompatActivity {
                     seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    seventhQuestionSomeDays.setSelected(true);
                 }
 
             }
@@ -940,6 +995,7 @@ public class PhqActivity extends AppCompatActivity {
                 seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                 seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                 isQuestionSelected = true;
+                seventhQuestionHalfDays.setSelected(true);
             } else {
                 score=score-2;
                 seventhQuestionNotAtAll.setEnabled(true);
@@ -950,6 +1006,7 @@ public class PhqActivity extends AppCompatActivity {
                 seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                 seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                 isQuestionSelected = false;
+                seventhQuestionHalfDays.setSelected(false);
             }
             }
         });
@@ -968,6 +1025,7 @@ public class PhqActivity extends AppCompatActivity {
                     seventhQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    seventhQuestionAllTheTime.setSelected(true);
                 } else {
                     score=score-3;
                     seventhQuestionNotAtAll.setEnabled(true);
@@ -978,6 +1036,7 @@ public class PhqActivity extends AppCompatActivity {
                     seventhQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     seventhQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    seventhQuestionAllTheTime.setSelected(false);
                 }
             }
         });
@@ -995,6 +1054,7 @@ public class PhqActivity extends AppCompatActivity {
                     eightQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     isQuestionSelected = true;
+                    eightQuestionNotAtAll.setSelected(true);
                 } else {
                     eighthQuestionSomeDays.setEnabled(true);
                     eightQuestionHalfDays.setEnabled(true);
@@ -1004,6 +1064,7 @@ public class PhqActivity extends AppCompatActivity {
                     eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    eightQuestionNotAtAll.setSelected(false);
                 }
             }
         });
@@ -1026,6 +1087,7 @@ public class PhqActivity extends AppCompatActivity {
                     eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    eighthQuestionSomeDays.setSelected(true);
                 } else {
                     score=score-1;
                     eightQuestionNotAtAll.setEnabled(true);
@@ -1036,6 +1098,7 @@ public class PhqActivity extends AppCompatActivity {
                     eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    eighthQuestionSomeDays.setSelected(false);
                 }
 
             }
@@ -1060,6 +1123,7 @@ public class PhqActivity extends AppCompatActivity {
                 eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                 eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                 isQuestionSelected = true;
+                eightQuestionHalfDays.setSelected(true);
             } else {
                 score=score-2;
                 eightQuestionNotAtAll.setEnabled(true);
@@ -1070,6 +1134,7 @@ public class PhqActivity extends AppCompatActivity {
                 eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                 eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                 isQuestionSelected = false;
+                eightQuestionHalfDays.setSelected(false);
             }
             }
         });
@@ -1091,6 +1156,7 @@ public class PhqActivity extends AppCompatActivity {
                     eightQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    eigthQuestionAllTheTime.setSelected(true);
                 } else {
                     score=score-3;
                     eightQuestionNotAtAll.setEnabled(true);
@@ -1101,6 +1167,7 @@ public class PhqActivity extends AppCompatActivity {
                     eigthQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     eightQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    eigthQuestionAllTheTime.setSelected(false);
                 }
             }
         });
@@ -1121,6 +1188,7 @@ public class PhqActivity extends AppCompatActivity {
                     ninethQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(context,R.color.black));
                     isQuestionSelected = true;
+                    ninethQuestionNotAtAll.setSelected(true);
                 } else {
                     ninethQuestionSomeDays.setEnabled(true);
                     ninethQuestionHalfDays.setEnabled(true);
@@ -1130,6 +1198,7 @@ public class PhqActivity extends AppCompatActivity {
                     ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    ninethQuestionNotAtAll.setSelected(false);
                 }
             }
         });
@@ -1150,6 +1219,7 @@ public class PhqActivity extends AppCompatActivity {
                     ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    ninethQuestionSomeDays.setSelected(true);
                 } else {
                     score=score-1;
                     ninethQuestionNotAtAll.setEnabled(true);
@@ -1160,6 +1230,7 @@ public class PhqActivity extends AppCompatActivity {
                     ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    ninethQuestionSomeDays.setSelected(false);
                 }
 
             }
@@ -1181,6 +1252,7 @@ public class PhqActivity extends AppCompatActivity {
                 ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                 ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                 isQuestionSelected = true;
+                ninethQuestionHalfDays.setSelected(true);
             } else {
                 score=score-2;
                 ninethQuestionNotAtAll.setEnabled(true);
@@ -1191,6 +1263,7 @@ public class PhqActivity extends AppCompatActivity {
                 ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                 ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                 isQuestionSelected = false;
+                ninethQuestionHalfDays.setSelected(false);
             }
             }
         });
@@ -1210,6 +1283,7 @@ public class PhqActivity extends AppCompatActivity {
                     ninethQuestionHalfDays.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.black));
                     ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.black));
                     isQuestionSelected = true;
+                    ninethQuestionAllTheTime.setSelected(true);
                 } else {
                     score=score-3;
                     ninethQuestionNotAtAll.setEnabled(true);
@@ -1220,6 +1294,7 @@ public class PhqActivity extends AppCompatActivity {
                     ninethQuestionAllTheTime.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.floral));
                     ninethQuestionNotAtAll.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.floral));
                     isQuestionSelected = false;
+                    ninethQuestionAllTheTime.setSelected(false);
                 }
             }
         });
@@ -1229,39 +1304,41 @@ public class PhqActivity extends AppCompatActivity {
         finalizePHQTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(!firstQuestionAtAll.isSelected()  && !firstQuestionHalfDays.isSelected() && !firstQuestionSomeDays.isSelected() && !firstQuestionAllTheTime.isSelected()) {
-//                    String errorMessage = "Raspunde la toate intrebarile";
-//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();}
-//                else if (!secondQuestionNotAtAll.isPressed() && !secondQuestionSomeDays.isPressed() && !secondQuestionHalfDays.isPressed() && !secondQuestAllTheTime.isPressed()) {
-//                    String errorMessage = "Raspunde la toate intrebarile";
-//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-//                } else if (!thirdQuestionNotAtAll.isPressed() && !thirdQuestionSomeDays.isPressed() && !thirdQuestionHalfDays.isPressed() && !thirdQuestionAllTheTime.isPressed())
-//                {   String errorMessage = "Raspunde la toate intrebarile";
-//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-//                } else if (!fourthQuestionNotAtAll.isPressed() && !fourthQuestionSomeDays.isPressed() && !fourthQuestionHalfDays.isPressed() && !fourthQuestionAllTheTime.isPressed()) {
-//                    String errorMessage = "Raspunde la toate intrebarile";
-//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-//                } else if (!fifthQuestionNotAtAll.isPressed() && !fifthQuestionSomeDays.isPressed() && !fifthQuestionHalfDays.isPressed() && !fifthQuestionAllTheTime.isPressed()) {
-//                    String errorMessage = "Raspunde la toate intrebarile";
-//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();}
-//                else if (!sixthQuestionNotAtAll.isPressed() && !sixthQuestionSomeDays.isPressed() && !sixthQuestionHalfDays.isPressed() && !sixthQuestionAllTheTime.isPressed()) {
-//                    String errorMessage = "Raspunde la toate intrebarile";
-//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-//                }
-//                else if (!seventhQuestionNotAtAll.isPressed() && !seventhQuestionSomeDays.isPressed() && !seventhQuestionHalfDays.isPressed() && !seventhQuestionAllTheTime.isPressed()) {
-//                    String errorMessage = "Raspunde la toate intrebarile";
-//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-//
-//                }
-//                else if (!eightQuestionNotAtAll.isPressed() && !eighthQuestionSomeDays.isPressed() && !eightQuestionHalfDays.isPressed() && !eigthQuestionAllTheTime.isPressed())
-//                {
-//                    String errorMessage = "Raspunde la toate intrebarile";
-//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-//                } else if (!ninethQuestionNotAtAll.isPressed() && !ninethQuestionSomeDays.isPressed() && !ninethQuestionHalfDays.isPressed() && !ninethQuestionAllTheTime.isPressed()) {
-//                    String errorMessage = "Raspunde la toate intrebarile";
-//                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-//                }
-           // else {
+                if(!firstQuestionAtAll.isSelected()  && !firstQuestionHalfDays.isSelected() && !firstQuestionSomeDays.isSelected() && !firstQuestionAllTheTime.isSelected()) {
+                    String errorMessage = "Raspunde la toate intrebarile";
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();}
+
+                else if (!secondQuestionNotAtAll.isSelected() && !secondQuestionSomeDays.isSelected() && !secondQuestionHalfDays.isSelected() && !secondQuestAllTheTime.isSelected()) {
+                    String errorMessage = "Raspunde la toate intrebarile";
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();}
+              else if (!thirdQuestionNotAtAll.isSelected() && !thirdQuestionSomeDays.isSelected() && !thirdQuestionHalfDays.isSelected() && !thirdQuestionAllTheTime.isSelected())
+                {   String errorMessage = "Raspunde la toate intrebarile";
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                }
+                else if (!fourthQuestionNotAtAll.isSelected() && !fourthQuestionSomeDays.isSelected() && !fourthQuestionHalfDays.isSelected() && !fourthQuestionAllTheTime.isSelected()) {
+                    String errorMessage = "Raspunde la toate intrebarile";
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                } else if (!fifthQuestionNotAtAll.isSelected() && !fifthQuestionSomeDays.isSelected() && !fifthQuestionHalfDays.isSelected() && !fifthQuestionAllTheTime.isSelected()) {
+                    String errorMessage = "Raspunde la toate intrebarile";
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();}
+                else if (!sixthQuestionNotAtAll.isSelected() && !sixthQuestionSomeDays.isSelected() && !sixthQuestionHalfDays.isSelected() && !sixthQuestionAllTheTime.isSelected()) {
+                    String errorMessage = "Raspunde la toate intrebarile";
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                }
+                else if (!seventhQuestionNotAtAll.isSelected() && !seventhQuestionSomeDays.isSelected() && !seventhQuestionHalfDays.isSelected() && !seventhQuestionAllTheTime.isSelected()) {
+                    String errorMessage = "Raspunde la toate intrebarile";
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+
+                }
+                else if (!eightQuestionNotAtAll.isSelected() && !eighthQuestionSomeDays.isSelected() && !eightQuestionHalfDays.isSelected() && !eigthQuestionAllTheTime.isSelected())
+                {
+                    String errorMessage = "Raspunde la toate intrebarile";
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                } else if (!ninethQuestionNotAtAll.isSelected() && !ninethQuestionSomeDays.isSelected() && !ninethQuestionHalfDays.isSelected() && !ninethQuestionAllTheTime.isSelected()) {
+                    String errorMessage = "Raspunde la toate intrebarile";
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                }
+            else {
                     String scoreToString;
                     String message ="Scorul tău este: " +score;
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
@@ -1271,7 +1348,7 @@ public class PhqActivity extends AppCompatActivity {
                             startActivity(new Intent(PhqActivity.this, TestsActivity.class));
                         }
                     }, 500);
-             //   }
+               }
                 }
 
 
