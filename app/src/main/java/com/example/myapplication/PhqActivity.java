@@ -1339,7 +1339,7 @@ public class PhqActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
                 }
             else {
-                    String scoreToString;
+
                     String message ="Scorul tău este: " +score;
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                     new Handler().postDelayed(new Runnable() {

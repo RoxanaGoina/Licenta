@@ -75,28 +75,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Deloc" />
+                android:text="Deloc"
+                android:textColor="@color/white"
+                android:id="@+id/firstQuestionFirstAnswer"/>
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Cateva zile" />
+                android:text="Cateva zile"
+                android:textColor="@color/white"
+                android:id="@+id/firstQuestionSecondAnswer"
+                />
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/floral"
+                android:text="Peste jumatate din zile"
+                android:id="@+id/firstQuestionThirdAnswer"/>
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Peste jumatate din zile" />
-
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/floral"
-                android:text="Aproape zilnic" />
+                android:text="Aproape zilnic"
+                android:textColor="@color/white"
+                android:id="@+id/firstQuestionFourthAnswer"/>
 
 
 
@@ -115,28 +124,38 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Deloc" />
+                android:text="Deloc"
+                android:textColor="@color/white"
+                android:id="@+id/secondQuestionFirstAnswer"/>
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Cateva zile" />
+                android:text="Cateva zile"
+                android:textColor="@color/white"
+                android:id="@+id/secondQuestionSecondAnswer"
+                />
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Peste jumatate din zile" />
+                android:text="Peste jumatate din zile"
+                android:textColor="@color/white"
+                android:id="@+id/secondQuestionThirdAnswer"/>
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Aproape zilnic" />
+                android:text="Aproape zilnic"
+                android:textColor="@color/white"
+                android:id="@+id/secondQuestionFourthAnswer"
+                />
 
 
             <TextView
@@ -154,28 +173,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Deloc" />
+                android:text="Deloc"
+                android:textColor="@color/white"
+                android:id="@+id/thirdQuestionFirstAnswer"/>
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Cateva zile" />
+                android:text="Cateva zile"
+                android:textColor="@color/white"
+                android:id="@+id/thirdQuestionSecondAnswer"/>
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/floral"
+                android:text="Peste jumatate din zile"
+                android:id="@+id/thirdQuestionThirdAnswer"
+                />
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Peste jumatate din zile" />
-
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/floral"
-                android:text="Aproape zilnic" />
+                android:text="Aproape zilnic"
+                android:textColor="@color/white"
+                android:id="@+id/thirdQuestionFourthAnswer"/>
 
 
             <TextView
@@ -193,19 +221,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Deloc" />
+                android:text="Deloc"
+                android:textColor="@color/white"
+                android:id="@+id/fourthQuestionFirstAnswer"/>
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:id="@+id/fourthQuestionSecondAnswer"
                 android:backgroundTint="@color/floral"
-                android:text="Cateva zile" />
+                android:text="Cateva zile"
+                />
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:id="@+id/fourthQuestionThirdAnswer"
                 android:backgroundTint="@color/floral"
                 android:text="Peste jumatate din zile" />
 
@@ -213,6 +248,8 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:id="@+id/fourthQuestionFourthAnswer"
                 android:backgroundTint="@color/floral"
                 android:text="Aproape zilnic" />
 
@@ -232,6 +269,8 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:id="@+id/fifthQuestionFirstAnswer"
                 android:backgroundTint="@color/floral"
                 android:text="Deloc" />
 
@@ -240,12 +279,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
-                android:text="Cateva zile" />
+                android:text="Cateva zile"
+                android:textColor="@color/white"
+                android:id="@+id/fifthQuestionSecondAnswer"
+                />
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:id="@+id/fifthQuestionThirdAnswer"
                 android:backgroundTint="@color/floral"
                 android:text="Peste jumatate din zile" />
 
@@ -253,6 +297,8 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:id="@+id/fifthQuestionFourthAnswer"
                 android:backgroundTint="@color/floral"
                 android:text="Aproape zilnic" />
 
@@ -275,12 +321,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
+                android:id="@+id/sixthQuestionFirstAnswer"
+                android:textColor="@color/white"
                 android:text="Deloc" />
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:id="@+id/sixthQuestionSecondAnswer"
                 android:backgroundTint="@color/floral"
                 android:text="Cateva zile" />
 
@@ -289,12 +339,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
+                android:id="@+id/sixthQuestionThirdAnswer"
+                android:textColor="@color/white"
                 android:text="Peste jumatate din zile" />
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:id="@+id/sixthQuestionFourthAnswer"
                 android:backgroundTint="@color/floral"
                 android:text="Aproape zilnic" />
 
@@ -313,6 +367,8 @@
 
             <Button
                 android:layout_width="200dp"
+                android:textColor="@color/white"
+                android:id="@+id/seventhQuestionFirstAnswer"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
@@ -320,6 +376,8 @@
 
             <Button
                 android:layout_width="200dp"
+                android:textColor="@color/white"
+                android:id="@+id/seventhQuestionSecondAnswer"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
@@ -330,10 +388,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
+                android:textColor="@color/white"
+                android:id="@+id/seventhQuestionThirdAnswer"
                 android:text="Peste jumatate din zile" />
 
             <Button
                 android:layout_width="200dp"
+                android:textColor="@color/white"
+                android:id="@+id/seventhQuestionFourthAnswer"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/floral"
@@ -348,6 +410,7 @@
                 android:layout_height="60dp"
                 android:backgroundTint="@color/cute_pink"
                 android:text="Finalizare test"
+                android:id="@+id/finalizeGADTest"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
                 android:textColor="@color/white"
