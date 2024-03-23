@@ -71,11 +71,8 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/custom_edittext"
-                    android:clickable="false"
                     android:cursorVisible="false"
                     android:drawablePadding="8dp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
                     android:padding="8dp"
                     android:textColor="@color/blue" />
 
@@ -101,11 +98,7 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/custom_edittext"
-                    android:clickable="false"
-                    android:cursorVisible="false"
                     android:drawablePadding="8dp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
                     android:padding="8dp"
                     android:textColor="@color/blue" />
 

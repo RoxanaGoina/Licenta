@@ -81,9 +81,7 @@ public class MyAccountActivity extends AppCompatActivity {
             }
         });
 
-        //ArrayAdapter<CharSequence> adapterSpinnerYear = ArrayAdapter.createFromResource(this, R.array.years, R.layout.spinner_item);
-        //adapterSpinnerYear.setDropDownViewResource(R.layout.spinner_item);
-        //yearSpinner.setAdapter(adapterSpinnerYear);
+
 
         ArrayAdapter<CharSequence> adapterSpinnerYear = ArrayAdapter.createFromResource(this, R.array.years, R.layout.spinner_for_years);
         adapterSpinnerYear.setDropDownViewResource(R.layout.spinner_for_years);
@@ -142,5 +140,7 @@ public class MyAccountActivity extends AppCompatActivity {
                     
                 }
             });
+
+
     }
 }
