@@ -69,7 +69,7 @@ public class ReportActivity extends AppCompatActivity {
     private CheckBox checkBoxComunicationProblem;
 
 
-    private List<Symptoms> symptoms;
+    private List<String> symptoms;
 
 
 
@@ -120,13 +120,13 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                        checkBoxSadness.setBackground(drawableChecked);
-                       symptoms.add(Symptoms.Sadness);
+                       symptoms.add(checkBoxSadness.getText().toString());
 
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxSadness.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Sadness);
+                    symptoms.remove(checkBoxSadness.getText().toString());
                 }
             }
         });
@@ -137,12 +137,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxLowSelfEsteem.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.LowEsteem);
+                    symptoms.add(checkBoxLowSelfEsteem.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxLowSelfEsteem.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.LowEsteem);
+                    symptoms.remove(checkBoxLowSelfEsteem.getText().toString());
                 }
             }
         });
@@ -154,12 +154,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxGuilty.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Guilty);
+                    symptoms.add(checkBoxGuilty.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxGuilty.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Guilty);
+                    symptoms.remove(checkBoxGuilty.getText().toString());
 
                 }
 
@@ -172,13 +172,13 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxFear.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Fear);
+                    symptoms.add(checkBoxFear.getText().toString());
 
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxFear.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Fear);
+                    symptoms.remove(checkBoxFear.getText().toString());
                 }
             }
         });
@@ -190,12 +190,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxConfusion.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Confusion);
+                    symptoms.add(checkBoxConfusion.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxConfusion.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Confusion);
+                    symptoms.remove(checkBoxConfusion.getText().toString());
 
                 }
             }
@@ -207,12 +207,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxHopeless.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.LackOfHope);
+                    symptoms.add(checkBoxHopeless.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxHopeless.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.LackOfHope);
+                    symptoms.remove(checkBoxHopeless.getText().toString());
                 }
             }
         });
@@ -223,12 +223,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxAgitation.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Restlessness);
+                    symptoms.add(checkBoxAgitation.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxAgitation.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Restlessness);
+                    symptoms.remove(checkBoxAgitation.getText().toString());
                 }
             }
         });
@@ -239,14 +239,14 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxLackOfMotivation.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.LackOfMotivation);
+                    symptoms.add(checkBoxLackOfMotivation.getText().toString());
 
 
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxLackOfMotivation.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.LackOfMotivation);
+                    symptoms.remove(checkBoxLackOfMotivation.getText().toString());
 
                 }
             }
@@ -258,12 +258,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxIrritability.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Irritability);
+                    symptoms.add(checkBoxIrritability.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxIrritability.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Irritability);
+                    symptoms.remove(checkBoxIrritability.getText().toString());
                 }
             }
         });
@@ -274,12 +274,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxCrying.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Teary);
+                    symptoms.add(checkBoxCrying.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxCrying.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Teary);
+                    symptoms.remove(checkBoxCrying.getText().toString());
 
                 }
             }
@@ -291,13 +291,13 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxLowEnergy.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Tiredness);
+                    symptoms.add(checkBoxLowEnergy.getText().toString());
 
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxLowEnergy.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Tiredness);
+                    symptoms.remove(checkBoxLowEnergy.getText().toString());
 
                 }
             }
@@ -309,12 +309,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxNervousness.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Nervousness);
+                    symptoms.add(checkBoxNervousness.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxNervousness.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Nervousness);
+                    symptoms.remove(checkBoxNervousness.getText().toString());
 
                 }
             }
@@ -328,12 +328,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxSelfHarming.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.SelfMutilation);
+                    symptoms.add(checkBoxSelfHarming.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxSelfHarming.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.SelfMutilation);
+                    symptoms.remove(checkBoxSelfHarming.getText().toString());
 
                 }
 
@@ -346,12 +346,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxHelpless.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Helpless);
+                    symptoms.add(checkBoxHelpless.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxHelpless.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Helpless);
+                    symptoms.remove(checkBoxHelpless.getText().toString());
 
                 }
             }
@@ -364,12 +364,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxConcentrateProblem.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.ConcentrationProblems);
+                    symptoms.add(checkBoxConcentrateProblem.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxConcentrateProblem.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.ConcentrationProblems);
+                    symptoms.remove(checkBoxConcentrateProblem.getText().toString());
                 }
             }
         });
@@ -381,12 +381,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkboxWeightFluctuations.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.WeightFlucturations);
+                    symptoms.add(checkboxWeightFluctuations.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkboxWeightFluctuations.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.WeightFlucturations);
+                    symptoms.remove(checkboxWeightFluctuations.getText().toString());
 
                 }
             }
@@ -399,12 +399,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkboxLackOfEnergy.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.LackOfEnergy);
+                    symptoms.add(checkboxLackOfEnergy.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkboxLackOfEnergy.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.LackOfEnergy);
+                    symptoms.remove(checkboxLackOfEnergy.getText().toString());
 
                 }
             }
@@ -417,12 +417,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkboxInsomnia.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Sleeplessness);
+                    symptoms.add(checkboxInsomnia.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkboxInsomnia.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Sleeplessness);
+                    symptoms.remove(checkboxInsomnia.getText().toString());
                 }
             }
         });
@@ -433,12 +433,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkboxMusclePain.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.PainMuscle);
+                    symptoms.add(checkboxMusclePain.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkboxMusclePain.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.PainMuscle);
+                    symptoms.remove(checkboxMusclePain.getText().toString());
 
                 }
             }
@@ -450,12 +450,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkboxLowSexDrive.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.LowSexDrive);
+                    symptoms.add(checkboxLowSexDrive.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkboxLowSexDrive.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.LowSexDrive);
+                    symptoms.remove(checkboxLowSexDrive.getText().toString());
 
                 }
             }
@@ -467,12 +467,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkboxSleepiness.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.Sleepiness);
+                    symptoms.add(checkboxSleepiness.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkboxSleepiness.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.Sleepiness);
+                    symptoms.remove(checkboxSleepiness.getText().toString());
 
                 }
             }
@@ -484,12 +484,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkboxAppetiteFluctuations.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.AppetiteFluctuations);
+                    symptoms.add(checkboxAppetiteFluctuations.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkboxAppetiteFluctuations.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.AppetiteFluctuations);
+                    symptoms.remove(checkboxAppetiteFluctuations.getText().toString());
 
 
                 }
@@ -502,12 +502,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxIsolation.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.IsolationDesire);
+                    symptoms.add(checkBoxIsolation.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxIsolation.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.IsolationDesire);
+                    symptoms.remove(checkBoxIsolation.getText().toString());
 
                 }
             }
@@ -518,13 +518,13 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxHobbyNeglet.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.HobbyNeglet);
+                    symptoms.add(checkBoxHobbyNeglet.getText().toString());
 
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxHobbyNeglet.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.HobbyNeglet);
+                    symptoms.remove(checkBoxHobbyNeglet.getText().toString());
 
                 }
             }
@@ -536,12 +536,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxComunicationLow.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.ComunicationLow);
+                    symptoms.add(checkBoxComunicationLow.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxComunicationLow.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.ComunicationLow);
+                    symptoms.remove(checkBoxComunicationLow.getText().toString());
 
                 }
             }
@@ -553,12 +553,12 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxLifeProblem.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.LifeProblem);
+                    symptoms.add(checkBoxLifeProblem.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxLifeProblem.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.LifeProblem);
+                    symptoms.remove(checkBoxLifeProblem.getText().toString());
 
                 }
             }
@@ -570,13 +570,13 @@ public class ReportActivity extends AppCompatActivity {
                 if(b) {
                     Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
                     checkBoxComunicationProblem.setBackground(drawableChecked);
-                    symptoms.add(Symptoms.ComunicationProblem);
+                    symptoms.add(checkBoxComunicationProblem.getText().toString());
 
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Unchecked",Toast.LENGTH_SHORT).show();
                     checkBoxComunicationProblem.setBackground(drawableUnchecked);
-                    symptoms.remove(Symptoms.ComunicationProblem);
+                    symptoms.remove(checkBoxComunicationProblem.getText().toString());
 
                 }
             }

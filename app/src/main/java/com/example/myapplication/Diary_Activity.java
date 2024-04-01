@@ -21,7 +21,9 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Diary_Activity extends AppCompatActivity {
@@ -50,6 +52,10 @@ public class Diary_Activity extends AppCompatActivity {
                                 diaryPage.setTitle(title);
                                 String content = data.getStringExtra("content");
                                 diaryPage.setContent(content);
+                                LocalDate today;
+                                today = LocalDate.now();
+                                diaryPage.setDate(today);
+                                diaryPage.setEmailUser("");
                                 noteList.add(diaryPage);
                                 savesNotesToPreference();
                                 createNoteView(diaryPage);
@@ -93,12 +99,22 @@ public class Diary_Activity extends AppCompatActivity {
         int noteCount = sharedPreferences.getInt(KEY_NOTE_COUNT, 0);
         String title;
         String content;
+        String date;
         for (int i = 0; i < noteCount; i++) {
             title = sharedPreferences.getString("note_title" + i, "");
             content = sharedPreferences.getString("note_content" + i,"" );
+
             DiaryPage diaryPage=new DiaryPage();
             diaryPage.setTitle(title);
             diaryPage.setContent(content);
+//            Date today = new Date();
+//            today.setHours(0);
+//            today.setMinutes(0);
+            LocalDate today;
+            today = LocalDate.now();
+
+            diaryPage.setDate(today);
+            diaryPage.setEmailUser("");
             noteList.add(diaryPage);
         }
     }
@@ -120,9 +136,12 @@ public class Diary_Activity extends AppCompatActivity {
         View noteView = getLayoutInflater().inflate(R.layout.page_item, null);
         TextView titleTextView = noteView.findViewById(R.id.titleTextView);
         TextView contentTextView = noteView.findViewById(R.id.contentTextView);
-
+        TextView dateTextView=noteView.findViewById(R.id.dateTextView);
         titleTextView.setText(diaryPage.getTitle());
         contentTextView.setText(diaryPage.getContent());
+        LocalDate today;
+        today = LocalDate.now();
+        dateTextView.setText(today.toString());
 
         noteView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

@@ -41,6 +41,7 @@ public class DiaryFilesActivity extends AppCompatActivity {
         EditText contentEditText=findViewById(R.id.contentEditText);
         String title=titleEditText.getText().toString();
         String content=contentEditText.getText().toString();
+
         Intent data= new Intent();
         data.putExtra("title", title);
         data.putExtra("content",content);

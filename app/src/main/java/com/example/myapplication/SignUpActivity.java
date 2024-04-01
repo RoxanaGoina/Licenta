@@ -1,11 +1,8 @@
 package com.example.myapplication;
-
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import org.json.JSONArray;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,13 +10,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth auth;
@@ -28,26 +32,35 @@ public class SignUpActivity extends AppCompatActivity {
     private Button signUpButton;
     private TextView loginRedirectText;
 
+    private DatabaseReference database;
+    private DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        FirebaseApp.initializeApp(SignUpActivity.this);
+
         setContentView(R.layout.activity_sign_up);
         auth=FirebaseAuth.getInstance();
         signUpEmail=findViewById(R.id.signup_email);
         signUpPassword=findViewById(R.id.signup_password);
         signUpButton=findViewById(R.id.signup_button);
         loginRedirectText=findViewById(R.id.loginRedirectText);
+        signUpPassword.setTransformationMethod(new PasswordTransformationMethod());
+        LocalDate today;
+        today = LocalDate.now();
+        List<String> list = new ArrayList<>();
+        List<DiaryPage> dairyPage=new ArrayList<>();
+
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String user= signUpEmail.getText().toString().trim();
+                String username= signUpEmail.getText().toString().trim();
                 String pass=signUpPassword.getText().toString().trim();
 
 
-                if(user.isEmpty()){
+                if(username.isEmpty()){
                     signUpEmail.setError("Email cannot be empty");
 
                 }
@@ -56,12 +69,33 @@ public class SignUpActivity extends AppCompatActivity {
                     signUpPassword.setError("Password cannot be empty");
                 }
                 else{
-                    auth.createUserWithEmailAndPassword(user,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    auth.createUserWithEmailAndPassword(username,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 Toast.makeText(SignUpActivity.this,"SignUp Successfully", Toast.LENGTH_SHORT).show();
-                                 startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (user != null) {
+                                    String userId = user.getUid();
+                                    //TestObject testObject = new TestObject("Incerc", "Sa vad daca merge");
+                                    User newUser=new User(username,"","",false,"",0,0,0,0,0,0,list,dairyPage,0,0,0);
+                                    database = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app").getReference();
+                                    database.child("username").child(userId).setValue(newUser);
+                                    JSONArray jsonArray = new JSONArray(list);
+                                    database.child("username").child(userId).child("symptomps").setValue(jsonArray.toString());
+                                    JSONArray jsonArrayPages = new JSONArray(dairyPage);
+                                    database.child("username").child(userId).child("dairyPages").setValue(jsonArrayPages.toString());
+
+
+
+
+
+                                    //startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                                }
+                                else {
+                                    Toast.makeText(SignUpActivity.this, "Utilizatorul nu este autentificat", Toast.LENGTH_SHORT).show();
+                                }
+                                startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
 
                                 } else{
                                 Toast.makeText(SignUpActivity.this,"SignUp Fail"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
@@ -73,6 +107,24 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
+//
+//
+//
+//        } else {
+//            Toast.makeText(SignUpActivity.this, "Utilizatorul nu este autentificat", Toast.LENGTH_SHORT).show();
+//        }
+
+//        TestObject testObject=new TestObject("Incerc","Sa vad daca merge");
+//        database = FirebaseDatabase.getInstance().getReference();
+//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        database.child("test").child(userId).setValue(testObject);
+//        startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+
         loginRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -38,10 +38,9 @@
         android:inputType="textMultiLine"
         android:background="@drawable/rounder_border"
         android:minLines="3"
-
-
-
     />
+
+
 
     <Button
         android:id="@+id/saveNotes"
