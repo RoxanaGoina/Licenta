@@ -33,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -195,10 +197,12 @@ public class MyAccountActivity extends AppCompatActivity {
                         String dateOfBirth=userSnapshot.child("dateOfBirth").getValue(String.class);
 
                         dp1.setText(dateOfBirth);
-                        String userHeight=userSnapshot.child("height").getValue(String.class);
-                        height.setText(userHeight);
-                        double weight=userSnapshot.child("weight").getValue(double.class);
-                        double IMC=userSnapshot.child("imc").getValue(double.class);
+                        double userHeight=userSnapshot.child("height").getValue(double.class);
+                        height.setText(String.valueOf(userHeight));
+                        double userWeight=userSnapshot.child("weight").getValue(double.class);
+                        weight.setText(String.valueOf(userWeight));
+                        double imcUser=userSnapshot.child("imc").getValue(double.class);
+                        IMC.setText(String.valueOf(imcUser));
                         int yearOfStudy=userSnapshot.child("yearOfStudy").getValue(int.class);
                         int PHQScore=userSnapshot.child("phqscore").getValue(int.class);
                         int GADScore=userSnapshot.child("gadscore").getValue(int.class);
@@ -251,6 +255,20 @@ public class MyAccountActivity extends AppCompatActivity {
                     String gender=spinner.getSelectedItem().toString();
                     String DOB=dp1.getText().toString();
                     String userHeight=height.getText().toString();
+                    String userWeight=weight.getText().toString();
+                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                    symbols.setDecimalSeparator('.');
+                    DecimalFormat df = new DecimalFormat("#.##", symbols);
+
+
+                    double imc = Double.parseDouble(userWeight) / (Math.pow(Double.parseDouble(userHeight) / 100, 2));
+
+
+                    String imcFormatted = df.format(imc);
+
+
+                    double imcFromFormatted = Double.parseDouble(imcFormatted);
+
                     if(gender.equals("Feminin"))
                         database.child("username").child(userId).child("sex").setValue(false);
                     else
@@ -258,7 +276,11 @@ public class MyAccountActivity extends AppCompatActivity {
                     database.child("username").child(userId).child("name").setValue(text);
                     database.child("username").child(userId).child("cnp").setValue(cnp);
                     database.child("username").child(userId).child("dateOfBirth").setValue(DOB);
-                    database.child("username").child(userId).child("height").setValue(userHeight);
+                    database.child("username").child(userId).child("height").setValue(Double.parseDouble(userHeight));
+                    database.child("username").child(userId).child("weight").setValue(Double.parseDouble(userWeight));
+                    database.child("username").child(userId).child("imc").setValue(imcFromFormatted);
+
+
 
 
 
