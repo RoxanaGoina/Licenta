@@ -179,14 +179,24 @@ public class MyAccountActivity extends AppCompatActivity {
 
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                         String username = userSnapshot.child("name").getValue(String.class);
-                        Toast.makeText(MyAccountActivity.this,username,Toast.LENGTH_SHORT).show();
                         name.setText(username);
                         String email= userSnapshot.child("email").getValue(String.class);
-                        Toast.makeText(MyAccountActivity.this,email,Toast.LENGTH_SHORT).show();
+
                         String CNPDB=userSnapshot.child("cnp").getValue(String.class);
+                        CNP.setText(CNPDB);
                         boolean sex = userSnapshot.child("sex").getValue(boolean.class);
+                        int position = sex ? 1 : 0;
+                        spinner.setSelection(position);
+                        if (sex) {
+                            spinner.setSelection(0);
+                        } else {
+                            spinner.setSelection(1);
+                        }
                         String dateOfBirth=userSnapshot.child("dateOfBirth").getValue(String.class);
-                        double height=userSnapshot.child("height").getValue(double.class);
+
+                        dp1.setText(dateOfBirth);
+                        String userHeight=userSnapshot.child("height").getValue(String.class);
+                        height.setText(userHeight);
                         double weight=userSnapshot.child("weight").getValue(double.class);
                         double IMC=userSnapshot.child("imc").getValue(double.class);
                         int yearOfStudy=userSnapshot.child("yearOfStudy").getValue(int.class);
@@ -237,7 +247,21 @@ public class MyAccountActivity extends AppCompatActivity {
                     DatabaseReference database = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app").getReference();
                     String userEmail = user.getEmail();
                     String text=name.getText().toString();
+                    String cnp=CNP.getText().toString();
+                    String gender=spinner.getSelectedItem().toString();
+                    String DOB=dp1.getText().toString();
+                    String userHeight=height.getText().toString();
+                    if(gender.equals("Feminin"))
+                        database.child("username").child(userId).child("sex").setValue(false);
+                    else
+                        database.child("username").child(userId).child("sex").setValue(true);
                     database.child("username").child(userId).child("name").setValue(text);
+                    database.child("username").child(userId).child("cnp").setValue(cnp);
+                    database.child("username").child(userId).child("dateOfBirth").setValue(DOB);
+                    database.child("username").child(userId).child("height").setValue(userHeight);
+
+
+
                 }
 
 
