@@ -182,7 +182,7 @@ public class MyAccountActivity extends AppCompatActivity {
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                         String username = userSnapshot.child("name").getValue(String.class);
                         name.setText(username);
-                        String email= userSnapshot.child("email").getValue(String.class);
+                       // String email= userSnapshot.child("email").getValue(String.class);
 
                         String CNPDB=userSnapshot.child("cnp").getValue(String.class);
                         CNP.setText(CNPDB);
@@ -204,25 +204,38 @@ public class MyAccountActivity extends AppCompatActivity {
                         double imcUser=userSnapshot.child("imc").getValue(double.class);
                         IMC.setText(String.valueOf(imcUser));
                         int yearOfStudy=userSnapshot.child("yearOfStudy").getValue(int.class);
+                        String[] yearsArray = getResources().getStringArray(R.array.years);
+                        int pozitie = -1;
+                        for (int i = 0; i < yearsArray.length; i++) {
+                            if (Integer.parseInt(yearsArray[i]) == yearOfStudy) {
+                                pozitie = i;
+                                break;
+                            }
+                        }
+
+
+                        if (pozitie != -1) {
+                            yearSpinner.setSelection(pozitie);
+                        }
                         int PHQScore=userSnapshot.child("phqscore").getValue(int.class);
                         int GADScore=userSnapshot.child("gadscore").getValue(int.class);
                         String userName=username;
                         //name.setText(userName);
 
-                        name.addTextChangedListener(new TextWatcher() {
-                            @Override
-                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                            }
-
-                            @Override
-                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                            }
-
-                            @Override
-                            public void afterTextChanged(Editable editable) {
-
-                            }
-                        });
+//                        name.addTextChangedListener(new TextWatcher() {
+//                            @Override
+//                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                            }
+//
+//                            @Override
+//                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                            }
+//
+//                            @Override
+//                            public void afterTextChanged(Editable editable) {
+//
+//                            }
+//                        });
 
 
                     }
@@ -259,7 +272,7 @@ public class MyAccountActivity extends AppCompatActivity {
                     DecimalFormatSymbols symbols = new DecimalFormatSymbols();
                     symbols.setDecimalSeparator('.');
                     DecimalFormat df = new DecimalFormat("#.##", symbols);
-
+                    String year=yearSpinner.getSelectedItem().toString();
 
                     double imc = Double.parseDouble(userWeight) / (Math.pow(Double.parseDouble(userHeight) / 100, 2));
 
@@ -279,13 +292,12 @@ public class MyAccountActivity extends AppCompatActivity {
                     database.child("username").child(userId).child("height").setValue(Double.parseDouble(userHeight));
                     database.child("username").child(userId).child("weight").setValue(Double.parseDouble(userWeight));
                     database.child("username").child(userId).child("imc").setValue(imcFromFormatted);
-
+                    database.child("username").child(userId).child("yearOfStudy").setValue(Integer.parseInt(year));
 
 
 
 
                 }
-
 
                 startActivity(new Intent(MyAccountActivity.this,MainMenu.class));
             }
