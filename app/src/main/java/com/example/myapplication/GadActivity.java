@@ -11,6 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class GadActivity extends AppCompatActivity {
 
     private int score=0;
@@ -1060,6 +1065,12 @@ public class GadActivity extends AppCompatActivity {
 
                         String message ="Scorul tău este: " +score;
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            String userId = user.getUid();
+                            DatabaseReference database = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app").getReference();
+                            database.child("username").child(userId).child("gadscore").setValue(score);
+                        }
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {

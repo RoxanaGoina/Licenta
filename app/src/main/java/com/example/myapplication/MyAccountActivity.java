@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -8,6 +9,7 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -64,22 +68,21 @@ public class MyAccountActivity extends AppCompatActivity {
     private TextView changePasswordRedirectText;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_my_account);
-        spinner=(Spinner)findViewById(R.id.spinner);
-        yearSpinner=(Spinner)findViewById(R.id.spinnerYear);
-        dp1=findViewById(R.id.dp);
-        name=findViewById(R.id.name);
-        CNP=findViewById(R.id.cnp);
-        height=findViewById(R.id.height);
-        weight=findViewById(R.id.weight);
-        IMC=findViewById(R.id.imc);
-        saveButton=findViewById(R.id.save_button);
-        changePasswordRedirectText=findViewById(R.id.changePasswordRedirectText);
+        spinner = (Spinner) findViewById(R.id.spinner);
+        yearSpinner = (Spinner) findViewById(R.id.spinnerYear);
+        dp1 = findViewById(R.id.dp);
+        name = findViewById(R.id.name);
+        CNP = findViewById(R.id.cnp);
+        height = findViewById(R.id.height);
+        weight = findViewById(R.id.weight);
+        IMC = findViewById(R.id.imc);
+        saveButton = findViewById(R.id.save_button);
+        changePasswordRedirectText = findViewById(R.id.changePasswordRedirectText);
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, R.layout.spinner_item);
@@ -106,7 +109,6 @@ public class MyAccountActivity extends AppCompatActivity {
         });
 
 
-
         ArrayAdapter<CharSequence> adapterSpinnerYear = ArrayAdapter.createFromResource(this, R.array.years, R.layout.spinner_for_years);
         adapterSpinnerYear.setDropDownViewResource(R.layout.spinner_for_years);
         yearSpinner.setAdapter(adapterSpinnerYear);
@@ -128,44 +130,43 @@ public class MyAccountActivity extends AppCompatActivity {
             }
         });
 
-        Calendar calendar=Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
-        DatePickerDialog.OnDateSetListener date=new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
-                calendar.set(Calendar.YEAR,year);
-                calendar.set(Calendar.MONTH,month);
-                calendar.set(Calendar.DAY_OF_MONTH,day);
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, day);
                 updateCalendar();
             }
-            private void updateCalendar(){
-                String Format="dd/MM/yy";
-                SimpleDateFormat sdf= new SimpleDateFormat(Format,Locale.US);
+
+            private void updateCalendar() {
+                String Format = "dd/MM/yy";
+                SimpleDateFormat sdf = new SimpleDateFormat(Format, Locale.US);
                 dp1.setText(sdf.format(calendar.getTime()));
 
 
             }
         };
-            dp1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        dp1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
 
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(
-                            MyAccountActivity.this,
-                            date,
-                            calendar.get(Calendar.YEAR),
-                            calendar.get(Calendar.MONTH),
-                            calendar.get(Calendar.DAY_OF_MONTH)
-                    );
-                    datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        MyAccountActivity.this,
+                        date,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)
+                );
+                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
 
-                    datePickerDialog.show();
-                    
-                }
-            });
+                datePickerDialog.show();
 
-
+            }
+        });
 
 
         FirebaseUser firebaseUseruser = FirebaseAuth.getInstance().getCurrentUser();
@@ -182,9 +183,9 @@ public class MyAccountActivity extends AppCompatActivity {
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                         String username = userSnapshot.child("name").getValue(String.class);
                         name.setText(username);
-                       // String email= userSnapshot.child("email").getValue(String.class);
+                        // String email= userSnapshot.child("email").getValue(String.class);
 
-                        String CNPDB=userSnapshot.child("cnp").getValue(String.class);
+                        String CNPDB = userSnapshot.child("cnp").getValue(String.class);
                         CNP.setText(CNPDB);
                         boolean sex = userSnapshot.child("sex").getValue(boolean.class);
                         int position = sex ? 1 : 0;
@@ -194,16 +195,16 @@ public class MyAccountActivity extends AppCompatActivity {
                         } else {
                             spinner.setSelection(1);
                         }
-                        String dateOfBirth=userSnapshot.child("dateOfBirth").getValue(String.class);
+                        String dateOfBirth = userSnapshot.child("dateOfBirth").getValue(String.class);
 
                         dp1.setText(dateOfBirth);
-                        double userHeight=userSnapshot.child("height").getValue(double.class);
+                        double userHeight = userSnapshot.child("height").getValue(double.class);
                         height.setText(String.valueOf(userHeight));
-                        double userWeight=userSnapshot.child("weight").getValue(double.class);
+                        double userWeight = userSnapshot.child("weight").getValue(double.class);
                         weight.setText(String.valueOf(userWeight));
-                        double imcUser=userSnapshot.child("imc").getValue(double.class);
+                        double imcUser = userSnapshot.child("imc").getValue(double.class);
                         IMC.setText(String.valueOf(imcUser));
-                        int yearOfStudy=userSnapshot.child("yearOfStudy").getValue(int.class);
+                        int yearOfStudy = userSnapshot.child("yearOfStudy").getValue(int.class);
                         String[] yearsArray = getResources().getStringArray(R.array.years);
                         int pozitie = -1;
                         for (int i = 0; i < yearsArray.length; i++) {
@@ -217,26 +218,9 @@ public class MyAccountActivity extends AppCompatActivity {
                         if (pozitie != -1) {
                             yearSpinner.setSelection(pozitie);
                         }
-                        int PHQScore=userSnapshot.child("phqscore").getValue(int.class);
-                        int GADScore=userSnapshot.child("gadscore").getValue(int.class);
-                        String userName=username;
-                        //name.setText(userName);
-
-//                        name.addTextChangedListener(new TextWatcher() {
-//                            @Override
-//                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                            }
-//
-//                            @Override
-//                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                            }
-//
-//                            @Override
-//                            public void afterTextChanged(Editable editable) {
-//
-//                            }
-//                        });
-
+                        int PHQScore = userSnapshot.child("phqscore").getValue(int.class);
+                        int GADScore = userSnapshot.child("gadscore").getValue(int.class);
+                        String userName = username;
 
                     }
 
@@ -249,7 +233,6 @@ public class MyAccountActivity extends AppCompatActivity {
             });
 
 
-
         }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -257,22 +240,21 @@ public class MyAccountActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
                     String userId = user.getUid();
                     DatabaseReference database = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app").getReference();
                     String userEmail = user.getEmail();
-                    String text=name.getText().toString();
-                    String cnp=CNP.getText().toString();
-                    String gender=spinner.getSelectedItem().toString();
-                    String DOB=dp1.getText().toString();
-                    String userHeight=height.getText().toString();
-                    String userWeight=weight.getText().toString();
+                    String text = name.getText().toString();
+                    String cnp = CNP.getText().toString();
+                    String gender = spinner.getSelectedItem().toString();
+                    String DOB = dp1.getText().toString();
+                    String userHeight = height.getText().toString();
+                    String userWeight = weight.getText().toString();
                     DecimalFormatSymbols symbols = new DecimalFormatSymbols();
                     symbols.setDecimalSeparator('.');
                     DecimalFormat df = new DecimalFormat("#.##", symbols);
-                    String year=yearSpinner.getSelectedItem().toString();
+                    String year = yearSpinner.getSelectedItem().toString();
 
                     double imc = Double.parseDouble(userWeight) / (Math.pow(Double.parseDouble(userHeight) / 100, 2));
 
@@ -282,7 +264,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
                     double imcFromFormatted = Double.parseDouble(imcFormatted);
 
-                    if(gender.equals("Feminin"))
+                    if (gender.equals("Feminin"))
                         database.child("username").child(userId).child("sex").setValue(false);
                     else
                         database.child("username").child(userId).child("sex").setValue(true);
@@ -295,11 +277,45 @@ public class MyAccountActivity extends AppCompatActivity {
                     database.child("username").child(userId).child("yearOfStudy").setValue(Integer.parseInt(year));
 
 
-
-
                 }
 
-                startActivity(new Intent(MyAccountActivity.this,MainMenu.class));
+                startActivity(new Intent(MyAccountActivity.this, MainMenu.class));
+            }
+        });
+
+        changePasswordRedirectText.setOnClickListener(new View.OnClickListener() {
+
+
+            public void onClick(View v) {
+                String userEmail = firebaseUseruser.getEmail();
+                if (!TextUtils.isEmpty(userEmail)) {
+                    ResetPassword(userEmail);
+                }
+            }
+
+            private void ResetPassword(String userEmail) {
+
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.sendPasswordResetEmail(userEmail)
+
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(MyAccountActivity.this, "Reset Password link has been sent to your registered Email", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MyAccountActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MyAccountActivity.this, "Error :- " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+
             }
         });
 
