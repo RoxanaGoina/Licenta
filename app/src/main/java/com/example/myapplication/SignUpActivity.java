@@ -1,5 +1,8 @@
 package com.example.myapplication;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
@@ -52,7 +55,6 @@ public class SignUpActivity extends AppCompatActivity {
         List<String> list = new ArrayList<>();
         List<DiaryPage> dairyPage=new ArrayList<>();
 
-
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +86,28 @@ public class SignUpActivity extends AppCompatActivity {
                                     JSONArray jsonArray = new JSONArray(list);
                                     database.child("username").child(userId).child("symptomps").setValue(jsonArray.toString());
                                     JSONArray jsonArrayPages = new JSONArray(dairyPage);
-                                    database.child("username").child(userId).child("dairyPages").setValue(jsonArrayPages.toString());
+                                    JSONArray jsonArrayForJournal = new JSONArray();
+                                    for(DiaryPage journalPage: dairyPage){
+                                        JSONObject jsonObject = new JSONObject();
+                                         try {
+                                             jsonObject.put("title","");
+                                             jsonObject.put("content","");
+                                             jsonObject.put("date","");
+                                             jsonArrayForJournal.put(jsonObject);
+                                         }
+                                         catch (JSONException e){
+                                             e.printStackTrace();
+                                         }
+
+                                    }
+                                    String json = jsonArrayForJournal.toString();
+                                    database.child("username").child(userId).child("dairyPages").setValue(json);
+
+                                   // DiaryPage justForTest=new DiaryPage(user.getEmail(),LocalDate.now(),"I miss my pisu","I love my pisu");
+
+
+
+
 
 
 

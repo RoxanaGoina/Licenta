@@ -4,16 +4,14 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class DiaryPage {
-    private String emailUser;
 
-    private LocalDate date;
+    private String date;
     private String title;
     private String content;
 
     public DiaryPage(){}
 
-    public DiaryPage(String emailUser, LocalDate date, String title, String content) {
-        this.emailUser = emailUser;
+    public DiaryPage( String date, String title, String content) {
         this.date = date;
         this.title = title;
         this.content = content;
@@ -26,15 +24,13 @@ public class DiaryPage {
         return content;
     }
 
-    public String getEmailUser() { return emailUser; }
 
-    public LocalDate getDate() { return date; }
 
-    public void setEmailUser(String emailUser) {
-        this.emailUser = emailUser;
-    }
+    public String getDate() { return date; }
 
-    public void setDate(LocalDate date) {
+
+
+    public void setDate(String date) {
         this.date = date;
     }
 
