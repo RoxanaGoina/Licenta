@@ -19,7 +19,7 @@ public class User {
     private int PHQScore;
     private int GADScore;
 
-    private List<String> symptomps;
+    private List<Symptom> symptomps;
 
     private List<DiaryPage> pages;
 
@@ -29,7 +29,7 @@ public class User {
     private int heartBeat;
 
     public User(){}
-    public User(String email, String name, String CNP, boolean sex, String dateOfBirth, double height, double weight, double IMC, int yearOfStudy, int PHQScore, int GADScore, List<String> symptomps, List<DiaryPage> pages, int sleepScore, int sleepHours, int heartBeat) {
+    public User(String email, String name, String CNP, boolean sex, String dateOfBirth, double height, double weight, double IMC, int yearOfStudy, int PHQScore, int GADScore, List<Symptom> symptomps, List<DiaryPage> pages, int sleepScore, int sleepHours, int heartBeat) {
         this.email = email;
         this.name = name;
         this.CNP = CNP;
@@ -92,7 +92,7 @@ public class User {
         return GADScore;
     }
 
-    public List<String> getSymptomps() {
+    public List<Symptom> getSymptomps() {
         return symptomps;
     }
 
@@ -156,7 +156,7 @@ public class User {
         this.GADScore = GADScore;
     }
 
-    public void setSymptomps(List<String> symptomps) {
+    public void setSymptomps(List<Symptom> symptomps) {
         this.symptomps = symptomps;
     }
 

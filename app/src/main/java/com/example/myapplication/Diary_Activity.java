@@ -62,16 +62,15 @@ public class Diary_Activity extends AppCompatActivity {
                                 String title = data.getStringExtra("title");
                                 diaryPage.setTitle(title);
                                 String content = data.getStringExtra("content");
-                               // String email=data.getStringExtra("emailUser");
                                 diaryPage.setContent(content);
                                 LocalDate today;
                                 today = LocalDate.now();
 
-                               // diaryPage.setEmailUser(email);
+
                                 noteList.add(diaryPage);
                                 savesNotesToPreference();
                                 createNoteView(diaryPage);
-                               // clearInputFields();
+
                             } else {
                                 Toast.makeText(Diary_Activity.this, "Operatie invalida", Toast.LENGTH_LONG).show();
 
@@ -98,12 +97,7 @@ public class Diary_Activity extends AppCompatActivity {
         displayNotes();
     }
 
-//    private void clearInputFields() {
-//        EditText titleEditText=findViewById(R.id.titleEditText);
-//        EditText contentEditText=findViewById(R.id.contentEditText);
-//        titleEditText.getText().clear();
-//        contentEditText.getText().clear();
-//    }
+
 
     private void loadNotesFromPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -171,9 +165,7 @@ public class Diary_Activity extends AppCompatActivity {
         TextView dateTextView=noteView.findViewById(R.id.dateTextView);
         titleTextView.setText(diaryPage.getTitle());
         contentTextView.setText(diaryPage.getContent());
-       // contentTextView.setText(diaryPage.getDate());
-        //LocalDate today;
-       // today = LocalDate.now();
+
         dateTextView.setText(diaryPage.getDate());
 
         noteView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -209,9 +201,6 @@ public class Diary_Activity extends AppCompatActivity {
         }
 
         private void deleteNoteAndRefresh(DiaryPage diaryPage){
-//        noteList.remove(diaryPage);
-//        savesNotesToPreference();
-//        refreshNoteViews();
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if (firebaseUser != null) {
                 String userId = firebaseUser.getUid();
@@ -236,17 +225,16 @@ public class Diary_Activity extends AppCompatActivity {
                                     String content = jsonObject.getString("content");
                                     String date = jsonObject.getString("date");
                                     if (!title.equals(diaryPage.getTitle()) || !content.equals(diaryPage.getContent()) || !date.equals(diaryPage.getDate())) {
-                                        // If it's not the diaryPage to be deleted, add it to the updatedJsonArray
+
                                         updatedJsonArray.put(jsonObject);
                                     }
                                 }
-                                // Save the updated JSON array back to Firebase
                                 databaseReference.setValue(updatedJsonArray.toString());
 
-                                // Update the local noteList variable to reflect the deletion
+
                                 noteList.remove(diaryPage);
 
-                                // Refresh the UI
+
                                 refreshNoteViews();
                             } catch (JSONException e) {
                                 e.printStackTrace();

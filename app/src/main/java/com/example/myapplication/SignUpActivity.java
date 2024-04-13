@@ -52,7 +52,7 @@ public class SignUpActivity extends AppCompatActivity {
         signUpPassword.setTransformationMethod(new PasswordTransformationMethod());
         LocalDate today;
         today = LocalDate.now();
-        List<String> list = new ArrayList<>();
+        List<Symptom> symptomList = new ArrayList<>();
         List<DiaryPage> dairyPage=new ArrayList<>();
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -80,12 +80,26 @@ public class SignUpActivity extends AppCompatActivity {
                                 if (user != null) {
                                     String userId = user.getUid();
                                     //TestObject testObject = new TestObject("Incerc", "Sa vad daca merge");
-                                    User newUser=new User(username,"","",false,"",0,0,0,0,0,0,list,dairyPage,0,0,0);
+                                    User newUser=new User(username,"","",false,"",0,0,0,0,0,0,symptomList,dairyPage,0,0,0);
                                     database = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app").getReference();
                                     database.child("username").child(userId).setValue(newUser);
-                                    JSONArray jsonArray = new JSONArray(list);
-                                    database.child("username").child(userId).child("symptomps").setValue(jsonArray.toString());
-                                    JSONArray jsonArrayPages = new JSONArray(dairyPage);
+                                    //JSONArray jsonArray = new JSONArray(list);
+                                    JSONArray symptoms=new JSONArray();
+                                    for(Symptom symptom: symptomList){
+                                        JSONObject jsonObject=new JSONObject();
+                                        try {
+                                            jsonObject.put("name","");
+                                            jsonObject.put("date","");
+                                            symptoms.put(jsonObject);
+                                        }catch (JSONException e){
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+
+
+
+                                    //JSONArray jsonArrayPages = new JSONArray(dairyPage);
                                     JSONArray jsonArrayForJournal = new JSONArray();
                                     for(DiaryPage journalPage: dairyPage){
                                         JSONObject jsonObject = new JSONObject();
@@ -98,22 +112,11 @@ public class SignUpActivity extends AppCompatActivity {
                                          catch (JSONException e){
                                              e.printStackTrace();
                                          }
-
                                     }
+                                    database.child("username").child(userId).child("symptomps").setValue(symptoms.toString());
                                     String json = jsonArrayForJournal.toString();
                                     database.child("username").child(userId).child("dairyPages").setValue(json);
 
-                                   // DiaryPage justForTest=new DiaryPage(user.getEmail(),LocalDate.now(),"I miss my pisu","I love my pisu");
-
-
-
-
-
-
-
-
-
-                                    //startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                                 }
                                 else {
                                     Toast.makeText(SignUpActivity.this, "Utilizatorul nu este autentificat", Toast.LENGTH_SHORT).show();

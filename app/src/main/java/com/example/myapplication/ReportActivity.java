@@ -29,11 +29,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
+
+    private List<CheckBox> checkBoxList;
 
     private CheckBox checkBoxSadness;
     private CheckBox checkBoxLowSelfEsteem;
@@ -89,41 +94,140 @@ public class ReportActivity extends AppCompatActivity {
 
     private Button saveSymptomps;
 
-    private List<String> symptomsList;
+    private List<Symptom> symptomsList = new ArrayList<>();
+    LocalDate currentDate = LocalDate.now();
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    String dateString = currentDate.format(dateFormatter);
 
+    public boolean listContainsObject(String name, String date) {
+        if (symptomsList != null) {
+            Symptom symptom = new Symptom(name, date);
+            return symptomsList.contains(symptom);
+        } else {
+            return false; // Return false if symptomsList is not yet initialized
+        }
+    }
+
+    public void loadJson(DataSnapshot dataSnapshot) {
+        String json = dataSnapshot.getValue(String.class);
+        // symptomsName=new ArrayList();
+
+        if (json != null) {
+            try {
+                JSONArray jsonArray = new JSONArray(json);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String name = jsonObject.getString("name");
+                    String date = jsonObject.getString("date");
+                    // symptomsName.add(name);
+                    Symptom symptom = new Symptom(name, date);
+                    //Log.d("TAG",symptom.getName());
+                    //Log.d("TAG",symptom.getDate());
+                    symptomsList.add(symptom);
+                    // Log.d("TAG",symptom.getName());
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.d("TAG", "Simptome json: " + symptomsList.toString());
+        }
+    }
+    public void colorSaved(Drawable drawableUnchecked,Drawable drawableChecked){
+        for(CheckBox checkBox: checkBoxList){
+            if (listContainsObject(checkBox.getText().toString(), dateString)) {
+                checkBox.setBackground(drawableChecked);
+            } else
+                checkBox.setBackground(drawableUnchecked);
+        }
+
+
+    }
+    public void updateSymptom(Drawable drawableUnchecked,Drawable drawableChecked){
+        for(CheckBox checkBox : checkBoxList){
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    Symptom symptom = new Symptom(checkBox.getText().toString(), dateString);
+                    if (b) {
+                        if (listContainsObject(checkBox.getText().toString(), dateString)) {
+                            //Toast.makeText(ReportActivity.this, "A fost inclus", Toast.LENGTH_SHORT).show();
+                            symptomsList.remove(symptom);
+                            checkBox.setBackground(drawableUnchecked);
+
+
+                        } else {
+                            symptomsList.add(symptom);
+                            checkBox.setBackground(drawableChecked);
+                        }
+                    }
+
+                }
+            });
+
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+        checkBoxList=new ArrayList<>();
         checkBoxSadness = findViewById(R.id.checkBoxSadness);
+        checkBoxList.add(checkBoxSadness);
         checkBoxLowSelfEsteem = findViewById(R.id.checkBoxLowSelfEsteem);
+        checkBoxList.add(checkBoxLowSelfEsteem);
         checkBoxGuilty = findViewById(R.id.checkBoxGuilty);
+        checkBoxList.add(checkBoxGuilty);
         checkBoxFear = findViewById(R.id.checkBoxFear);
+        checkBoxList.add(checkBoxFear);
         checkBoxConfusion = findViewById(R.id.checkBoxConfusion);
+        checkBoxList.add(checkBoxConfusion);
         checkBoxHopeless = findViewById(R.id.checkBoxHopeless);
+        checkBoxList.add(checkBoxHopeless);
         checkBoxAgitation = findViewById(R.id.checkBoxAgitation);
+        checkBoxList.add(checkBoxAgitation);
         checkBoxLackOfMotivation = findViewById(R.id.checkBoxLackOfMotivation);
+        checkBoxList.add(checkBoxLackOfMotivation);
         checkBoxIrritability = findViewById(R.id.checkBoxIrritability);
+        checkBoxList.add(checkBoxIrritability);
         checkBoxCrying = findViewById(R.id.checkBoxCrying);
+        checkBoxList.add(checkBoxCrying);
         checkBoxLowEnergy = findViewById(R.id.checkBoxLowEnergy);
+        checkBoxList.add(checkBoxLowEnergy);
         checkBoxNervousness = findViewById(R.id.checkBoxNervousness);
+        checkBoxList.add(checkBoxNervousness);
         checkBoxSelfHarming = findViewById(R.id.checkBoxSelfHarming);
+        checkBoxList.add(checkBoxSelfHarming);
         checkBoxHelpless = findViewById(R.id.checkBoxHelpless);
+        checkBoxList.add(checkBoxHelpless);
         checkBoxConcentrateProblem = findViewById(R.id.checkBoxConcentrateProblem);
+        checkBoxList.add(checkBoxConcentrateProblem);
 
         checkboxWeightFluctuations = findViewById(R.id.checkboxWeightFluctuations);
+        checkBoxList.add(checkboxWeightFluctuations);
         checkboxLackOfEnergy = findViewById(R.id.checkboxLackOfEnergy);
+        checkBoxList.add(checkboxLackOfEnergy);
         checkboxInsomnia = findViewById(R.id.checkboxInsomnia);
+        checkBoxList.add(checkboxInsomnia);
         checkboxMusclePain = findViewById(R.id.checkboxMusclePain);
+        checkBoxList.add(checkboxMusclePain);
         checkboxLowSexDrive = findViewById(R.id.checkboxLowSexDrive);
+        checkBoxList.add(checkboxLowSexDrive);
         checkboxSleepiness = findViewById(R.id.checkboxSleepiness);
+        checkBoxList.add(checkboxSleepiness);
         checkboxAppetiteFluctuations = findViewById(R.id.checkboxAppetiteFluctuations);
+        checkBoxList.add(checkboxAppetiteFluctuations);
         checkBoxIsolation = findViewById(R.id.checkBoxIsolation);
+        checkBoxList.add(checkBoxIsolation);
         checkBoxHobbyNeglet = findViewById(R.id.checkBoxHobbyNeglet);
+        checkBoxList.add(checkBoxHobbyNeglet);
         checkBoxComunicationLow = findViewById(R.id.checkBoxComunicationLow);
+        checkBoxList.add(checkBoxComunicationLow);
         checkBoxLifeProblem = findViewById(R.id.checkBoxLifeProblem);
+        checkBoxList.add(checkBoxLifeProblem);
         checkBoxComunicationProblem = findViewById(R.id.checkBoxComunicationProblem);
+        checkBoxList.add(checkBoxComunicationProblem);
         saveSymptomps = findViewById(R.id.saveEmotions);
         Drawable drawableUnchecked = ContextCompat.getDrawable(this, R.drawable.transparent_checked);
         Drawable drawableChecked = ContextCompat.getDrawable(this, R.drawable.rounder_border);
@@ -138,717 +242,37 @@ public class ReportActivity extends AppCompatActivity {
                     .child(userId)
                     .child("symptomps");
 
+
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
+
+
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String jsonSymptoms = dataSnapshot.getValue(String.class);
-                    if (jsonSymptoms != null) {
-                        try {
-                            JSONArray jsonArray = new JSONArray(jsonSymptoms);
-                            symptomsList = new ArrayList<>();
-                            if (symptomsList != null)
-                                symptomsList.clear();
 
-
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                String symptom = jsonArray.getString(i);
-                                symptomsList.add(symptom);
-                            }
-
-                            if (symptomsList.contains(checkBoxSadness.getText().toString()))
-                                checkBoxSadness.setBackground(drawableChecked);
-                            else
-                                checkBoxSadness.setBackground(drawableUnchecked);
-                            if (symptomsList.contains(checkBoxLowSelfEsteem.getText().toString()))
-                                checkBoxLowSelfEsteem.setBackground(drawableChecked);
-                            else
-                                checkBoxLowSelfEsteem.setBackground(drawableUnchecked);
-                            if (symptomsList.contains(checkBoxGuilty.getText().toString()))
-                                checkBoxGuilty.setBackground(drawableChecked);
-                            else
-                                checkBoxGuilty.setBackground(drawableUnchecked);
-                            if (symptomsList.contains(checkBoxFear.getText().toString()))
-                                checkBoxFear.setBackground(drawableChecked);
-                            else
-                                checkBoxFear.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxConfusion.getText().toString()))
-                                checkBoxConfusion.setBackground(drawableChecked);
-                            else
-                                checkBoxConfusion.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxHopeless.getText().toString()))
-                                checkBoxHopeless.setBackground(drawableChecked);
-                            else
-                                checkBoxHopeless.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxAgitation.getText().toString()))
-                                checkBoxAgitation.setBackground(drawableChecked);
-                            else
-                                checkBoxAgitation.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxLackOfMotivation.getText().toString()))
-                                checkBoxLackOfMotivation.setBackground(drawableChecked);
-                            else
-                                checkBoxLackOfMotivation.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxIrritability.getText().toString()))
-                                checkBoxIrritability.setBackground(drawableChecked);
-                            else
-                                checkBoxIrritability.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxCrying.getText().toString()))
-                                checkBoxCrying.setBackground(drawableChecked);
-                            else
-                                checkBoxCrying.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxLowEnergy.getText().toString()))
-                                checkBoxLowEnergy.setBackground(drawableChecked);
-                            else
-                                checkBoxLowEnergy.setBackground(drawableUnchecked);
-                            if (symptomsList.contains(checkBoxNervousness.getText().toString()))
-                                checkBoxNervousness.setBackground(drawableChecked);
-                            else
-                                checkBoxNervousness.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxSelfHarming.getText().toString()))
-                                checkBoxSelfHarming.setBackground(drawableChecked);
-                            else
-                                checkBoxSelfHarming.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxHelpless.getText().toString()))
-                                checkBoxHelpless.setBackground(drawableChecked);
-                            else
-                                checkBoxHelpless.setBackground(drawableUnchecked);
-                            if (symptomsList.contains(checkBoxConcentrateProblem.getText().toString()))
-                                checkBoxConcentrateProblem.setBackground(drawableChecked);
-                            else
-                                checkBoxConcentrateProblem.setBackground(drawableUnchecked);
-                            if (symptomsList.contains(checkboxWeightFluctuations.getText().toString()))
-                                checkboxWeightFluctuations.setBackground(drawableChecked);
-                            else
-                                checkboxWeightFluctuations.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkboxLackOfEnergy.getText().toString()))
-                                checkboxLackOfEnergy.setBackground(drawableChecked);
-                            else
-                                checkboxLackOfEnergy.setBackground(drawableUnchecked);
-
-
-                            if (symptomsList.contains(checkboxInsomnia.getText().toString()))
-                                checkboxInsomnia.setBackground(drawableChecked);
-                            else
-                                checkboxInsomnia.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkboxMusclePain.getText().toString()))
-                                checkboxMusclePain.setBackground(drawableChecked);
-                            else
-                                checkboxMusclePain.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkboxLowSexDrive.getText().toString()))
-                                checkboxLowSexDrive.setBackground(drawableChecked);
-                            else
-                                checkboxLowSexDrive.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkboxSleepiness.getText().toString()))
-                                checkboxSleepiness.setBackground(drawableChecked);
-                            else
-                                checkboxSleepiness.setBackground(drawableUnchecked);
-                            if (symptomsList.contains(checkboxAppetiteFluctuations.getText().toString()))
-                                checkboxAppetiteFluctuations.setBackground(drawableChecked);
-                            else
-                                checkboxAppetiteFluctuations.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxIsolation.getText().toString()))
-                                checkBoxIsolation.setBackground(drawableChecked);
-                            else
-                                checkBoxIsolation.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxHobbyNeglet.getText().toString()))
-                                checkBoxHobbyNeglet.setBackground(drawableChecked);
-                            else
-                                checkBoxHobbyNeglet.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxComunicationLow.getText().toString()))
-                                checkBoxComunicationLow.setBackground(drawableChecked);
-                            else
-                                checkBoxComunicationLow.setBackground(drawableUnchecked);
-
-
-                            if (symptomsList.contains(checkBoxLifeProblem.getText().toString()))
-                                checkBoxLifeProblem.setBackground(drawableChecked);
-                            else
-                                checkBoxLifeProblem.setBackground(drawableUnchecked);
-
-                            if (symptomsList.contains(checkBoxComunicationProblem.getText().toString()))
-                                checkBoxComunicationProblem.setBackground(drawableChecked);
-                            else
-                                checkBoxComunicationProblem.setBackground(drawableUnchecked);
-
-                            //ACTUALIZARE
-                            // Convertim lista actualizată într-un șir JSON
-//                            JSONArray updatedJsonArray = new JSONArray(symptomsList);
+                    loadJson(dataSnapshot);
+                    colorSaved(drawableUnchecked,drawableChecked);
+                    updateSymptom(drawableUnchecked,drawableChecked);
 //
-//                            // Salvăm lista actualizată înapoi în baza de date Firebase
-//                            databaseReference.setValue(updatedJsonArray.toString())
-//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void aVoid) {
-//                                            // Operatia de salvare a reusit
-//                                            Log.d("Firebase", "Updated symptoms saved successfully");
-//                                        }
-//                                    })
-//                                    .addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                            // Operatia de salvare a esuat
-//                                            Log.e("Firebase", "Failed to save updated symptoms", e);
-//                                        }
-//                                    });
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
+
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
-                    Log.e("FirebaseError", "Error fetching data", databaseError.toException());
                 }
             });
+
+
         }
 
 
-        checkBoxSadness.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxSadness.getText().toString())) {
 
-                        symptomsList.remove(checkBoxSadness.getText().toString());
-                        checkBoxSadness.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxSadness.getText().toString());
-                        checkBoxSadness.setBackground(drawableChecked);
-
-
-                    }
-                }
-
-            }
-        });
-
-
-        checkBoxLowSelfEsteem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxLowSelfEsteem.getText().toString())) {
-
-                        symptomsList.remove(checkBoxLowSelfEsteem.getText().toString());
-                        checkBoxLowSelfEsteem.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxLowSelfEsteem.getText().toString());
-                        checkBoxLowSelfEsteem.setBackground(drawableChecked);
-
-
-                    }
-
-                }
-            }
-        });
-
-        checkBoxGuilty.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) {
-                    if (symptomsList.contains(checkBoxGuilty.getText().toString())) {
-
-                        symptomsList.remove(checkBoxGuilty.getText().toString());
-                        checkBoxGuilty.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxGuilty.getText().toString());
-                        checkBoxGuilty.setBackground(drawableChecked);
-
-
-                    }
-
-                }
-
-            }
-        });
-        checkBoxFear.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) {
-                    if (symptomsList.contains(checkBoxFear.getText().toString())) {
-
-                        symptomsList.remove(checkBoxFear.getText().toString());
-                        checkBoxFear.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxFear.getText().toString());
-                        checkBoxFear.setBackground(drawableChecked);
-
-
-                    }
-
-                }
-            }
-        });
-
-        checkBoxConfusion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) {
-                    if (symptomsList.contains(checkBoxConfusion.getText().toString())) {
-
-                        symptomsList.remove(checkBoxConfusion.getText().toString());
-                        checkBoxConfusion.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxConfusion.getText().toString());
-                        checkBoxConfusion.setBackground(drawableChecked);
-
-
-                    }
-                }
-            }
-        });
-
-        checkBoxHopeless.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxHopeless.getText().toString())) {
-
-                        symptomsList.remove(checkBoxHopeless.getText().toString());
-                        checkBoxHopeless.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxHopeless.getText().toString());
-                        checkBoxHopeless.setBackground(drawableChecked);
-
-
-                    }
-                }
-            }
-        });
-
-        checkBoxAgitation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxAgitation.getText().toString())) {
-
-                        symptomsList.remove(checkBoxAgitation.getText().toString());
-                        checkBoxAgitation.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxAgitation.getText().toString());
-                        checkBoxAgitation.setBackground(drawableChecked);
-
-
-                    }
-
-                }
-            }
-        });
-
-        checkBoxLackOfMotivation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxLackOfMotivation.getText().toString())) {
-
-                        symptomsList.remove(checkBoxLackOfMotivation.getText().toString());
-                        checkBoxLackOfMotivation.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxLackOfMotivation.getText().toString());
-                        checkBoxLackOfMotivation.setBackground(drawableChecked);
-
-
-                    }
-
-                }
-            }
-        });
-        checkBoxIrritability.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) {
-                    if (symptomsList.contains(checkBoxIrritability.getText().toString())) {
-
-                        symptomsList.remove(checkBoxIrritability.getText().toString());
-                        checkBoxIrritability.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxIrritability.getText().toString());
-                        checkBoxIrritability.setBackground(drawableChecked);
-
-
-                    }
-                }
-            }
-        });
-
-        checkBoxCrying.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxCrying.getText().toString())) {
-
-                        symptomsList.remove(checkBoxCrying.getText().toString());
-                        checkBoxCrying.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxCrying.getText().toString());
-                        checkBoxCrying.setBackground(drawableChecked);
-
-
-                    }
-
-                }
-            }
-        });
-
-        checkBoxLowEnergy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxLowEnergy.getText().toString())) {
-
-                        symptomsList.remove(checkBoxLowEnergy.getText().toString());
-                        checkBoxLowEnergy.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxLowEnergy.getText().toString());
-                        checkBoxLowEnergy.setBackground(drawableChecked);
-                    }
-                }
-            }
-        });
-
-        checkBoxNervousness.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxNervousness.getText().toString())) {
-
-                        symptomsList.remove(checkBoxNervousness.getText().toString());
-                        checkBoxNervousness.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxNervousness.getText().toString());
-                        checkBoxNervousness.setBackground(drawableChecked);
-                    }
-                }
-            }
-        });
-
-        checkBoxSelfHarming.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-
-                if (b) {
-                    if (symptomsList.contains(checkBoxSelfHarming.getText().toString())) {
-
-                        symptomsList.remove(checkBoxSelfHarming.getText().toString());
-                        checkBoxSelfHarming.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxSelfHarming.getText().toString());
-                        checkBoxSelfHarming.setBackground(drawableChecked);
-                    }
-                }
-
-            }
-        });
-        checkBoxHelpless.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) {
-                    if (symptomsList.contains(checkBoxHelpless.getText().toString())) {
-
-                        symptomsList.remove(checkBoxHelpless.getText().toString());
-                        checkBoxHelpless.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxHelpless.getText().toString());
-                        checkBoxHelpless.setBackground(drawableChecked);
-                    }
-
-                }
-            }
-        });
-
-        checkBoxConcentrateProblem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) {
-                    if (symptomsList.contains(checkBoxConcentrateProblem.getText().toString())) {
-
-                        symptomsList.remove(checkBoxConcentrateProblem.getText().toString());
-                        checkBoxConcentrateProblem.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkBoxConcentrateProblem.getText().toString());
-                        checkBoxConcentrateProblem.setBackground(drawableChecked);
-                    }
-                }
-            }
-        });
-
-
-        checkboxWeightFluctuations.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkboxWeightFluctuations.getText().toString())) {
-
-                        symptomsList.remove(checkboxWeightFluctuations.getText().toString());
-                        checkboxWeightFluctuations.setBackground(drawableUnchecked);
-
-
-                    } else {
-                        symptomsList.add(checkboxWeightFluctuations.getText().toString());
-                        checkboxWeightFluctuations.setBackground(drawableChecked);
-                    }
-
-                }
-            }
-        });
-
-
-        checkboxLackOfEnergy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkboxLackOfEnergy.getText().toString())) {
-
-                        symptomsList.remove(checkboxLackOfEnergy.getText().toString());
-                        checkboxLackOfEnergy.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkboxLackOfEnergy.getText().toString());
-                        checkboxLackOfEnergy.setBackground(drawableChecked);
-                    }
-
-                }
-            }
-        });
-
-
-        checkboxInsomnia.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkboxInsomnia.getText().toString())) {
-
-                        symptomsList.remove(checkboxInsomnia.getText().toString());
-                        checkboxInsomnia.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkboxInsomnia.getText().toString());
-                        checkboxInsomnia.setBackground(drawableChecked);
-                    }
-                }
-            }
-        });
-
-        checkboxMusclePain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkboxMusclePain.getText().toString())) {
-
-                        symptomsList.remove(checkboxMusclePain.getText().toString());
-                        checkboxMusclePain.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkboxMusclePain.getText().toString());
-                        checkboxMusclePain.setBackground(drawableChecked);
-                    }
-                }
-            }
-        });
-
-        checkboxLowSexDrive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkboxLowSexDrive.getText().toString())) {
-
-                        symptomsList.remove(checkboxLowSexDrive.getText().toString());
-                        checkboxLowSexDrive.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkboxLowSexDrive.getText().toString());
-                        checkboxLowSexDrive.setBackground(drawableChecked);
-                    }
-                }
-            }
-        });
-
-        checkboxSleepiness.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkboxSleepiness.getText().toString())) {
-
-                        symptomsList.remove(checkboxSleepiness.getText().toString());
-                        checkboxSleepiness.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkboxSleepiness.getText().toString());
-                        checkboxSleepiness.setBackground(drawableChecked);
-                    }
-
-                }
-            }
-        });
-
-        checkboxAppetiteFluctuations.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkboxAppetiteFluctuations.getText().toString())) {
-
-                        symptomsList.remove(checkboxAppetiteFluctuations.getText().toString());
-                        checkboxAppetiteFluctuations.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkboxAppetiteFluctuations.getText().toString());
-                        checkboxAppetiteFluctuations.setBackground(drawableChecked);
-                    }
-
-
-                }
-            }
-        });
-
-        checkBoxIsolation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxIsolation.getText().toString())) {
-
-                        symptomsList.remove(checkBoxIsolation.getText().toString());
-                        checkBoxIsolation.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkBoxIsolation.getText().toString());
-                        checkBoxIsolation.setBackground(drawableChecked);
-                    }
-
-                }
-            }
-        });
-        checkBoxHobbyNeglet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxHobbyNeglet.getText().toString())) {
-
-                        symptomsList.remove(checkBoxHobbyNeglet.getText().toString());
-                        checkBoxHobbyNeglet.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkBoxHobbyNeglet.getText().toString());
-                        checkBoxHobbyNeglet.setBackground(drawableChecked);
-                    }
-
-                }
-            }
-        });
-
-        checkBoxComunicationLow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxComunicationLow.getText().toString())) {
-
-                        symptomsList.remove(checkBoxComunicationLow.getText().toString());
-                        checkBoxComunicationLow.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkBoxComunicationLow.getText().toString());
-                        checkBoxComunicationLow.setBackground(drawableChecked);
-                    }
-
-                }
-            }
-        });
-
-        checkBoxLifeProblem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxLifeProblem.getText().toString())) {
-
-                        symptomsList.remove(checkBoxLifeProblem.getText().toString());
-                        checkBoxLifeProblem.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkBoxLifeProblem.getText().toString());
-                        checkBoxLifeProblem.setBackground(drawableChecked);
-                    }
-
-                }
-            }
-        });
-
-        checkBoxComunicationProblem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (symptomsList.contains(checkBoxComunicationProblem.getText().toString())) {
-
-                        symptomsList.remove(checkBoxComunicationProblem.getText().toString());
-                        checkBoxComunicationProblem.setBackground(drawableUnchecked);
-
-                    } else {
-                        symptomsList.add(checkBoxComunicationProblem.getText().toString());
-                        checkBoxComunicationProblem.setBackground(drawableChecked);
-                    }
-
-                }
-            }
-        });
 
         saveSymptomps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveSymptomsToFirebase();
-                startActivity(new Intent(ReportActivity.this,MainMenu.class));
+                startActivity(new Intent(ReportActivity.this, MainMenu.class));
             }
 
             private void saveSymptomsToFirebase() {
@@ -861,8 +285,20 @@ public class ReportActivity extends AppCompatActivity {
                             .child(userId)
                             .child("symptomps");
 
-                    JSONArray jsonArray = new JSONArray(ReportActivity.this.symptomsList);
-                    databaseReference.setValue(jsonArray.toString())
+                    JSONArray symptoms = new JSONArray();
+                    for (Symptom symptom : symptomsList) {
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("name", symptom.getName());
+                            jsonObject.put("date", symptom.getDate());
+                            symptoms.put(jsonObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    //JSONArray jsonArray = new JSONArray(ReportActivity.this.symptomsList);
+                    databaseReference.setValue(symptoms.toString())
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -872,7 +308,7 @@ public class ReportActivity extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    // Operatia de salvare a esuat
+
                                     Log.e("Firebase", "Failed to save symptoms", e);
                                 }
                             });
@@ -882,4 +318,5 @@ public class ReportActivity extends AppCompatActivity {
 
 
     }
+
 }
