@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class changePasswordLoginActivity extends AppCompatActivity {
     private Button resetPasswordButton;
@@ -24,7 +25,7 @@ public class changePasswordLoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private String strEmail;
-
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,17 @@ public class changePasswordLoginActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtForgotPasswordEmail);
         progressBar = findViewById(R.id.forgetPasswordProgressbar);
         mAuth = FirebaseAuth.getInstance();
+
+        firebaseUser = mAuth.getCurrentUser();
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 strEmail = edtEmail.getText().toString().trim();
-                if (!TextUtils.isEmpty(strEmail)) {
+                String emailUserDatabase= firebaseUser.getEmail();
+                if(!strEmail.equals(emailUserDatabase))
+                    Toast.makeText(changePasswordLoginActivity.this, "Adresa de email introdusa nu este aceeasi cu cea a contului", Toast.LENGTH_LONG).show();
+
+                else  if (!TextUtils.isEmpty(strEmail)) {
                     ResetPassword();
                 } else {
                     edtEmail.setError("Email field can't be empty");

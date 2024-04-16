@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:padding="10dp"
-                    android:text="Inaltime"
+                    android:text="Inaltime (cm)"
                     android:layout_marginLeft="10dp"
                     android:textAlignment="gravity"
                     android:textColor="@color/blue"
@@ -181,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:padding="10dp"
-                    android:text="Greutate"
+                    android:text="Greutate (kg)"
                     android:layout_marginLeft="10dp"
                     android:textAlignment="gravity"
                     android:textColor="@color/blue"
@@ -240,6 +240,7 @@
                     android:textStyle="bold" />
 
 
+
                 <!--            <EditText-->
                 <!--                android:layout_width="100dp"-->
                 <!--                android:layout_height="30dp"-->
@@ -267,6 +268,38 @@
                     app:layout_constraintStart_toStartOf="parent"
 
                     />
+
+
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:text="Email"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:textAlignment="gravity"-->
+<!--                    android:textColor="@color/blue"-->
+<!--                    android:textSize="20dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    />-->
+
+
+<!--                <EditText-->
+<!--                    android:id="@+id/email"-->
+<!--                    android:layout_width="300dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:background="@drawable/custom_edittext"-->
+<!--                    android:clickable="false"-->
+<!--                    android:cursorVisible="false"-->
+<!--                    android:drawablePadding="8dp"-->
+<!--                    android:focusable="false"-->
+<!--                    android:focusableInTouchMode="false"-->
+<!--                    android:padding="8dp"-->
+<!--                    android:textColor="@color/blue" />-->
+
 
                 <Button
                     android:id="@+id/save_button"

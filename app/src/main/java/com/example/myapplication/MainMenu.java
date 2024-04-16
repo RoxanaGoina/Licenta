@@ -6,6 +6,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
+
+import android.os.Handler;
+import android.view.MotionEvent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
@@ -13,20 +19,28 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class MainMenu extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    ActionBarDrawerToggle drawerToggle;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle drawerToggle;
 
-    ImageView imageView;
+    private ImageView imageView;
+    private Button anxietyButton;
+
+    private boolean isAnimating = false;
+    private Animation scaleUpAnimation;
+    private Animation scaleDownAnimation;
+    private TextView wellBeingText;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(drawerToggle.onOptionsItemSelected(item)){
+        if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -36,21 +50,19 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-//        ActionBar actionBar = getSupportActionBar();
+        anxietyButton = findViewById(R.id.anxietyButton);
+        wellBeingText = findViewById(R.id.wellBeingchecked);
         int backgroundColor = ContextCompat.getColor(this, R.color.white);
         int colorBlack = ContextCompat.getColor(this, R.color.black);
-       // navigationView.setItemIconTintList(ColorStateList.valueOf(colorBlack));
 
 
-
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        imageView=findViewById(R.id.imageMenu);
+        imageView = findViewById(R.id.imageMenu);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -62,39 +74,35 @@ public class MainMenu extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-      //  this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       // this.getSupportActionBar().setHomeButtonEnabled(true);
+        //  this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // this.getSupportActionBar().setHomeButtonEnabled(true);
         navigationView.setBackgroundColor(backgroundColor);
-      //  navigationView.setItemTextColor(backgroundColor);
-         navigationView.setItemIconTintList(ColorStateList.valueOf(colorBlack));
+        //  navigationView.setItemTextColor(backgroundColor);
+        navigationView.setItemIconTintList(ColorStateList.valueOf(colorBlack));
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId()==R.id.account)
-                {
-                  //  Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
+                if (item.getItemId() == R.id.account) {
+                    //  Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainMenu.this, MyAccountActivity.class));
                 }
-                if (item.getItemId()==R.id.tests)
-                {
+                if (item.getItemId() == R.id.tests) {
                     //Toast.makeText(MainMenu.this, "Test" ,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainMenu.this, TestsActivity.class));
 
                 }
-                if(item.getItemId()==R.id.diary){
+                if (item.getItemId() == R.id.diary) {
                     startActivity(new Intent(MainMenu.this, Diary_Activity.class));
 
                 }
-                if (item.getItemId()==R.id.report)
-                {
+                if (item.getItemId() == R.id.report) {
                     //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainMenu.this, ReportActivity.class));
 
                 }
-                if (item.getItemId()==R.id.historic)
-                {
+                if (item.getItemId() == R.id.historic) {
                     //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainMenu.this, HistoricActivity.class));
 
@@ -105,21 +113,18 @@ public class MainMenu extends AppCompatActivity {
 //                    startActivity(new Intent(MainMenu.this, NewsActivity.class));
 //
 //                }
-                if (item.getItemId()==R.id.result)
-                {
+                if (item.getItemId() == R.id.result) {
                     //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainMenu.this, ResultActivity.class));
 
                 }
 
-                if (item.getItemId()==R.id.appoitnemet)
-                {
+                if (item.getItemId() == R.id.appoitnemet) {
                     //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainMenu.this, AppointnementActivity.class));
 
                 }
-                if (item.getItemId()==R.id.logout)
-                {
+                if (item.getItemId() == R.id.logout) {
                     //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainMenu.this, LoginActivity.class));
 
@@ -127,15 +132,72 @@ public class MainMenu extends AppCompatActivity {
                 return false;
             }
         });
+
+
+        scaleUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scaledowntransition);
+        scaleDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scaleuptransition);
+
+        anxietyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isAnimating) {
+                    anxietyButton.clearAnimation();
+                    isAnimating = false;
+                } else {
+                    anxietyButton.startAnimation(scaleUpAnimation);
+                    isAnimating = true;
+                    wellBeingText.setText("Inspira");
+                }
+            }
+        });
+
+        scaleUpAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (isAnimating) {
+                    anxietyButton.startAnimation(scaleDownAnimation);
+                    wellBeingText.setText("Expira");
+                } else {
+                    wellBeingText.setText("Cum te simti azi?");
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+
+// Listener pentru animația de micșorare
+        scaleDownAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (isAnimating) {
+                    anxietyButton.startAnimation(scaleUpAnimation);
+                    wellBeingText.setText("Inspira");
+                } else {
+                    wellBeingText.setText("Cum te simti azi?");
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
     }
-        @Override
-        public void onBackPressed() {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                drawerLayout.closeDrawer(GravityCompat.START);
-
-            } else
-                super.onBackPressed();
-        }
 
 
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+        } else
+            super.onBackPressed();
     }
+
+
+}

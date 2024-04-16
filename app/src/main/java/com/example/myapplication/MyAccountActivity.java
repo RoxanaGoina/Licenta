@@ -32,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,6 +67,7 @@ public class MyAccountActivity extends AppCompatActivity {
     private Button saveButton;
 
     private TextView changePasswordRedirectText;
+    private EditText email;
 
 
     @Override
@@ -83,7 +85,7 @@ public class MyAccountActivity extends AppCompatActivity {
         IMC = findViewById(R.id.imc);
         saveButton = findViewById(R.id.save_button);
         changePasswordRedirectText = findViewById(R.id.changePasswordRedirectText);
-
+        //email = findViewById(R.id.email);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_item);
@@ -218,6 +220,7 @@ public class MyAccountActivity extends AppCompatActivity {
                         if (pozitie != -1) {
                             yearSpinner.setSelection(pozitie);
                         }
+
                         int PHQScore = userSnapshot.child("phqscore").getValue(int.class);
                         int GADScore = userSnapshot.child("gadscore").getValue(int.class);
                         String userName = username;
@@ -247,6 +250,8 @@ public class MyAccountActivity extends AppCompatActivity {
                     String userEmail = user.getEmail();
                     String text = name.getText().toString();
                     String cnp = CNP.getText().toString();
+
+
                     String gender = spinner.getSelectedItem().toString();
                     String DOB = dp1.getText().toString();
                     String userHeight = height.getText().toString();
@@ -255,7 +260,7 @@ public class MyAccountActivity extends AppCompatActivity {
                     symbols.setDecimalSeparator('.');
                     DecimalFormat df = new DecimalFormat("#.##", symbols);
                     String year = yearSpinner.getSelectedItem().toString();
-
+                    //String emailUser=email.getText().toString();
                     double imc = Double.parseDouble(userWeight) / (Math.pow(Double.parseDouble(userHeight) / 100, 2));
 
 
@@ -264,22 +269,35 @@ public class MyAccountActivity extends AppCompatActivity {
 
                     double imcFromFormatted = Double.parseDouble(imcFormatted);
 
-                    if (gender.equals("Feminin"))
-                        database.child("username").child(userId).child("sex").setValue(false);
-                    else
-                        database.child("username").child(userId).child("sex").setValue(true);
-                    database.child("username").child(userId).child("name").setValue(text);
-                    database.child("username").child(userId).child("cnp").setValue(cnp);
-                    database.child("username").child(userId).child("dateOfBirth").setValue(DOB);
-                    database.child("username").child(userId).child("height").setValue(Double.parseDouble(userHeight));
-                    database.child("username").child(userId).child("weight").setValue(Double.parseDouble(userWeight));
-                    database.child("username").child(userId).child("imc").setValue(imcFromFormatted);
-                    database.child("username").child(userId).child("yearOfStudy").setValue(Integer.parseInt(year));
 
+
+                    if(checks(cnp,text)) {
+                        startActivity(new Intent(MyAccountActivity.this, MainMenu.class));
+
+
+                        if (gender.equals("Feminin"))
+                            database.child("username").child(userId).child("sex").setValue(false);
+                        else
+                            database.child("username").child(userId).child("sex").setValue(true);
+                        // database.child("username").child(userId).child("email").setValue(emailUser);
+
+                        database.child("username").child(userId).child("name").setValue(text);
+                        database.child("username").child(userId).child("cnp").setValue(cnp);
+                        database.child("username").child(userId).child("dateOfBirth").setValue(DOB);
+                        database.child("username").child(userId).child("height").setValue(Double.parseDouble(userHeight));
+                        database.child("username").child(userId).child("weight").setValue(Double.parseDouble(userWeight));
+                        database.child("username").child(userId).child("imc").setValue(imcFromFormatted);
+                        database.child("username").child(userId).child("yearOfStudy").setValue(Integer.parseInt(year));
+                    }
+                    else{
+                        Toast.makeText(MyAccountActivity.this, "Introdu date valide", Toast.LENGTH_SHORT).show();
+
+
+                    }
 
                 }
 
-                startActivity(new Intent(MyAccountActivity.this, MainMenu.class));
+
             }
         });
 
@@ -287,10 +305,12 @@ public class MyAccountActivity extends AppCompatActivity {
 
 
             public void onClick(View v) {
-                String userEmail = firebaseUseruser.getEmail();
-                if (!TextUtils.isEmpty(userEmail)) {
-                    ResetPassword(userEmail);
-                }
+//                String userEmail = firebaseUseruser.getEmail();
+//                if (!TextUtils.isEmpty(userEmail)) {
+//                    ResetPassword(userEmail);
+//                }
+//                Intent intent = new Intent(MyAccountActivity.this, changePasswordLoginActivity.class);
+                startActivity(new Intent(MyAccountActivity.this,changePasswordLoginActivity.class));
             }
 
             private void ResetPassword(String userEmail) {
@@ -311,14 +331,16 @@ public class MyAccountActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(MyAccountActivity.this, "Error :- " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
                             }
                         });
-
-
             }
         });
+    }
+    public boolean checks(String CNP,String name){
+        String containsDigit= StringUtils.getDigits(name);
+        if(CNP.length()==13 && containsDigit.isEmpty() && containsDigit!=null)
+            return true;
 
-
+        return false;
     }
 }
