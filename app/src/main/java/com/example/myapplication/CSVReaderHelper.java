@@ -1,63 +1,52 @@
 package com.example.myapplication;
 
-import android.content.Context;
-import android.util.Log;
-
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class CSVReaderHelper {
-    private String fileName;
+    public static void main(String[] args) {
+        try {
+            // Read CSV file
+            BufferedReader reader = new BufferedReader(new FileReader("depression_anxiety_data.csv"));
+            String line;
+            List<String[]> rows = new ArrayList<>();
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+                rows.add(values);
+            }
+            reader.close();
 
-    public CSVReaderHelper(String fileName) {
-        this.fileName = fileName;
+            // Print first few rows
+            int numRowsToPrint = 5;
+            for (int i = 0; i < numRowsToPrint && i < rows.size(); i++) {
+                System.out.println(Arrays.toString(rows.get(i)));
+            }
+
+            // Length of dataframe
+            System.out.println("Length of dataframe: " + rows.size());
+
+            // Data types
+            String[] firstRow = rows.get(0);
+            System.out.println("Data types:");
+            for (String value : firstRow) {
+                if (isNumeric(value)) {
+                    System.out.println("Numeric");
+                } else {
+                    System.out.println("String");
+                }
+            }
+
+            // Column names
+            System.out.println("Column names:");
+            for (int i = 0; i < firstRow.length; i++) {
+                System.out.println("Column " + i + ": " + firstRow[i]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    public CSVReaderHelper(){}
 
-    public String getFileName() {
-        return fileName;
+    private static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");
     }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-//    public static List<HeartRace> readHeartRateCSV(Context context, String fileName) {
-//        List<HeartRace> dataList = new ArrayList<>();
-//
-//        try {
-//            InputStream inputStream = context.getAssets().open(fileName);
-//            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-//
-//            // Use the older CSVReader class
-//            CSVReader csvReader = new CSVReader(inputStreamReader);
-//
-//
-//            String[] nextLine;
-//            while ((nextLine = csvReader.readNext()) != null) {
-//                // Assuming the CSV format is "yyyy-MM-dd HH:mm:ssZ, heartRate"
-//                if (nextLine.length >= 2) {
-//                    String dateTime = nextLine[0];
-//                    Integer heartRate = Integer.parseInt(nextLine[1]);  // Parse as Integer
-////
-////                    HeartRace heartRateData = new HeartRace(heartRate,dateTime);
-////                    dataList.add(heartRateData);
-////                }
-////            }
-////
-////        } catch (IOException | NumberFormatException e) {
-////            Log.e("CSVReaderHelper", "Error reading CSV file: " + e.getMessage());
-////            e.printStackTrace();
-////        } catch (CsvValidationException e) {
-////            throw new RuntimeException(e);
-////        }
-////
-////        return dataList;
-////    }
 }

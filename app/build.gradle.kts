@@ -1,7 +1,10 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    id("com.chaquo.python")
+
 }
+
 android {
     namespace = "com.example.myapplication"
     compileSdk = 33
@@ -13,6 +16,10 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            //
+            abiFilters += listOf("arm64-v8a", "x86_64","armeabi-v7a")
+        }
         packagingOptions {
             exclude("META-INF/DEPENDENCIES")
             exclude("META-INF/LICENSE")
