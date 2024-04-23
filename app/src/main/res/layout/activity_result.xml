@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <CheckBox
-                        android:id="@+id/checkBoxAnxiety"
+                        android:id="@+id/checkBoxAnxietyFeeling"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Anxietate"
@@ -74,6 +74,7 @@
                         android:buttonTint="@color/black"
                         android:layout_marginLeft="15dp"
                         android:textSize="20dp"
+                        android:id="@+id/checkBoxSuicideAttemp"
                         android:textColorHint="@color/black"
                         android:text="Dorinte/Tentative de sinucidere"
                         android:textColor="@color/blue"
@@ -82,11 +83,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/blue"
-                        android:id="@+id/radioButtonDepression"
+                        android:id="@+id/checkBoxDepressionDiagnosis"
                         android:textColorHint="@color/black"
                         android:buttonTint="@color/black"
                         android:layout_marginLeft="15dp"
                         android:textSize="20dp"
+
                         android:text="Diagnosticul de depresie"
 
                         />
@@ -96,6 +98,7 @@
                         android:layout_height="wrap_content"
                         android:text="Tratament pentru depresie"
                         android:textColor="@color/blue"
+                        android:id="@+id/checkBoxDepressionTreatment"
                         android:textSize="20dp"
                         android:buttonTint="@color/black"
                         android:layout_marginLeft="15dp"
@@ -106,6 +109,7 @@
                         android:layout_height="wrap_content"
                         android:text="Diagnostic de anxietate"
                         android:textSize="20dp"
+                        android:id="@+id/checkBoxAnxietyDiagnosis"
                         android:textColor="@color/blue"
                         android:buttonTint="@color/black"
                         android:layout_marginLeft="15dp"
@@ -116,6 +120,7 @@
                         android:text="Tratament pentru anxietate"
                         android:textColor="@color/blue"
                         android:textSize="20dp"
+                        android:id="@+id/checkBoxAnxietyTreatment"
                         android:buttonTint="@color/black"
                         android:layout_marginLeft="15dp"
                         />
@@ -131,6 +136,7 @@
                     android:layout_gravity="center"
                     android:backgroundTint="@color/blue"
                     android:text="Afisare rezultat"
+                    android:id="@+id/showResult"
                     android:textColor="@color/white"
                     android:textSize="25dp"
                     android:layout_margin="20dp"

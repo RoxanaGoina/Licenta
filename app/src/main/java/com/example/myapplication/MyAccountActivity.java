@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static org.apache.commons.lang3.time.DateUtils.parseDate;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,6 +42,11 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,6 +76,7 @@ public class MyAccountActivity extends AppCompatActivity {
     private TextView changePasswordRedirectText;
     private EditText email;
 
+    private final String DatabaseURL="https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +93,6 @@ public class MyAccountActivity extends AppCompatActivity {
         IMC = findViewById(R.id.imc);
         saveButton = findViewById(R.id.save_button);
         changePasswordRedirectText = findViewById(R.id.changePasswordRedirectText);
-        //email = findViewById(R.id.email);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_item);
@@ -174,7 +181,7 @@ public class MyAccountActivity extends AppCompatActivity {
         FirebaseUser firebaseUseruser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUseruser != null) {
             String userEmail = firebaseUseruser.getEmail();
-            DatabaseReference usersRef = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("username");
+            DatabaseReference usersRef = FirebaseDatabase.getInstance(DatabaseURL).getReference().child("username");
             Query query = usersRef.orderByChild("email").equalTo(userEmail);
 
             query.addValueEventListener(new ValueEventListener() {
@@ -242,63 +249,12 @@ public class MyAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    String userId = user.getUid();
-                    DatabaseReference database = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app").getReference();
-                    String userEmail = user.getEmail();
-                    String text = name.getText().toString();
-                    String cnp = CNP.getText().toString();
-
-
-                    String gender = spinner.getSelectedItem().toString();
-                    String DOB = dp1.getText().toString();
-                    String userHeight = height.getText().toString();
-                    String userWeight = weight.getText().toString();
-                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-                    symbols.setDecimalSeparator('.');
-                    DecimalFormat df = new DecimalFormat("#.##", symbols);
-                    String year = yearSpinner.getSelectedItem().toString();
-                    //String emailUser=email.getText().toString();
-                    double imc = Double.parseDouble(userWeight) / (Math.pow(Double.parseDouble(userHeight) / 100, 2));
-
-
-                    String imcFormatted = df.format(imc);
-
-
-                    double imcFromFormatted = Double.parseDouble(imcFormatted);
-
-
-
-                    if(checks(cnp,text)) {
-                        startActivity(new Intent(MyAccountActivity.this, MainMenu.class));
-
-
-                        if (gender.equals("Feminin"))
-                            database.child("username").child(userId).child("sex").setValue(false);
-                        else
-                            database.child("username").child(userId).child("sex").setValue(true);
-                        // database.child("username").child(userId).child("email").setValue(emailUser);
-
-                        database.child("username").child(userId).child("name").setValue(text);
-                        database.child("username").child(userId).child("cnp").setValue(cnp);
-                        database.child("username").child(userId).child("dateOfBirth").setValue(DOB);
-                        database.child("username").child(userId).child("height").setValue(Double.parseDouble(userHeight));
-                        database.child("username").child(userId).child("weight").setValue(Double.parseDouble(userWeight));
-                        database.child("username").child(userId).child("imc").setValue(imcFromFormatted);
-                        database.child("username").child(userId).child("yearOfStudy").setValue(Integer.parseInt(year));
-                    }
-                    else{
-                        Toast.makeText(MyAccountActivity.this, "Introdu date valide", Toast.LENGTH_SHORT).show();
-
-
-                    }
+                saveIntoDatabase();
 
                 }
 
 
-            }
+
         });
 
         changePasswordRedirectText.setOnClickListener(new View.OnClickListener() {
@@ -335,6 +291,83 @@ public class MyAccountActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    public void saveIntoDatabase(){
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference database = FirebaseDatabase.getInstance(DatabaseURL).getReference();
+            String userEmail = user.getEmail();
+            String text = name.getText().toString();
+            String cnp = CNP.getText().toString();
+
+
+            String gender = spinner.getSelectedItem().toString();
+            String DOB = dp1.getText().toString();
+            String userHeight = height.getText().toString();
+            String userWeight = weight.getText().toString();
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+            symbols.setDecimalSeparator('.');
+            DecimalFormat df = new DecimalFormat("#.##", symbols);
+            String year = yearSpinner.getSelectedItem().toString();
+            double imc = Double.parseDouble(userWeight) / (Math.pow(Double.parseDouble(userHeight) / 100, 2));
+
+
+            String imcFormatted = df.format(imc);
+
+
+            double imcFromFormatted = Double.parseDouble(imcFormatted);
+            LocalDate today = LocalDate.now();
+
+            LocalDate birthDate = parseDate(DOB);
+            Period period = Period.between(birthDate, today);
+            int age = period.getYears();
+
+
+
+
+            if(checks(cnp,text)) {
+                startActivity(new Intent(MyAccountActivity.this, MainMenu.class));
+
+
+                if (gender.equals("Feminin"))
+                    database.child("username").child(userId).child("sex").setValue(false);
+                else
+                    database.child("username").child(userId).child("sex").setValue(true);
+                // database.child("username").child(userId).child("email").setValue(emailUser);
+
+
+                database.child("username").child(userId).child("name").setValue(text);
+                database.child("username").child(userId).child("cnp").setValue(cnp);
+                database.child("username").child(userId).child("dateOfBirth").setValue(DOB);
+                database.child("username").child(userId).child("height").setValue(Double.parseDouble(userHeight));
+                database.child("username").child(userId).child("weight").setValue(Double.parseDouble(userWeight));
+                database.child("username").child(userId).child("imc").setValue(imcFromFormatted);
+                database.child("username").child(userId).child("yearOfStudy").setValue(Integer.parseInt(year));
+                database.child("username").child(userId).child("age").setValue(age);
+
+            }
+            else{
+                Toast.makeText(MyAccountActivity.this, "Introdu date valide", Toast.LENGTH_SHORT).show();
+
+
+            }
+
+        }
+
+    }
+
+
+    public static LocalDate parseDate(String dateStr) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+            return LocalDate.parse(dateStr, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("Invalid date format", dateStr, 0);
+        }
     }
     public boolean checks(String CNP,String name){
         String containsDigit= StringUtils.getDigits(name);
