@@ -23,7 +23,7 @@
           android:title="Istoric"
           android:icon="@drawable/medical_report_menu"/>
 
-        <!--          android:icon="@drawable/symptoms_menu"/>-->
+
 <!--      <item android:id="@+id/news"-->
 <!--          android:title="Ce e nou?"-->
 <!--          android:icon="@drawable/news_menu"/>-->

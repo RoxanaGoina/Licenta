@@ -83,4 +83,8 @@ public class TestsActivity extends AppCompatActivity {
             }
         });
     }
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
+    }
 }

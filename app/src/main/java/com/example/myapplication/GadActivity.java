@@ -1084,4 +1084,8 @@ public class GadActivity extends AppCompatActivity {
             });
 
     }
+    public void onBackPressed() {
+        Intent intent = new Intent(this, TestsActivity.class);
+        startActivity(intent);
+    }
 }

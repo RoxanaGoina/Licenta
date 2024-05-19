@@ -18,4 +18,16 @@
         <item name="android:textColor">#333333</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <string-array name="type_array">
+        <item>Online</item>
+        <item>Fizic</item>
+    </string-array>
+
+    <string-array name="category_array">
+        <item>Psiholog</item>
+        <item>Psihiatru</item>
+        <item>Psihoterapeut</item>
+    </string-array>
+    <string name="type_prompt">Select Type</string>
 </resources>

@@ -173,8 +173,8 @@ public class PhqActivity extends AppCompatActivity {
                     isFirstQuestionSelected = false;
                     firstQuestionAtAll.setSelected(false);
                     if(firstQuestionAtAll.isSelected()==false) {
-                        String message = "Butonul nu este selectat!";
-                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+//                        String message = "Butonul nu este selectat!";
+//                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                     }
                 }
 //
@@ -1367,6 +1367,11 @@ public class PhqActivity extends AppCompatActivity {
 
         });
 
+
+    }
+    public void onBackPressed() {
+        Intent intent = new Intent(this, TestsActivity.class);
+        startActivity(intent);
     }
 
 }

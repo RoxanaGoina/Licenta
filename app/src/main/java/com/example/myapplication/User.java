@@ -22,11 +22,32 @@ public class User {
     private List<Symptom> symptomps;
 
     private List<DiaryPage> pages;
+    private List<Appointment> appointments;
 
     private int sleepScore;
 
     private int sleepHours;
     private int heartBeat;
+
+    public User(String email, String name, String CNP, boolean sex, String dateOfBirth, double height, double weight, double IMC, int yearOfStudy, int PHQScore, int GADScore, List<Symptom> symptomps, List<DiaryPage> pages, List<Appointment> appointments, int sleepScore, int sleepHours, int heartBeat) {
+        this.email = email;
+        this.name = name;
+        this.CNP = CNP;
+        this.sex = sex;
+        this.dateOfBirth = dateOfBirth;
+        this.height = height;
+        this.weight = weight;
+        this.IMC = IMC;
+        this.yearOfStudy = yearOfStudy;
+        this.PHQScore = PHQScore;
+        this.GADScore = GADScore;
+        this.symptomps = symptomps;
+        this.pages = pages;
+        this.appointments = appointments;
+        this.sleepScore = sleepScore;
+        this.sleepHours = sleepHours;
+        this.heartBeat = heartBeat;
+    }
 
     public User(){}
     public User(String email, String name, String CNP, boolean sex, String dateOfBirth, double height, double weight, double IMC, int yearOfStudy, int PHQScore, int GADScore, List<Symptom> symptomps, List<DiaryPage> pages, int sleepScore, int sleepHours, int heartBeat) {
@@ -46,6 +67,14 @@ public class User {
         this.sleepScore = sleepScore;
         this.sleepHours = sleepHours;
         this.heartBeat = heartBeat;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
     public String getEmail() {

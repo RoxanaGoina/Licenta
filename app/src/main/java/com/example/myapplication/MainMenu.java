@@ -24,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainMenu extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -33,6 +35,7 @@ public class MainMenu extends AppCompatActivity {
     private ImageView imageView;
     private Button anxietyButton;
 
+    private FirebaseAuth firebaseAuth;
     private boolean isAnimating = false;
     private Animation scaleUpAnimation;
     private Animation scaleDownAnimation;
@@ -54,7 +57,7 @@ public class MainMenu extends AppCompatActivity {
         wellBeingText = findViewById(R.id.wellBeingchecked);
         int backgroundColor = ContextCompat.getColor(this, R.color.white);
         int colorBlack = ContextCompat.getColor(this, R.color.black);
-
+        firebaseAuth=FirebaseAuth.getInstance();
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -125,8 +128,11 @@ public class MainMenu extends AppCompatActivity {
 
                 }
                 if (item.getItemId() == R.id.logout) {
+                    firebaseAuth.signOut();
                     //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
+
                     startActivity(new Intent(MainMenu.this, LoginActivity.class));
+
 
                 }
                 return false;
@@ -187,6 +193,10 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onAnimationRepeat(Animation animation) {}
         });
+    }
+
+    private void logoutFromAuth() {
+
     }
 
 

@@ -1,9 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AppointnementActivity">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/cute_blue"
+    tools:context=".AppointmentActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:cardBackgroundColor="@color/purple_200"
+        app:cardElevation="15dp"
+        app:cardCornerRadius="20dp"
+        app:contentPadding="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Programări"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:id="@+id/textViewAppointments" />
+    </androidx.cardview.widget.CardView>
+
+    <ScrollView
+        android:layout_marginTop="70dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginBottom="30dp"
+        >
+        <LinearLayout
+            android:id="@+id/appoitnemetList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="Adauga programare"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:id="@+id/addAppointment"
+        android:background="@color/teal_700" />
+    />
+
+</LinearLayout>

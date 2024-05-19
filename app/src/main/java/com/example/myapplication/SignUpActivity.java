@@ -54,6 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
         today = LocalDate.now();
         List<Symptom> symptomList = new ArrayList<>();
         List<DiaryPage> dairyPage=new ArrayList<>();
+        List<Appointment> appointments=new ArrayList<>();
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 if (user != null) {
                                     String userId = user.getUid();
                                     //TestObject testObject = new TestObject("Incerc", "Sa vad daca merge");
-                                    User newUser=new User(username,"","",false,"",0,0,0,0,0,0,symptomList,dairyPage,0,0,0);
+                                    User newUser=new User(username,"","",false,"",0,0,0,0,0,0,symptomList,dairyPage,appointments,0,0,0);
                                     database = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app").getReference();
                                     database.child("username").child(userId).setValue(newUser);
                                     //JSONArray jsonArray = new JSONArray(list);
@@ -113,9 +114,24 @@ public class SignUpActivity extends AppCompatActivity {
                                              e.printStackTrace();
                                          }
                                     }
+                                    JSONArray jsonArrayForAppointments=new JSONArray();
+                                    for(Appointment appointment: appointments){
+                                        JSONObject jsonObject=new JSONObject();
+                                        try {
+                                            jsonObject.put("category", "");
+                                            jsonObject.put("date","");
+                                            jsonObject.put("type","");
+                                            jsonObject.put("adress","");
+                                            jsonArrayForAppointments.put(jsonObject);
+                                        }
+                                        catch(JSONException e){
+                                            e.printStackTrace();
+                                            }
+                                    }
                                     database.child("username").child(userId).child("symptomps").setValue(symptoms.toString());
                                     String json = jsonArrayForJournal.toString();
                                     database.child("username").child(userId).child("dairyPages").setValue(json);
+                                    database.child("username").child(userId).child("appointments").setValue(jsonArrayForAppointments.toString());
 
                                 }
                                 else {
