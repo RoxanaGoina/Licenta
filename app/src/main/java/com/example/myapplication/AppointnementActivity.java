@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -12,9 +11,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -36,6 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -108,6 +109,7 @@ public class AppointnementActivity extends AppCompatActivity {
     private void displayAppointments(List<Appointment> appointmentList) {
         appointmentListView.removeAllViews();
         Date currentDate = new Date(); // Get the current date
+
         for (final Appointment appointment : appointmentList) {
             // Parse the appointment date
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
@@ -116,15 +118,6 @@ public class AppointnementActivity extends AppCompatActivity {
                 appointmentDate = dateFormat.parse(appointment.getDate());
             } catch (ParseException e) {
                 e.printStackTrace();
-            }
-
-            // Calculate time difference
-            long timeDifference = appointmentDate.getTime() - System.currentTimeMillis();
-            long oneHourInMillis = 60 * 60 * 1000; // 1 hour in milliseconds
-
-            // If time difference is less than or equal to 1 hour, show notification
-            if (timeDifference <= oneHourInMillis && timeDifference > 0) {
-                showNotification("Appointment Reminder", "You have an appointment in one hour.", this);
             }
 
             if (appointmentDate != null && appointmentDate.after(currentDate)) {
@@ -141,11 +134,17 @@ public class AppointnementActivity extends AppCompatActivity {
                 typeTextView.setText(appointment.getType());
                 addressTextView.setText(appointment.getAdress());
 
-                // Set OnLongClickListener for appointment item
+                appointmentView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        editAppointment(appointment);
+                    }
+                });
+
                 appointmentView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        showDeleteConfirmationDialog(appointment);
+                        createCalendarEvent(appointment);
                         return true;
                     }
                 });
@@ -154,6 +153,57 @@ public class AppointnementActivity extends AppCompatActivity {
                 appointmentListView.addView(appointmentView);
             }
         }
+    }
+
+    private void createCalendarEvent(Appointment appointment) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
+
+        String appointmentDateStr = appointment.getDate();
+        Date appointmentDate = new Date();
+        try {
+            appointmentDate = dateFormat.parse(appointmentDateStr);
+        } catch (ParseException e) {
+            Log.e("CalendarEvent", "Date parsing failed: " + appointmentDateStr, e);
+            Toast.makeText(this, "Invalid date format: " + appointmentDateStr, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        long startTime = appointmentDate.getTime();
+        long endTime = startTime + 60 * 60 * 1000;
+
+        DateFormat readableDateFormat = DateFormat.getDateTimeInstance();
+        Log.d("CalendarEvent", "Start Time (Readable): " + readableDateFormat.format(new Date(startTime)));
+        Log.d("CalendarEvent", "End Time (Readable): " + readableDateFormat.format(new Date(endTime)));
+
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.Events.TITLE, "Sedinta la " + appointment.getCategory())
+                .putExtra(CalendarContract.Events.EVENT_LOCATION, appointment.getAdress())
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime)
+                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime);
+
+        // Explicitly target Google Calendar
+        //intent.setClassName("com.android.calendar","com.android.calendar.AgendaActivity");
+
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            Log.e("CalendarEvent", "No calendar app found");
+            Toast.makeText(this, "No calendar app found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+    private void editAppointment(Appointment appointment) {
+        Intent intent = new Intent(AppointnementActivity.this, EditAppointmentActivity.class);
+        intent.putExtra("category", appointment.getCategory());
+        intent.putExtra("date", appointment.getDate());
+        intent.putExtra("type", appointment.getType());
+        intent.putExtra("address", appointment.getAdress());
+        startActivity(intent);
     }
 
     private void showDeleteConfirmationDialog(final Appointment appointment) {
@@ -227,48 +277,8 @@ public class AppointnementActivity extends AppCompatActivity {
         }
     }
 
-    private void showNotification(String title, String message, Context context) {
-        // Create a notification channel
-        createNotificationChannel(context);
 
-        // Create notification
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "appointment_channel")
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        // Create an explicit intent for an activity in your app
-        Intent intent = new Intent(context, AppointnementActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pendingIntent);
 
-        // Show notification
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        notificationManager.notify(1001, builder.build());
-    }
-
-    private void createNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Appointment Channel";
-            String description = "Channel for appointment notifications";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("appointment_channel", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
 }
 
