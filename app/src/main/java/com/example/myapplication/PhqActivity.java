@@ -1344,8 +1344,9 @@ public class PhqActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
                 }
             else {
+                    String severity= scoreRange(score);
+                    String message ="Scorul tău este: " +score+"\n "+ severity;
 
-                    String message ="Scorul tău este: " +score;
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null) {
@@ -1369,9 +1370,22 @@ public class PhqActivity extends AppCompatActivity {
 
 
     }
-    public void onBackPressed() {
-        Intent intent = new Intent(this, TestsActivity.class);
-        startActivity(intent);
-    }
 
+//    public void onBackPressed() {
+//        Intent intent = new Intent(this, TestsActivity.class);
+//        startActivity(intent);
+//    }
+
+    private String scoreRange(int score){
+        if(score >=0 && score <=4)
+            return "Nivel depresie : None - minimal";
+        else if (score >= 5 && score <= 9)
+            return "Nivel depresie : Usoara";
+        else if(score >=10 && score <=14)
+            return "Nivel depresie : Moderata";
+        else if (score >=15 && score <=19)
+            return "Nivel depresie : Moderat - Severa ";
+        else
+             return "Nivel depresie : Severa";
+    }
 }

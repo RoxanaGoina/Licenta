@@ -1062,8 +1062,9 @@ public class GadActivity extends AppCompatActivity {
                     }
 
                     else {
+                        String severity= scoreRange(score);
+                        String message ="Scorul tău este: " +score+"\n "+ severity;
 
-                        String message ="Scorul tău este: " +score;
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         if (user != null) {
@@ -1084,8 +1085,20 @@ public class GadActivity extends AppCompatActivity {
             });
 
     }
-    public void onBackPressed() {
-        Intent intent = new Intent(this, TestsActivity.class);
-        startActivity(intent);
+
+    private String scoreRange(int score) {
+        if(score >=0 && score <=4)
+            return "Nivel anxietate : Minim";
+        else if (score >= 5 && score <= 9)
+            return "Nivel anxietate : Usoara";
+        else if(score >=10 && score <=14)
+            return "Nivel anxietate : Moderata";
+
+        else
+            return "Nivel anxietate : Severa";
     }
+//    public void onBackPressed() {
+//        Intent intent = new Intent(this, TestsActivity.class);
+//        startActivity(intent);
+//    }
 }
