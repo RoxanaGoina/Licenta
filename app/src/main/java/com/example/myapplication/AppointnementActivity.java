@@ -153,7 +153,7 @@ public class AppointnementActivity extends AppCompatActivity {
                 appointmentView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        createCalendarEvent(appointment);
+                        showDeleteConfirmationDialog(appointment);
                         return true;
                     }
                 });

@@ -94,50 +94,51 @@ public class MyAccountActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.save_button);
         changePasswordRedirectText = findViewById(R.id.changePasswordRedirectText);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, R.layout.spinner_item);
-        adapter.setDropDownViewResource(R.layout.spinner_item);
-        spinner.setAdapter(adapter);
-
-        final boolean[] isSpinnerFirstSelection = {true};
-        final boolean[] isSpinnerFirstSelectionSecondSpinner = {true};
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (isSpinnerFirstSelection[0]) {
-                    isSpinnerFirstSelection[0] = false;
-                } else {
-                    TextView selectedTextView = (TextView) selectedItemView;
-                    selectedTextView.setTextColor(getResources().getColor(R.color.blue));
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-
-            }
-        });
-
-
-        ArrayAdapter<CharSequence> adapterSpinnerYear = ArrayAdapter.createFromResource(this, R.array.years, R.layout.spinner_for_years);
-        adapterSpinnerYear.setDropDownViewResource(R.layout.spinner_for_years);
-        yearSpinner.setAdapter(adapterSpinnerYear);
-
-        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (isSpinnerFirstSelectionSecondSpinner[0]) {
-                    isSpinnerFirstSelectionSecondSpinner[0] = false;
-                } else {
-                    TextView selectedTextView = parentView.getChildAt(0).findViewById(android.R.id.text2);
-                    selectedTextView.setTextColor(getResources().getColor(R.color.blue));
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-
-            }
-        });
+        spinnerSets();
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, R.layout.spinner_item);
+//        adapter.setDropDownViewResource(R.layout.spinner_item);
+//        spinner.setAdapter(adapter);
+//
+//        final boolean[] isSpinnerFirstSelection = {true};
+//        final boolean[] isSpinnerFirstSelectionSecondSpinner = {true};
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                if (isSpinnerFirstSelection[0]) {
+//                    isSpinnerFirstSelection[0] = false;
+//                } else {
+//                    TextView selectedTextView = (TextView) selectedItemView;
+//                    selectedTextView.setTextColor(getResources().getColor(R.color.blue));
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//
+//            }
+//        });
+//
+//
+//        ArrayAdapter<CharSequence> adapterSpinnerYear = ArrayAdapter.createFromResource(this, R.array.years, R.layout.spinner_for_years);
+//        adapterSpinnerYear.setDropDownViewResource(R.layout.spinner_for_years);
+//        yearSpinner.setAdapter(adapterSpinnerYear);
+//
+//        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                if (isSpinnerFirstSelectionSecondSpinner[0]) {
+//                    isSpinnerFirstSelectionSecondSpinner[0] = false;
+//                } else {
+//                    TextView selectedTextView = parentView.getChildAt(0).findViewById(android.R.id.text2);
+//                    selectedTextView.setTextColor(getResources().getColor(R.color.blue));
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//
+//            }
+//        });
 
         Calendar calendar = Calendar.getInstance();
 
@@ -183,56 +184,53 @@ public class MyAccountActivity extends AppCompatActivity {
             String userEmail = firebaseUseruser.getEmail();
             DatabaseReference usersRef = FirebaseDatabase.getInstance(DatabaseURL).getReference().child("username");
             Query query = usersRef.orderByChild("email").equalTo(userEmail);
-
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    loadDatabaseContent(dataSnapshot);
 
-
-                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                        String username = userSnapshot.child("name").getValue(String.class);
-                        name.setText(username);
-                        // String email= userSnapshot.child("email").getValue(String.class);
-
-                        String CNPDB = userSnapshot.child("cnp").getValue(String.class);
-                        CNP.setText(CNPDB);
-                        boolean sex = userSnapshot.child("sex").getValue(boolean.class);
-                        int position = sex ? 1 : 0;
-                        spinner.setSelection(position);
-                        if (sex) {
-                            spinner.setSelection(0);
-                        } else {
-                            spinner.setSelection(1);
-                        }
-                        String dateOfBirth = userSnapshot.child("dateOfBirth").getValue(String.class);
-
-                        dp1.setText(dateOfBirth);
-                        double userHeight = userSnapshot.child("height").getValue(double.class);
-                        height.setText(String.valueOf(userHeight));
-                        double userWeight = userSnapshot.child("weight").getValue(double.class);
-                        weight.setText(String.valueOf(userWeight));
-                        double imcUser = userSnapshot.child("imc").getValue(double.class);
-                        IMC.setText(String.valueOf(imcUser));
-                        int yearOfStudy = userSnapshot.child("yearOfStudy").getValue(int.class);
-                        String[] yearsArray = getResources().getStringArray(R.array.years);
-                        int pozitie = -1;
-                        for (int i = 0; i < yearsArray.length; i++) {
-                            if (Integer.parseInt(yearsArray[i]) == yearOfStudy) {
-                                pozitie = i;
-                                break;
-                            }
-                        }
-
-
-                        if (pozitie != -1) {
-                            yearSpinner.setSelection(pozitie);
-                        }
-
-                        int PHQScore = userSnapshot.child("phqscore").getValue(int.class);
-                        int GADScore = userSnapshot.child("gadscore").getValue(int.class);
-                        String userName = username;
-
-                    }
+//                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+//                        String username = userSnapshot.child("name").getValue(String.class);
+//                        name.setText(username);
+//                        String CNPDB = userSnapshot.child("cnp").getValue(String.class);
+//                        CNP.setText(CNPDB);
+//                        boolean sex = userSnapshot.child("sex").getValue(boolean.class);
+//                        int position = sex ? 1 : 0;
+//                        spinner.setSelection(position);
+//                        if (sex) {
+//                            spinner.setSelection(0);
+//                        } else {
+//                            spinner.setSelection(1);
+//                        }
+//                        String dateOfBirth = userSnapshot.child("dateOfBirth").getValue(String.class);
+//
+//                        dp1.setText(dateOfBirth);
+//                        double userHeight = userSnapshot.child("height").getValue(double.class);
+//                        height.setText(String.valueOf(userHeight));
+//                        double userWeight = userSnapshot.child("weight").getValue(double.class);
+//                        weight.setText(String.valueOf(userWeight));
+//                        double imcUser = userSnapshot.child("imc").getValue(double.class);
+//                        IMC.setText(String.valueOf(imcUser));
+//                        int yearOfStudy = userSnapshot.child("yearOfStudy").getValue(int.class);
+//                        String[] yearsArray = getResources().getStringArray(R.array.years);
+//                        int pozitie = -1;
+//                        for (int i = 0; i < yearsArray.length; i++) {
+//                            if (Integer.parseInt(yearsArray[i]) == yearOfStudy) {
+//                                pozitie = i;
+//                                break;
+//                            }
+//                        }
+//
+//
+//                        if (pozitie != -1) {
+//                            yearSpinner.setSelection(pozitie);
+//                        }
+//
+//                        int PHQScore = userSnapshot.child("phqscore").getValue(int.class);
+//                        int GADScore = userSnapshot.child("gadscore").getValue(int.class);
+//                        String userName = username;
+//
+//                    }
 
                 }
 
@@ -244,6 +242,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
 
         }
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,11 +260,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
 
             public void onClick(View v) {
-//                String userEmail = firebaseUseruser.getEmail();
-//                if (!TextUtils.isEmpty(userEmail)) {
-//                    ResetPassword(userEmail);
-//                }
-//                Intent intent = new Intent(MyAccountActivity.this, changePasswordLoginActivity.class);
+
                 startActivity(new Intent(MyAccountActivity.this,changePasswordLoginActivity.class));
             }
 
@@ -294,8 +289,6 @@ public class MyAccountActivity extends AppCompatActivity {
     }
 
     public void saveIntoDatabase(){
-
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
@@ -303,8 +296,6 @@ public class MyAccountActivity extends AppCompatActivity {
             String userEmail = user.getEmail();
             String text = name.getText().toString();
             String cnp = CNP.getText().toString();
-
-
             String gender = spinner.getSelectedItem().toString();
             String DOB = dp1.getText().toString();
             String userHeight = height.getText().toString();
@@ -314,31 +305,18 @@ public class MyAccountActivity extends AppCompatActivity {
             DecimalFormat df = new DecimalFormat("#.##", symbols);
             String year = yearSpinner.getSelectedItem().toString();
             double imc = Double.parseDouble(userWeight) / (Math.pow(Double.parseDouble(userHeight) / 100, 2));
-
-
             String imcFormatted = df.format(imc);
-
-
             double imcFromFormatted = Double.parseDouble(imcFormatted);
             LocalDate today = LocalDate.now();
-
             LocalDate birthDate = parseDate(DOB);
             Period period = Period.between(birthDate, today);
             int age = period.getYears();
-
-
-
-
             if(checks(cnp,text)) {
                 startActivity(new Intent(MyAccountActivity.this, MainMenu.class));
-
-
                 if (gender.equals("Feminin"))
                     database.child("username").child(userId).child("sex").setValue(false);
                 else
                     database.child("username").child(userId).child("sex").setValue(true);
-                // database.child("username").child(userId).child("email").setValue(emailUser);
-
 
                 database.child("username").child(userId).child("name").setValue(text);
                 database.child("username").child(userId).child("cnp").setValue(cnp);
@@ -353,14 +331,51 @@ public class MyAccountActivity extends AppCompatActivity {
             else{
                 Toast.makeText(MyAccountActivity.this, "Introdu date valide", Toast.LENGTH_SHORT).show();
 
-
             }
 
         }
 
     }
 
-
+    private void loadDatabaseContent(DataSnapshot dataSnapshot){
+        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+            String username = userSnapshot.child("name").getValue(String.class);
+            name.setText(username);
+            String CNPDB = userSnapshot.child("cnp").getValue(String.class);
+            CNP.setText(CNPDB);
+            boolean sex = userSnapshot.child("sex").getValue(boolean.class);
+            int position = sex ? 1 : 0;
+            spinner.setSelection(position);
+            if (sex) {
+                spinner.setSelection(0);
+            } else {
+                spinner.setSelection(1);
+            }
+            String dateOfBirth = userSnapshot.child("dateOfBirth").getValue(String.class);
+            dp1.setText(dateOfBirth);
+            double userHeight = userSnapshot.child("height").getValue(double.class);
+            height.setText(String.valueOf(userHeight));
+            double userWeight = userSnapshot.child("weight").getValue(double.class);
+            weight.setText(String.valueOf(userWeight));
+            double imcUser = userSnapshot.child("imc").getValue(double.class);
+            IMC.setText(String.valueOf(imcUser));
+            int yearOfStudy = userSnapshot.child("yearOfStudy").getValue(int.class);
+            String[] yearsArray = getResources().getStringArray(R.array.years);
+            int pozitie = -1;
+            for (int i = 0; i < yearsArray.length; i++) {
+                if (Integer.parseInt(yearsArray[i]) == yearOfStudy) {
+                    pozitie = i;
+                    break;
+                }
+            }
+            if (pozitie != -1) {
+                yearSpinner.setSelection(pozitie);
+            }
+            int PHQScore = userSnapshot.child("phqscore").getValue(int.class);
+            int GADScore = userSnapshot.child("gadscore").getValue(int.class);
+            String userName = username;
+        }
+    }
     public static LocalDate parseDate(String dateStr) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
@@ -373,7 +388,53 @@ public class MyAccountActivity extends AppCompatActivity {
         String containsDigit= StringUtils.getDigits(name);
         if(CNP.length()==13 && containsDigit.isEmpty() && containsDigit!=null)
             return true;
-
         return false;
+    }
+    public void spinnerSets(){
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner.setAdapter(adapter);
+
+        final boolean[] isSpinnerFirstSelection = {true};
+        final boolean[] isSpinnerFirstSelectionSecondSpinner = {true};
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (isSpinnerFirstSelection[0]) {
+                    isSpinnerFirstSelection[0] = false;
+                } else {
+                    TextView selectedTextView = (TextView) selectedItemView;
+                    selectedTextView.setTextColor(getResources().getColor(R.color.blue));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+        });
+
+
+        ArrayAdapter<CharSequence> adapterSpinnerYear = ArrayAdapter.createFromResource(this, R.array.years, R.layout.spinner_for_years);
+        adapterSpinnerYear.setDropDownViewResource(R.layout.spinner_for_years);
+        yearSpinner.setAdapter(adapterSpinnerYear);
+
+        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (isSpinnerFirstSelectionSecondSpinner[0]) {
+                    isSpinnerFirstSelectionSecondSpinner[0] = false;
+                } else {
+                    TextView selectedTextView = parentView.getChildAt(0).findViewById(android.R.id.text2);
+                    selectedTextView.setTextColor(getResources().getColor(R.color.blue));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+        });
+
     }
 }

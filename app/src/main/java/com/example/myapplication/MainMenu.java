@@ -32,6 +32,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,9 +55,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class MainMenu extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -70,9 +74,13 @@ public class MainMenu extends AppCompatActivity {
     private Animation scaleUpAnimation;
     private Animation scaleDownAnimation;
     private TextView wellBeingText;
+    private Handler handler = new Handler();
+    private Random random = new Random();
 
     private List<Appointment> appointmentList = new ArrayList<>();
     private  boolean isNotificationShown=false;
+    private List<Integer> heartRateData= new ArrayList<>();
+    private int currentIndex = 0;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -91,7 +99,7 @@ public class MainMenu extends AppCompatActivity {
         int backgroundColor = ContextCompat.getColor(this, R.color.white);
         int colorBlack = ContextCompat.getColor(this, R.color.black);
         firebaseAuth = FirebaseAuth.getInstance();
-
+        HeartRateView heartRateView = findViewById(R.id.heartRateView);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         imageView = findViewById(R.id.imageMenu);
@@ -102,6 +110,46 @@ public class MainMenu extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            String userId = firebaseUser.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app")
+                    .getReference()
+                    .child("heartBeat")
+                    .child(userId)
+                    .child("values");
+
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    loadHeartBeat(dataSnapshot);
+                    Log.d("heartBeats", heartRateData.toString());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (currentIndex < heartRateData.size()) {
+                                int newValue = heartRateData.get(currentIndex);
+                                heartRateView.addValue(newValue);
+                                currentIndex++;
+                                handler.postDelayed(this, 100);
+                            } else {
+                                // Reset the index to loop through the data again
+                                currentIndex = 0;
+                                handler.postDelayed(this, 100);
+                            }
+                        }
+                    }, 100);
+
+                }
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    System.err.println("Error fetching data: " + error.getMessage());
+                }
+            });
+        }
+
+
+
 
 
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
@@ -110,68 +158,12 @@ public class MainMenu extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-        //  this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // this.getSupportActionBar().setHomeButtonEnabled(true);
+
         navigationView.setBackgroundColor(backgroundColor);
-        //  navigationView.setItemTextColor(backgroundColor);
+
+
         navigationView.setItemIconTintList(ColorStateList.valueOf(colorBlack));
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.account) {
-                    //  Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainMenu.this, MyAccountActivity.class));
-                }
-                if (item.getItemId() == R.id.tests) {
-                    //Toast.makeText(MainMenu.this, "Test" ,Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainMenu.this, TestsActivity.class));
-
-                }
-                if (item.getItemId() == R.id.diary) {
-                    startActivity(new Intent(MainMenu.this, Diary_Activity.class));
-
-                }
-                if (item.getItemId() == R.id.report) {
-                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainMenu.this, ReportActivity.class));
-
-                }
-                if (item.getItemId() == R.id.historic) {
-                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainMenu.this, HistoricActivity.class));
-
-                }
-//                if (item.getItemId()==R.id.news)
-//                {
-//                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(MainMenu.this, NewsActivity.class));
-//
-//                }
-                if (item.getItemId() == R.id.result) {
-                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainMenu.this, ResultActivity.class));
-
-                }
-
-                if (item.getItemId() == R.id.appoitnemet) {
-                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainMenu.this, AppointnementActivity.class));
-
-                }
-                if (item.getItemId() == R.id.logout) {
-                    firebaseAuth.signOut();
-                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
-
-                    startActivity(new Intent(MainMenu.this, LoginActivity.class));
-
-
-                }
-                return false;
-            }
-        });
-
+        menu();
 
         scaleUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scaledowntransition);
         scaleDownAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scaleuptransition);
@@ -230,6 +222,7 @@ public class MainMenu extends AppCompatActivity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
+
     }
 
     private void logoutFromAuth() {
@@ -259,7 +252,7 @@ public class MainMenu extends AppCompatActivity {
                     .child("appointments");
 
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                Date currentDate = new Date(); // Get the current date
+                Date currentDate = new Date(); // Data curenta
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -286,6 +279,14 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null); // Remove callbacks when the activity is destroyed
+    }
+
+
     private void processAppointments(List<Appointment> appointmentList) throws  ParseException {
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
@@ -298,7 +299,6 @@ public class MainMenu extends AppCompatActivity {
             // Parse the appointment date and time
             Date appointmentDate = dateTimeFormat.parse(appointment.getDate());
 
-            // Format the appointment date to "dd.MM.yyyy" to compare only the date part
             String appointmentDateString = dateFormat.format(appointmentDate);
 
             if (appointmentDateString.equals(currentDateString) && !isNotificationShown) {
@@ -330,6 +330,65 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
+    private void menu() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected( MenuItem item) {
+                if (item.getItemId() == R.id.account) {
+                    //  Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainMenu.this, MyAccountActivity.class));
+                }
+                if (item.getItemId() == R.id.tests) {
+                    //Toast.makeText(MainMenu.this, "Test" ,Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainMenu.this, TestsActivity.class));
+
+                }
+                if (item.getItemId() == R.id.diary) {
+                    startActivity(new Intent(MainMenu.this, Diary_Activity.class));
+
+                }
+                if (item.getItemId() == R.id.report) {
+                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainMenu.this, ReportActivity.class));
+
+                }
+                if (item.getItemId() == R.id.historic) {
+                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainMenu.this, HistoricActivity.class));
+
+                }
+//                if (item.getItemId()==R.id.news)
+//                {
+//                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(MainMenu.this, NewsActivity.class));
+//
+//                }
+                if (item.getItemId() == R.id.result) {
+                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainMenu.this, ResultActivity.class));
+
+                }
+
+                if (item.getItemId() == R.id.appoitnemet) {
+                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainMenu.this, AppointnementActivity.class));
+
+                }
+                if (item.getItemId() == R.id.logout) {
+                    firebaseAuth.signOut();
+                    //Toast.makeText(MainMenu.this, "Account selected" ,Toast.LENGTH_SHORT).show();
+
+                    startActivity(new Intent(MainMenu.this, LoginActivity.class));
+
+
+                }
+                return false;
+            }
+        });
+
+
+    }
     public void fetchAppointments() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app")
                 .getReference()
@@ -368,6 +427,22 @@ public class MainMenu extends AppCompatActivity {
                     String address = jsonObject.getString("adress");
                     Appointment appointment = new Appointment(category, date, type, address);
                     appointmentList.add(appointment);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void loadHeartBeat(DataSnapshot dataSnapshot){
+        String json = dataSnapshot.getValue(String.class);
+
+        if (json != null) {
+            try {
+                JSONArray jsonArray = new JSONArray(json);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    Integer value = jsonObject.getInt("value");
+                    heartRateData.add(value);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
