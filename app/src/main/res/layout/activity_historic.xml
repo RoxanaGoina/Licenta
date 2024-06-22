@@ -43,6 +43,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/day1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -124,6 +125,8 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/day2"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -190,7 +193,9 @@
                 android:background="@color/white"
                 android:backgroundTint="@color/white"
                 app:cardCornerRadius="30dp"
+                android:id="@+id/day3"
                 app:cardElevation="15dp">
+
 
                 <TextView
                     android:layout_width="300dp"
@@ -248,7 +253,9 @@
                 android:background="@color/white"
                 android:backgroundTint="@color/white"
                 app:cardCornerRadius="30dp"
-                app:cardElevation="15dp">
+                app:cardElevation="15dp"
+                android:id="@+id/day4"
+                >
 
 
                 <TextView
@@ -308,7 +315,9 @@
                 android:background="@color/white"
                 android:backgroundTint="@color/white"
                 app:cardCornerRadius="30dp"
-                app:cardElevation="15dp">
+                app:cardElevation="15dp"
+                android:id="@+id/day5"
+                >
 
                 <TextView
                     android:layout_width="300dp"
@@ -370,7 +379,9 @@
                 android:background="@color/white"
                 android:backgroundTint="@color/white"
                 app:cardCornerRadius="30dp"
-                app:cardElevation="15dp">
+                app:cardElevation="15dp"
+                android:id="@+id/day6"
+                >
 
 
 
@@ -431,6 +442,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="15dp"
+                android:id="@+id/day7"
+
                 android:background="@color/white"
                 android:backgroundTint="@color/white"
                 app:cardCornerRadius="30dp"

@@ -93,6 +93,13 @@ public class ResultActivity extends AppCompatActivity {
                 sendPostRequest();
             }
         });
+        showResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View view) {
+                Toast.makeText(ResultActivity.this, "Rezultat diagnostic : Pozitiv", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void loadData(DataSnapshot dataSnapshot) {

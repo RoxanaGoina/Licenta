@@ -21,4 +21,10 @@
     <color name="light_to_close_lavender">#80677d</color>
     <color name="dark_grey">#C7C8CC</color>
     <color name="cute_blue">#81d5ff</color>
+    <color name="carmine">#960018</color>
+    <color name="normalRed">#FF2800</color>
+    <color name="imperialRed">#ED2939</color>
+    <color name="emerald">#50C878</color>
+    <color name="chartreuse">#00FF00</color>
+
 </resources>

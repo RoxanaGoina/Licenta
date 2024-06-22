@@ -158,7 +158,6 @@ public class AppointnementActivity extends AppCompatActivity {
                     }
                 });
 
-                // Add the appointment view to the LinearLayout
                 appointmentListView.addView(appointmentView);
             }
         }

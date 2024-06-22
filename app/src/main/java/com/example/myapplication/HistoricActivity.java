@@ -3,7 +3,10 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -23,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,9 +76,19 @@ public class HistoricActivity extends AppCompatActivity {
     private TextView heartRateDay7;
 
 
+    private CardView day1CardView;
+    private CardView day2CardView;
+    private CardView day3CardView;
+    private CardView day4CardView;
+    private CardView day5CardView;
+    private CardView day6CardView;
+    private CardView day7CardView;
+
+    private List<CardView> cardViewList = new ArrayList<>();
     FirebaseUser firebaseUser;
     private List<Symptom> symptomsList = new ArrayList<>();
     private List<SleepItem> sleepItemList = new ArrayList<>();
+    private List<TextView> sleepScores = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +122,34 @@ public class HistoricActivity extends AppCompatActivity {
         heartRateDay5 = findViewById(R.id.heartRateDay5);
         heartRateDay6 = findViewById(R.id.heartRateDay6);
         heartRateDay7 = findViewById(R.id.heartRateDay7);
+        day1CardView = findViewById(R.id.day1);
+        day2CardView = findViewById(R.id.day2);
+        day3CardView = findViewById(R.id.day3);
+        day4CardView = findViewById(R.id.day4);
+        day5CardView = findViewById(R.id.day5);
+        day6CardView = findViewById(R.id.day6);
+        day7CardView = findViewById(R.id.day7);
+        cardViewList.add(day1CardView);
+        cardViewList.add(day2CardView);
+        cardViewList.add(day3CardView);
+        cardViewList.add(day4CardView);
+        cardViewList.add(day5CardView);
+        cardViewList.add(day6CardView);
+        cardViewList.add(day7CardView);
+
+        sleepScores.add(scoreDay1);
+        sleepScores.add(scoreDay2);
+        sleepScores.add(scoreDay3);
+        sleepScores.add(scoreDay4);
+        sleepScores.add(scoreDay5);
+        sleepScores.add(scoreDay6);
+        sleepScores.add(scoreDay7);
 
 
         symptonFunction();
         sleepFunction();
         heartRateFunction();
+//        colorTheCardView();
 
     }
 
@@ -220,23 +257,29 @@ public class HistoricActivity extends AppCompatActivity {
             if (parsedDate.equals(today.minusDays(35))) {
                 sleepHourDay1.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay1.setText("Scorul somnului : " + sleepItem.getScoreSleep());
-
+                colorCardViews(sleepItem.getScoreSleep(),day1CardView);
             } else if (parsedDate.equals(today.minusDays(36))) {
                 sleepHourDay2.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay2.setText("Scorul somnului: " + sleepItem.getScoreSleep());
+                colorCardViews(sleepItem.getScoreSleep(),day2CardView);
             } else if (parsedDate.equals(today.minusDays(37))) {
                 sleepHourDay3.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay3.setText("Scorul somnului: " + sleepItem.getScoreSleep());
+                colorCardViews(sleepItem.getScoreSleep(),day3CardView);
             } else if (parsedDate.equals(today.minusDays(38))) {
                 sleepHourDay4.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay4.setText("Scorul somnului: " + sleepItem.getScoreSleep());
+                colorCardViews(sleepItem.getScoreSleep(),day4CardView);
             } else if (parsedDate.equals(today.minusDays(39))) {
                 sleepHourDay5.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay5.setText("Scorul somnului: " + sleepItem.getScoreSleep());
+                colorCardViews(sleepItem.getScoreSleep(),day5CardView);
             } else if (parsedDate.equals(today.minusDays(40))) {
+                colorCardViews(sleepItem.getScoreSleep(),day6CardView);
                 sleepHourDay6.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay6.setText("Scorul somnului: " + sleepItem.getScoreSleep());
             } else if (parsedDate.equals(today.minusDays(41))) {
+                colorCardViews(sleepItem.getScoreSleep(),day7CardView);
                 sleepHourDay7.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay7.setText("Scorul somnului: " + sleepItem.getScoreSleep());
             }
@@ -285,6 +328,7 @@ public class HistoricActivity extends AppCompatActivity {
                     simptomDay6.setText("Simptome: " + setDailySymptoms(symptomsList, 5));
                     simptomDay7.setText("Simptome: " + setDailySymptoms(symptomsList, 6));
                 }
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
@@ -308,6 +352,7 @@ public class HistoricActivity extends AppCompatActivity {
                     loadJsonFromCSV(snapshot);
                     setScoreAndSleepHours();
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
@@ -348,15 +393,67 @@ public class HistoricActivity extends AppCompatActivity {
                             heartRateDay7.setText("Puls mediu  : " + (int) scoreItem.getHeartRate());
                         }
                     }
+
+
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
             });
         }
     }
+
     public static double twoDecimals(double number) {
+
         return Math.floor(number * 100) / 100;
     }
+
+
+    private void colorCardViews(int score, CardView cardView) {
+        if (score < 85)
+            cardView.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.imperialRed));
+        else
+            cardView.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.chartreuse));
+
+    }
+
+//    private void colorTheCardView() {
+//        int size = Math.min(sleepScores.size(), cardViewList.size());
+//
+//        for (int i = 0; i < size; i++) {
+//            TextView textView = sleepScores.get(i);
+//            CardView cardView = cardViewList.get(i);
+//
+//            // Extrage textul din TextView
+//            String fullText = textView.getText().toString();
+//
+//            // Verifică dacă textul începe cu "Scorul somnului: "
+//            if (fullText.startsWith("Scorul somnului: ")) {
+//                try {
+//                    // Elimină "Scorul somnului: " din text pentru a rămâne doar cu partea numerică
+//                    String scoreText = fullText.replace("Scorul somnului: ", "");
+//
+//                    // Converteste scorul text in numar intreg
+//                    int score = Integer.parseInt(scoreText.trim());
+//
+//                    // Comparatie si setare culoare CardView
+//                    if (score < 85) {
+//                        cardView.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.purple_500));
+//                    } else {
+//                        cardView.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.emerald));
+//                    }
+//                } catch (NumberFormatException e) {
+//                    // În cazul în care conversia nu este posibilă, afișează un mesaj de eroare
+//                    Log.e("HistoricActivity", "NumberFormatException: " + e.getMessage());
+//                    // Poți gestiona eroarea sau continua cu următorul element
+//                }
+//            } else {
+//                // Dacă textul nu începe cu "Scorul somnului: ", poți să gestionezi eroarea sau să treci la următorul element
+//                Log.e("HistoricActivity", "Text format error: Expected 'Scorul somnului: '");
+//            }
+//        }
+//    }
+
 
 }

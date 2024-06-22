@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="230dp"
     android:padding="20dp"
     android:orientation="vertical"
     android:background="@drawable/menu_background"
-    android:gravity="bottom"
-    >
+    android:gravity="bottom">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        >
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:paddingTop="10dp"
+            android:text="Mind Health"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="87dp"
+            android:layout_height="83dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/brainstorm" />
+    </FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,9 +38,5 @@
         android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold" />
-
-
-
-
 
 </LinearLayout>
