@@ -95,50 +95,7 @@ public class MyAccountActivity extends AppCompatActivity {
         changePasswordRedirectText = findViewById(R.id.changePasswordRedirectText);
 
         spinnerSets();
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, R.layout.spinner_item);
-//        adapter.setDropDownViewResource(R.layout.spinner_item);
-//        spinner.setAdapter(adapter);
-//
-//        final boolean[] isSpinnerFirstSelection = {true};
-//        final boolean[] isSpinnerFirstSelectionSecondSpinner = {true};
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//                if (isSpinnerFirstSelection[0]) {
-//                    isSpinnerFirstSelection[0] = false;
-//                } else {
-//                    TextView selectedTextView = (TextView) selectedItemView;
-//                    selectedTextView.setTextColor(getResources().getColor(R.color.blue));
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) {
-//
-//            }
-//        });
-//
-//
-//        ArrayAdapter<CharSequence> adapterSpinnerYear = ArrayAdapter.createFromResource(this, R.array.years, R.layout.spinner_for_years);
-//        adapterSpinnerYear.setDropDownViewResource(R.layout.spinner_for_years);
-//        yearSpinner.setAdapter(adapterSpinnerYear);
-//
-//        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//                if (isSpinnerFirstSelectionSecondSpinner[0]) {
-//                    isSpinnerFirstSelectionSecondSpinner[0] = false;
-//                } else {
-//                    TextView selectedTextView = parentView.getChildAt(0).findViewById(android.R.id.text2);
-//                    selectedTextView.setTextColor(getResources().getColor(R.color.blue));
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) {
-//
-//            }
-//        });
+
 
         Calendar calendar = Calendar.getInstance();
 
@@ -189,48 +146,6 @@ public class MyAccountActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     loadDatabaseContent(dataSnapshot);
 
-//                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-//                        String username = userSnapshot.child("name").getValue(String.class);
-//                        name.setText(username);
-//                        String CNPDB = userSnapshot.child("cnp").getValue(String.class);
-//                        CNP.setText(CNPDB);
-//                        boolean sex = userSnapshot.child("sex").getValue(boolean.class);
-//                        int position = sex ? 1 : 0;
-//                        spinner.setSelection(position);
-//                        if (sex) {
-//                            spinner.setSelection(0);
-//                        } else {
-//                            spinner.setSelection(1);
-//                        }
-//                        String dateOfBirth = userSnapshot.child("dateOfBirth").getValue(String.class);
-//
-//                        dp1.setText(dateOfBirth);
-//                        double userHeight = userSnapshot.child("height").getValue(double.class);
-//                        height.setText(String.valueOf(userHeight));
-//                        double userWeight = userSnapshot.child("weight").getValue(double.class);
-//                        weight.setText(String.valueOf(userWeight));
-//                        double imcUser = userSnapshot.child("imc").getValue(double.class);
-//                        IMC.setText(String.valueOf(imcUser));
-//                        int yearOfStudy = userSnapshot.child("yearOfStudy").getValue(int.class);
-//                        String[] yearsArray = getResources().getStringArray(R.array.years);
-//                        int pozitie = -1;
-//                        for (int i = 0; i < yearsArray.length; i++) {
-//                            if (Integer.parseInt(yearsArray[i]) == yearOfStudy) {
-//                                pozitie = i;
-//                                break;
-//                            }
-//                        }
-//
-//
-//                        if (pozitie != -1) {
-//                            yearSpinner.setSelection(pozitie);
-//                        }
-//
-//                        int PHQScore = userSnapshot.child("phqscore").getValue(int.class);
-//                        int GADScore = userSnapshot.child("gadscore").getValue(int.class);
-//                        String userName = username;
-//
-//                    }
 
                 }
 
@@ -288,6 +203,12 @@ public class MyAccountActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *  functia salveaza datele utilizatorului in baza de date Firebase.
+     * se salveaza informații precum nume, CNP, sex, data de naștere, inalltime, greutate,
+     * IMC (indicele de masa corporal), anul de studiu si varsta utilizatorului.
+     *
+     */
     public void saveIntoDatabase(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -337,6 +258,15 @@ public class MyAccountActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * functia incarca datele utilizatorului dintr-un snapshot al bazei de date Firebase si le afiseaza in interfața utilizatorului.
+     * metoda seteaza in campurile corespunzătoare ale interfeței datele precum nume, CNP, sex, data  nasterii, inaltime,
+     * greutate, IMC, anul de studiu, scorurile PHQ și GAD.
+     *
+     * @param dataSnapshot Snapshot-ul datelor utilizatorului din baza de date Firebase.
+     */
+
+
     private void loadDatabaseContent(DataSnapshot dataSnapshot){
         for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
             String username = userSnapshot.child("name").getValue(String.class);
@@ -376,6 +306,13 @@ public class MyAccountActivity extends AppCompatActivity {
             String userName = username;
         }
     }
+    /**
+     * functia parseaza un  String reprezentand o data calendaristica in formatul "MM/dd/yy" într-un obiect  LocalDate.
+     *
+     * @param dateStr Stringul ce reprezintă data.
+     * @return Obiectul LocalDate parsat din Stringul specificat.
+
+     */
     public static LocalDate parseDate(String dateStr) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
@@ -384,12 +321,26 @@ public class MyAccountActivity extends AppCompatActivity {
             throw new DateTimeParseException("Invalid date format", dateStr, 0);
         }
     }
+
+    /**
+     *
+     * @param CNP - cnp-ul utilizatorului
+     * @param name - numele utilizatorului
+     * functia valideaza  sirurile de caractere introduse de catre utilizator in campurile destinate numelui si CNP-ului
+     * @return o valoare booleana, true daca numele nu contine cifre si daca CNP-ul are 13 caractere, false in caz contrar
+     */
     public boolean checks(String CNP,String name){
         String containsDigit= StringUtils.getDigits(name);
         if(CNP.length()==13 && containsDigit.isEmpty() && containsDigit!=null)
             return true;
         return false;
     }
+    /**
+     *  functia realizeaza configurarea spinner-elor pentru selecția genului și a anului universitar.
+     * spinner-ul pentru gen utilizează resursa R.array.gender pentru opțiuni.
+     * spinner-ul pentru ani utilizează resursa R.array.years pentru opțiuni.
+     * seteaza un listener pentru fiecare spinner pentru a detecta selectiile utilizatorului si a aplica modificari vizuale la selectia ulterioara.
+     */
     public void spinnerSets(){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_item);

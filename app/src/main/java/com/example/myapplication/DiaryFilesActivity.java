@@ -63,61 +63,15 @@ public class DiaryFilesActivity extends AppCompatActivity {
                     .child(userId)
                     .child("dairyPages");
 
-//            databaseReference.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    String jsonArray = dataSnapshot.getValue(String.class);
-//                    try {
-//                        JSONArray jsonArrayLocal = new JSONArray(jsonArray);
-//
-//                        // Iterate through the JSONArray to extract DiaryPage objects
-//                        for (int i = 0; i < jsonArrayLocal.length(); i++) {
-//                            JSONObject jsonDiaryPage = jsonArrayLocal.getJSONObject(i);
-//
-//                            DiaryPage diaryPage = new DiaryPage();
-//                           // diaryPage.setTitle(jsonDiaryPage.getString("title"));
-//                           // diaryPage.setContent(jsonDiaryPage.getString("content"));
-//                          //  diaryPage.setDate(LocalDate.now());
-//                         //   diaryPage.setEmailUser("");
-//
-//                            journal.add(diaryPage);
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-////
-////
-////
-////                    if (dataSnapshot.exists()) {
-////                        journal = new ArrayList<>();
-////                        DiaryPage jsonSymptoms = dataSnapshot.getValue(D.class);
-////
-////                        JSONArray jsonArray = new JSONArray(journal);
-////                        for (int i = 0; i < jsonArray.length(); i++) {
-////                            DiaryPage diaryPage = jsonArray.getValue(i);
-////                            journal.add(diaryPage);
-////                        }
-////
-////                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-////                            DiaryPage diaryPage = snapshot.getValue(DiaryPage.class);
-////                            journal.add(diaryPage);
-////                        }
-////                    }
-////
-////
-////
-////
-//                }
-//
-//                //
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
+
         }
     }
 
+
+    /**
+     * functia este utilizata pentru a salva o pagina de jurnal in interiorul bazei de date
+     * aceasta extrage continutul a doua EditTexte, creeaza un obiect de tip DiaryPage si il adauga in lista de diaruPage deja existenta; ulterior, se face o cerere asupra bazei de date si se actualizeaza lista in cadrul bazei de date
+     */
     public void saveNote() {
         String title = titleEditText.getText().toString();
         String content = contentEditText.getText().toString();

@@ -126,6 +126,13 @@ public class EditAppointmentActivity extends AppCompatActivity {
         return 0;
     }
 
+    /**
+     * afiseaza un selector de data si ora pentru ca utilizatorul să poată selecta o dată și o oră.
+     *
+     * se  creează un obiect `Calendar` pentru data și ora curenta.
+     * deschide un `DatePickerDialog` pentru selectarea datei.
+     * după ce utilizatorul a selectat data, deschide un `TimePickerDialog` pentru selectarea orei.;  ulterior dupa utilizatorul a selectat ora, actualizează un `EditText` cu data și ora selectată, formatată ca `dd.MM.yyyy HH:mm`.
+     */
     private void showDateTimePicker() {
         final Calendar currentDate = Calendar.getInstance();
         final Calendar date = Calendar.getInstance();
@@ -138,6 +145,19 @@ public class EditAppointmentActivity extends AppCompatActivity {
             }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), true).show();
         }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
     }
+
+
+
+    /**
+     * functia actualizează o programare existenta cu noile detalii introduse de utilizator.
+     *
+     *
+     * se obțin noile valori pentru categorie, dată, tip și adresă din elementele UI.
+     * are loc verificarea dacă tipul de programare este "Fizic" și dacă adresa este goală. Dacă da, afișează un mesaj de eroare și returnează.
+     * se realizeaza o cerere asupra bazei de date si se aduce din baza de date lista programarilor
+     *  se parcurge lista preluata din baza de date si se actualizeaza programarea; ulterior se salveaza lista modificata in baza de aate
+
+     */
 
     private void updateAppointment() {
         final String newCategory = categorySpinner.getSelectedItem().toString();

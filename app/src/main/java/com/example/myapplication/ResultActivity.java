@@ -1,6 +1,8 @@
 package com.example.myapplication;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -97,7 +99,15 @@ public class ResultActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View view) {
-                Toast.makeText(ResultActivity.this, "Rezultat diagnostic : Pozitiv", Toast.LENGTH_LONG).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(ResultActivity.this, "Rezultat diagnostic : Pozitiv", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(ResultActivity.this, MainMenu.class));
+
+                    }
+                }, 500); // Delay de 500 milisecunde
             }
         });
     }

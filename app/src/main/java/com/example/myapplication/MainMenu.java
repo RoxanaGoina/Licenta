@@ -147,11 +147,6 @@ public class MainMenu extends AppCompatActivity {
                 }
             });
         }
-
-
-
-
-
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,7 +202,6 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onAnimationStart(Animation animation) {
             }
-
             @Override
             public void onAnimationEnd(Animation animation) {
                 if (isAnimating) {
@@ -217,19 +211,12 @@ public class MainMenu extends AppCompatActivity {
                     wellBeingText.setText("Cum te simti azi?");
                 }
             }
-
             @Override
             public void onAnimationRepeat(Animation animation) {
             }
         });
 
     }
-
-    private void logoutFromAuth() {
-
-    }
-
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -263,10 +250,7 @@ public class MainMenu extends AppCompatActivity {
                     }catch (ParseException e){
                         e.printStackTrace();
                     }
-
-//
                 }
-
                 @Override
                 public void onCancelled(DatabaseError error) {
                     System.err.println("Error fetching data: " + error.getMessage());
@@ -286,6 +270,15 @@ public class MainMenu extends AppCompatActivity {
         handler.removeCallbacksAndMessages(null); // Remove callbacks when the activity is destroyed
     }
 
+
+
+    /**
+     * functia procesează o lista de programări pentru a verifica dacă trebuie să se afișeze o notificare pentru o programare curentă.
+     * verifica data si ora curenta comparandu-le cu fiecare programare din lista data. Dacă data programarii coincide cu data curenta
+     * si notificarea nu a fost incă afisata, se va afișa o notificare.
+     *
+     * @param appointmentList lista de obiecte Appointment ce conține toate programarile de verificat.
+     */
 
     private void processAppointments(List<Appointment> appointmentList) throws  ParseException {
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
@@ -329,6 +322,12 @@ public class MainMenu extends AppCompatActivity {
         }
 
     }
+    /**
+     * seteaza funcționalitatea pentru meniul de navigație.
+     * meniul contine optiuni pentru navigarea în diverse activitati ale aplicatiei.
+     * ofera funcționalitatea de a deschide activitati specifice in functie de elementul selectat din meniu.
+
+     */
 
     private void menu() {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -389,30 +388,34 @@ public class MainMenu extends AppCompatActivity {
 
 
     }
-    public void fetchAppointments() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app")
-                .getReference()
-                .child("appointments");
+//    public void fetchAppointments() {
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app")
+//                .getReference()
+//                .child("appointments");
+//
+//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                appointmentList.clear(); // Clear the list before adding new data
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    Appointment appointment = snapshot.getValue(Appointment.class);
+//                    appointmentList.add(appointment);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                System.err.println("Error fetching data: " + error.getMessage());
+//            }
+//        });
+//    }
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                appointmentList.clear(); // Clear the list before adding new data
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Appointment appointment = snapshot.getValue(Appointment.class);
-                    appointmentList.add(appointment);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                System.err.println("Error fetching data: " + error.getMessage());
-            }
-        });
-    }
-
-
+    /**
+     * incarca datele despre programari dintr-un obiect DataSnapshot al Firebase intr-o lista de obiecte Appointment.
+     *
+     * @param dataSnapshot Obiectul DataSnapshot care conține datele JSON despre programari.
+     */
     private void loadJson(DataSnapshot dataSnapshot) {
         String json = dataSnapshot.getValue(String.class);
         appointmentList = new ArrayList<>();
@@ -433,6 +436,12 @@ public class MainMenu extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * functia incarca datele despre puls dintr-un obiect DataSnapshot al Firebase intr-o lista de valori.
+     *
+     * @param dataSnapshot obiectul DataSnapshot care conține datele JSON despre puls.
+     */
     private void loadHeartBeat(DataSnapshot dataSnapshot){
         String json = dataSnapshot.getValue(String.class);
 

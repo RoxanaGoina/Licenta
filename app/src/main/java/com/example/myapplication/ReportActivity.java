@@ -172,6 +172,101 @@ public class ReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+        initializeElements();
+
+        Drawable drawableUnchecked = ContextCompat.getDrawable(this, R.drawable.transparent_checked);
+        Drawable drawableChecked = ContextCompat.getDrawable(this, R.drawable.rounder_border);
+
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            String userId = firebaseUser.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app")
+                    .getReference()
+                    .child("username")
+                    .child(userId)
+                    .child("symptomps");
+
+
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    loadJson(dataSnapshot);
+                    colorSaved(drawableUnchecked,drawableChecked);
+                    updateSymptom(drawableUnchecked,drawableChecked);
+//
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+        }
+
+
+
+        saveSymptomps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveSymptomsToFirebase();
+                startActivity(new Intent(ReportActivity.this, MainMenu.class));
+            }
+
+            private void saveSymptomsToFirebase() {
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (firebaseUser != null) {
+                    String userId = firebaseUser.getUid();
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app")
+                            .getReference()
+                            .child("username")
+                            .child(userId)
+                            .child("symptomps");
+
+                    JSONArray symptoms = new JSONArray();
+                    for (Symptom symptom : symptomsList) {
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("name", symptom.getName());
+                            jsonObject.put("date", symptom.getDate());
+                            symptoms.put(jsonObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    //JSONArray jsonArray = new JSONArray(ReportActivity.this.symptomsList);
+                    databaseReference.setValue(symptoms.toString())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("Firebase", "Symptoms saved successfully");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                    Log.e("Firebase", "Failed to save symptoms", e);
+                                }
+                            });
+                }
+            }
+        });
+
+
+    }
+
+    /**
+     * functia este utilizata pentru initializarea elementelor din fisierul XML
+     */
+    private void initializeElements(){
         checkBoxList=new ArrayList<>();
         checkBoxSadness = findViewById(R.id.checkBoxSadness);
         checkBoxList.add(checkBoxSadness);
@@ -229,94 +324,6 @@ public class ReportActivity extends AppCompatActivity {
         checkBoxComunicationProblem = findViewById(R.id.checkBoxComunicationProblem);
         checkBoxList.add(checkBoxComunicationProblem);
         saveSymptomps = findViewById(R.id.saveEmotions);
-        Drawable drawableUnchecked = ContextCompat.getDrawable(this, R.drawable.transparent_checked);
-        Drawable drawableChecked = ContextCompat.getDrawable(this, R.drawable.rounder_border);
-
-
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser != null) {
-            String userId = firebaseUser.getUid();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app")
-                    .getReference()
-                    .child("username")
-                    .child(userId)
-                    .child("symptomps");
-
-
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-
-
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    loadJson(dataSnapshot);
-                    colorSaved(drawableUnchecked,drawableChecked);
-                    updateSymptom(drawableUnchecked,drawableChecked);
-//
-
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-
-        }
-
-
-
-
-        saveSymptomps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveSymptomsToFirebase();
-                startActivity(new Intent(ReportActivity.this, MainMenu.class));
-            }
-
-            private void saveSymptomsToFirebase() {
-                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                if (firebaseUser != null) {
-                    String userId = firebaseUser.getUid();
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://licenta-87184-default-rtdb.europe-west1.firebasedatabase.app")
-                            .getReference()
-                            .child("username")
-                            .child(userId)
-                            .child("symptomps");
-
-                    JSONArray symptoms = new JSONArray();
-                    for (Symptom symptom : symptomsList) {
-                        JSONObject jsonObject = new JSONObject();
-                        try {
-                            jsonObject.put("name", symptom.getName());
-                            jsonObject.put("date", symptom.getDate());
-                            symptoms.put(jsonObject);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                    //JSONArray jsonArray = new JSONArray(ReportActivity.this.symptomsList);
-                    databaseReference.setValue(symptoms.toString())
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("Firebase", "Symptoms saved successfully");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-
-                                    Log.e("Firebase", "Failed to save symptoms", e);
-                                }
-                            });
-                }
-            }
-        });
-
-
     }
 
 }

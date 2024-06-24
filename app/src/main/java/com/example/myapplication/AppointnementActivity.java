@@ -115,6 +115,11 @@ public class AppointnementActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     * @param appointmentList - lista in care sunt stocate toate programarile unui utilizator
+     * functia preia programarile efectuate de utilizator si le salveaza in baza de date adaugand data curenta; ulterior, apeleaza o alta functie ce permite vizualizarea acestora intr-un scroll view
+     */
     private void displayAppointments(List<Appointment> appointmentList) {
         appointmentListView.removeAllViews();
         Date currentDate = new Date(); // Get the current date
@@ -163,48 +168,11 @@ public class AppointnementActivity extends AppCompatActivity {
         }
     }
 
-    private void createCalendarEvent(Appointment appointment) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
-
-        String appointmentDateStr = appointment.getDate();
-        Date appointmentDate = new Date();
-        try {
-            appointmentDate = dateFormat.parse(appointmentDateStr);
-        } catch (ParseException e) {
-            Log.e("CalendarEvent", "Date parsing failed: " + appointmentDateStr, e);
-            Toast.makeText(this, "Invalid date format: " + appointmentDateStr, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        long startTime = appointmentDate.getTime();
-        long endTime = startTime + 60 * 60 * 1000;
-
-        DateFormat readableDateFormat = DateFormat.getDateTimeInstance();
-        Log.d("CalendarEvent", "Start Time (Readable): " + readableDateFormat.format(new Date(startTime)));
-        Log.d("CalendarEvent", "End Time (Readable): " + readableDateFormat.format(new Date(endTime)));
-
-        Intent intent = new Intent(Intent.ACTION_INSERT)
-                .setData(CalendarContract.Events.CONTENT_URI)
-                .putExtra(CalendarContract.Events.TITLE, "Sedinta la " + appointment.getCategory())
-                .putExtra(CalendarContract.Events.EVENT_LOCATION, appointment.getAdress())
-                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime)
-                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime);
-
-        // Explicitly target Google Calendar
-        //intent.setClassName("com.android.calendar","com.android.calendar.AgendaActivity");
-
-
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
-            Log.e("CalendarEvent", "No calendar app found");
-            Toast.makeText(this, "No calendar app found", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-
-
+    /**
+     *
+     * @param appointment programarea efectuata de utilizator
+     * functia este utilizata pentru a edita programarea pe care o primeste ca parametru al functie; totodata, se realizeaza redirectionarea de la activitatea principala la activitatea de editare
+     */
     private void editAppointment(Appointment appointment) {
         Intent intent = new Intent(AppointnementActivity.this, EditAppointmentActivity.class);
         intent.putExtra("category", appointment.getCategory());
@@ -214,6 +182,12 @@ public class AppointnementActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     *
+     * @param appointment un obiect de tip Appointment
+     * functia primeste ca parametru un appointment si afiseaza un dialog de confirmare pentru stergerea appointmentului primit ca si parametru;
+     * in cazul in care raspunsul este pozitiv, se apeleaza o alta functie care va sterge din baza de date appointmentul primit ca si parametru.
+     */
     private void showDeleteConfirmationDialog(final Appointment appointment) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Sigur vrei să ștergi această programare?")
@@ -232,6 +206,12 @@ public class AppointnementActivity extends AppCompatActivity {
         alert.show();
     }
 
+    /**
+     *
+     * @param appointment - un obiect de tip Appointment
+     * functia primeste ca parametru un obiect de tip appointment pe care il sterge din baza de date; concret, functia face o referinta asupra bazei de date; aduce lista de appointmenturi si din lista respectiva sterge appointmentul primit ca si parametru;
+     * ulterior, se salveaza lista noua inapoi in baza de date
+     */
     private void deleteAppointment(final Appointment appointment) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {

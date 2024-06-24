@@ -94,6 +94,20 @@ public class HistoricActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historic);
+
+
+        initializeElements();
+        symptonFunction();
+        sleepFunction();
+        heartRateFunction();
+//        colorTheCardView();
+
+    }
+
+    /**
+     * functia este utilizata pentru a realiza legatura intre elementele din fisierele XML si cele declarate in clasa
+     */
+    private void initializeElements(){
         simptomDay1 = findViewById(R.id.simptomDay1);
         simptomDay2 = findViewById(R.id.simptomDay2);
         simptomDay3 = findViewById(R.id.simptomDay3);
@@ -144,15 +158,18 @@ public class HistoricActivity extends AppCompatActivity {
         sleepScores.add(scoreDay5);
         sleepScores.add(scoreDay6);
         sleepScores.add(scoreDay7);
-
-
-        symptonFunction();
-        sleepFunction();
-        heartRateFunction();
-//        colorTheCardView();
-
     }
 
+    /**
+     * converteste un numar zecimal de ore de somn intr-un format de ore si minute.
+     *
+     * @param hoursDecimal numarul de ore de somn, exprimat ca numar zecimal
+     * @return un șir de caractere care reprezintă numarul de ore și minute
+     *
+
+     * se  extrage partea intreaga a numarului de ore.
+     * se calculeaza partea zecimala a numarului de ore si o convertește in minute; formateaza si returnează rezultatul sub forma "X ore Y minute".
+     */
     public static String convertSleepHours(double hoursDecimal) {
         int hours = (int) hoursDecimal;
         double minutesDecimal = (hoursDecimal - hours) * 100;
@@ -161,6 +178,17 @@ public class HistoricActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * genereaza un String  cu simptomele raportate pentru o anumita zi.
+     *
+     * @param symptomsList lista tuturor simptomelor, fiecare avand o data asociata
+     * @param day numarul de zile în urma pentru care se doresc simptomele
+     * @return un String care contine numele simptomelor raportate în ziua specificată, separate prin virgule.
+     *
+     * se creeaza o lista pentru a stoca simptomele raportate pentru ziua specificata.
+     * se obtine data curenta si calculeaza data pentru ziua specificata.
+     *  se parcurge lista de simptome si se adauga in lista de verificare simptomele care corespund datei specificate; se concateneaza numele simptomelor din lista de verificare intr-un String
+     */
     public String setDailySymptoms(List<Symptom> symptomsList, int day) {
         List<Symptom> simptomListCheck = new ArrayList<>();
         LocalDate currentDate = LocalDate.now();
@@ -184,6 +212,16 @@ public class HistoricActivity extends AppCompatActivity {
         }
         return "";
     }
+
+    /**
+     * se incarca si se parseaza date JSON dintr-un DataSnapshot si se adauga simptomele intr-o listă de simptome.
+     *
+     * @param dataSnapshot obiectul DataSnapshot din Firebase, care contine datele JSON sub forma de String;
+     * se  obtine sirul JSON din DataSnapshot.
+     * se parsează sirul JSON într-un JSONArray.
+     *  se parcurge JSONArray si extrage fiecare obiect JSON individual.
+     *  creeaza un obiect Symptom pentru fiecare obiect JSON si il adauga in lista de simptome.
+     */
 
     public void loadJson(DataSnapshot dataSnapshot) {
         String json = dataSnapshot.getValue(String.class);
@@ -226,6 +264,15 @@ public class HistoricActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * metoda  proceseaza datele JSON obținute dintr-un obiect `DataSnapshot` si le încarca intr-o lista
+     * de obiecte `ScoreItem`; datele JSON sunt așteptate să fie sub forma unei liste JSON
+     *
+     *  se obtin datele JSON sub formă de String din `DataSnapshot`.
+     *  se creează obiecte `ScoreItem` din datele parcurse si le adauga in lista `scoreItemList`.
+     *
+     * @param dataSnapshot Obiectul `DataSnapshot` care conține datele JSON.
+     */
     private void loadHeartRateJson(DataSnapshot dataSnapshot) {
         String json = dataSnapshot.getValue(String.class);
 
@@ -247,6 +294,13 @@ public class HistoricActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * functia actualizeaza interfaaa cu informatiile despre orele de somn și scorurile somnului pentru ultimele 7 zile.
+     * Datele sunt obținute din lista `sleepItemList`, iar informațiile sunt afișate în TextView-urile si CardView-urile corespunzătoare pentru fiecare zi.
+     * se obtine data curenta.
+     * se parcurge lista `sleepItemList` pentru a obtine informatiile despre somn.
+     * se compara data fiecarui element din lista cu ultimele 7 zile si se  actualizeaza TextView-urile cu datele corespunzataore
+     */
     private void setScoreAndSleepHours() {
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -254,31 +308,31 @@ public class HistoricActivity extends AppCompatActivity {
         for (SleepItem sleepItem : sleepItemList) {
             LocalDate parsedDate = LocalDate.parse(sleepItem.getDate(), formatter);
 
-            if (parsedDate.equals(today.minusDays(35))) {
+            if (parsedDate.equals(today.minusDays(50))) {
                 sleepHourDay1.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay1.setText("Scorul somnului : " + sleepItem.getScoreSleep());
                 colorCardViews(sleepItem.getScoreSleep(),day1CardView);
-            } else if (parsedDate.equals(today.minusDays(36))) {
+            } else if (parsedDate.equals(today.minusDays(51))) {
                 sleepHourDay2.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay2.setText("Scorul somnului: " + sleepItem.getScoreSleep());
                 colorCardViews(sleepItem.getScoreSleep(),day2CardView);
-            } else if (parsedDate.equals(today.minusDays(37))) {
+            } else if (parsedDate.equals(today.minusDays(52))) {
                 sleepHourDay3.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay3.setText("Scorul somnului: " + sleepItem.getScoreSleep());
                 colorCardViews(sleepItem.getScoreSleep(),day3CardView);
-            } else if (parsedDate.equals(today.minusDays(38))) {
+            } else if (parsedDate.equals(today.minusDays(53))) {
                 sleepHourDay4.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay4.setText("Scorul somnului: " + sleepItem.getScoreSleep());
                 colorCardViews(sleepItem.getScoreSleep(),day4CardView);
-            } else if (parsedDate.equals(today.minusDays(39))) {
+            } else if (parsedDate.equals(today.minusDays(54))) {
                 sleepHourDay5.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay5.setText("Scorul somnului: " + sleepItem.getScoreSleep());
                 colorCardViews(sleepItem.getScoreSleep(),day5CardView);
-            } else if (parsedDate.equals(today.minusDays(40))) {
+            } else if (parsedDate.equals(today.minusDays(55))) {
                 colorCardViews(sleepItem.getScoreSleep(),day6CardView);
                 sleepHourDay6.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay6.setText("Scorul somnului: " + sleepItem.getScoreSleep());
-            } else if (parsedDate.equals(today.minusDays(41))) {
+            } else if (parsedDate.equals(today.minusDays(56))) {
                 colorCardViews(sleepItem.getScoreSleep(),day7CardView);
                 sleepHourDay7.setText("Ore de somn: " + convertSleepHours(sleepItem.getSleepHours()));
                 scoreDay7.setText("Scorul somnului: " + sleepItem.getScoreSleep());
@@ -288,6 +342,14 @@ public class HistoricActivity extends AppCompatActivity {
         }
 
     }
+
+    /**
+     *
+     *  functia incarca datele despre simptomele utilizatorului din Firebase si actualizeaza interfața cu simptomele raportate pentru ultimele 7 zile.
+     * se creeaza o referinta la baza de date Firebase pentru datele despre simptomele utilizatorului.
+     * se  adauga un ValueEventListener pentru a prelua datele din Firebase.
+     * actualizeaza interfata cu simptomele raportate pentru fiecare din ultimele 7 zile.
+     *  */
 
     private void symptonFunction() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -337,6 +399,12 @@ public class HistoricActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * functia încarca datele despre somnul  utilizatorului din Firebase și actualizează interfața cu valorile somnului  pentru ultimele 7 zile.
+     * se creeaza o referinta la baza de date Firebase pentru datele despre somnul  utilizatorului; adauga un ValueEventListener pentru a prelua datele din Firebase.
+     * * actualizeaza interfața cu valorile preluate din baza de date
+     */
+
     private void sleepFunction() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -360,6 +428,14 @@ public class HistoricActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * functia încarca datele despre ritmul cardiac al utilizatorului din Firebase și actualizeaza interfața cu valorile medii ale ritmului cardiac pentru ultimele 7 zile.
+     * functia creeaza o referinta la baza de date Firebase pentru datele despre ritmul cardiac ale utilizatorului; adauga un ValueEventListener pentru a prelua datele din Firebase.
+     * actualizeaza interfața cu valorile medii ale ritmului cardiac pentru ultimele 7 zile.
+
+     */
+
+
     private void heartRateFunction() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -377,26 +453,23 @@ public class HistoricActivity extends AppCompatActivity {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     for (ScoreItem scoreItem : scoreItemList) {
                         LocalDate parsedDate = LocalDate.parse(scoreItem.getDate(), formatter);
-                        if (parsedDate.equals(today.minusDays(35))) {
+                        if (parsedDate.equals(today.minusDays(50))) {
                             heartRateDay1.setText("Puls mediu  : " + (int) scoreItem.getHeartRate());
-                        } else if (parsedDate.equals(today.minusDays(36))) {
+                        } else if (parsedDate.equals(today.minusDays(51))) {
                             heartRateDay2.setText("Puls mediu  : " + (int) scoreItem.getHeartRate());
-                        } else if (parsedDate.equals(today.minusDays(37))) {
+                        } else if (parsedDate.equals(today.minusDays(52))) {
                             heartRateDay3.setText("Puls mediu  : " + (int) scoreItem.getHeartRate());
-                        } else if (parsedDate.equals(today.minusDays(38))) {
+                        } else if (parsedDate.equals(today.minusDays(53))) {
                             heartRateDay4.setText("Puls mediu  : " + (int) scoreItem.getHeartRate());
-                        } else if (parsedDate.equals(today.minusDays(39))) {
+                        } else if (parsedDate.equals(today.minusDays(54))) {
                             heartRateDay5.setText("Puls mediu  : " + (int) scoreItem.getHeartRate());
-                        } else if (parsedDate.equals(today.minusDays(40))) {
+                        } else if (parsedDate.equals(today.minusDays(55))) {
                             heartRateDay6.setText("Puls mediu  : " + (int) scoreItem.getHeartRate());
-                        } else if (parsedDate.equals(today.minusDays(41))) {
+                        } else if (parsedDate.equals(today.minusDays(56))) {
                             heartRateDay7.setText("Puls mediu  : " + (int) scoreItem.getHeartRate());
                         }
                     }
-
-
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
@@ -409,7 +482,12 @@ public class HistoricActivity extends AppCompatActivity {
         return Math.floor(number * 100) / 100;
     }
 
-
+    /**
+     *
+     * @param score - scorul somnului intr-o zi
+     * @param cardView - cardview-ul care contine scorul somnului
+     * functia coloreaza cardview-ului in functie de scorul somnului trimis ca parametru; daca scorul are o valoare mai mica de 85, se coloreaza in rosu, in caz contrar, se coloreaza in verde
+     */
     private void colorCardViews(int score, CardView cardView) {
         if (score < 85)
             cardView.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.imperialRed));
@@ -418,42 +496,7 @@ public class HistoricActivity extends AppCompatActivity {
 
     }
 
-//    private void colorTheCardView() {
-//        int size = Math.min(sleepScores.size(), cardViewList.size());
-//
-//        for (int i = 0; i < size; i++) {
-//            TextView textView = sleepScores.get(i);
-//            CardView cardView = cardViewList.get(i);
-//
-//            // Extrage textul din TextView
-//            String fullText = textView.getText().toString();
-//
-//            // Verifică dacă textul începe cu "Scorul somnului: "
-//            if (fullText.startsWith("Scorul somnului: ")) {
-//                try {
-//                    // Elimină "Scorul somnului: " din text pentru a rămâne doar cu partea numerică
-//                    String scoreText = fullText.replace("Scorul somnului: ", "");
-//
-//                    // Converteste scorul text in numar intreg
-//                    int score = Integer.parseInt(scoreText.trim());
-//
-//                    // Comparatie si setare culoare CardView
-//                    if (score < 85) {
-//                        cardView.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.purple_500));
-//                    } else {
-//                        cardView.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.emerald));
-//                    }
-//                } catch (NumberFormatException e) {
-//                    // În cazul în care conversia nu este posibilă, afișează un mesaj de eroare
-//                    Log.e("HistoricActivity", "NumberFormatException: " + e.getMessage());
-//                    // Poți gestiona eroarea sau continua cu următorul element
-//                }
-//            } else {
-//                // Dacă textul nu începe cu "Scorul somnului: ", poți să gestionezi eroarea sau să treci la următorul element
-//                Log.e("HistoricActivity", "Text format error: Expected 'Scorul somnului: '");
-//            }
-//        }
-//    }
+
 
 
 }

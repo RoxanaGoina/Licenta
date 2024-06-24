@@ -86,7 +86,7 @@ public class AddAppointmentsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String selectType = typeSpinner.getSelectedItem().toString();
-                if (selectType.equals("Online")) {
+                if (selectType.equals("Online")) {   // realizeaza validarile de rigoare ; in cazul in care o programare e online, adresa acesteia e goala si nemodificabila
                     addressEditText.setFocusable(false);
                     addressEditText.setClickable(false);
                     addressEditText.setFocusableInTouchMode(false);
@@ -125,6 +125,11 @@ public class AddAppointmentsActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * functia e utilizata pentru a realiza salvarea unei programari in baza de date
+     * in mod concret, se adauga o programare noua in lista de programari deja existenta, se converteste in JSON si se salveaza in baza de date
+     */
 
     private void saveAppointment() {
         String selectedCategory = categorySpinner.getSelectedItem().toString();
@@ -198,7 +203,9 @@ public class AddAppointmentsActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * functia este utilizata pentru a afisa data calendaristica, se utilizeaza un obiect de tipul DatePickerDialog
+     */
     private void showDateTimePicker() {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -219,6 +226,9 @@ public class AddAppointmentsActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    /**
+     * functia este utilizata pentru a afisa ora în cadrul unui datePickerDialog; pentru acest lucru se utilizeaza un TimePickerDialog
+     */
     private void showTimePicker() {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
@@ -237,6 +247,9 @@ public class AddAppointmentsActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    /**
+     * functia e utilizata pentru formatarea unei date calendaristice
+     */
     private void updateDateTime() {
         DateFormat dateTimeFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
         dateEditText.setText(dateTimeFormat.format(calendar.getTime()));

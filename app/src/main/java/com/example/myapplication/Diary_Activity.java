@@ -98,7 +98,11 @@ public class Diary_Activity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * functia este utilizata pentru a aduce lista de obiecte de tipul DiaryPage din baza de date;
+     * acestea sunt salvate sub forma unei liste serializate, JSON, se face o cerere asupra bazei de date, pentru obtinerea obiectelor de tip DiaryPage din baza de date
+     * acestea sunt salvate ca structura interna sub forma unui ArrayList
+     */
     private void loadNotesFromPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         int noteCount = sharedPreferences.getInt(KEY_NOTE_COUNT, 0);
@@ -158,6 +162,12 @@ public class Diary_Activity extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     *
+     * @param diaryPage
+     * creeaza o vizualizare pentru o notă din jurnal și o adaugă la containerul de note
+     * se creeaza un obiect grafic, in care sunt atasate informatiile obiectului primit ca si parametru
+     * */
     public void createNoteView(final DiaryPage diaryPage) {
         View noteView = getLayoutInflater().inflate(R.layout.page_item, null);
         TextView titleTextView = noteView.findViewById(R.id.titleTextView);
@@ -178,13 +188,24 @@ public class Diary_Activity extends AppCompatActivity {
 
         noteContainer.addView(noteView);
     }
+
+    /**
+     * functia este utilizata pentru a afisa paginile de jurnal in interiorul layout-ului.
+     */
         private void displayNotes(){
 
         for (DiaryPage diaryPage : noteList){
             createNoteView(diaryPage);
         }
         }
-        private void showDeleteDialog(final DiaryPage diaryPage){
+
+    /**
+     *
+     * @param diaryPage- pagina de jurnal
+     * functia primeste ca paramtru un obiect de tip DiaryPage care se doreste a fi sters si afiseaza un dialog de confirmare pentru stergerea acestuia.
+     * in caz afirmativ, se apeleaza o alta functie pentru stergerea efectiva a paginii de jurnal.
+     */
+    private void showDeleteDialog(final DiaryPage diaryPage){
 
         AlertDialog.Builder builder= new AlertDialog.Builder(this);
         builder.setMessage("Sigur stergi aceasta pagina?");
@@ -200,6 +221,13 @@ public class Diary_Activity extends AppCompatActivity {
 
         }
 
+    /**
+     *
+     * @param diaryPage - un obiect de tip DiaryPage
+     * functia primeste ca paramteru o pagina de jurnal si initializeaza stergerea;
+     * aceasta aduce din baza de date lista paginilor de jurnal si o salveaza sub forma de ArrayList si elimina din ArrayList obiectul primit ca parametru
+     * ulterior, lista nou-realizata este salvata in baza de date
+     */
         private void deleteNoteAndRefresh(DiaryPage diaryPage){
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if (firebaseUser != null) {
@@ -249,7 +277,11 @@ public class Diary_Activity extends AppCompatActivity {
                 });
             }
         }
-        private void refreshNoteViews(){
+
+    /**
+     * functia este utilizata pentru a actualiza linearLayout in ceea ce priveste priveste panoul de pagini de jurnal afisate
+     */
+    private void refreshNoteViews(){
 
         noteContainer.removeAllViews();
         displayNotes();

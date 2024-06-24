@@ -52,6 +52,11 @@ public class changePasswordLoginActivity extends AppCompatActivity {
                 }
             }
 
+            /**
+             * functia este utilizata pentru a reseta parola contului utilizatorului;
+             * aceasta realizeaza trimiterea unui email ce contine un link pentru resetarea parolei
+             *
+             */
             private void ResetPassword() {
                 progressBar.setVisibility(View.VISIBLE);
                 resetPasswordButton.setVisibility(View.INVISIBLE);
